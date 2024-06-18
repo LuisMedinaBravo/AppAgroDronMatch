@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Zay Shop eCommerce HTML CSS Template</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1.0, user-scalable=no, orientation-lock=portrait" >
+
+    <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico">
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/templatemo.css">
+    <link rel="stylesheet" href="../css/custom.css">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="../css/fontawesome.min.css">
+<!--
+    
+TemplateMo 559 Zay Shop
+
+https://templatemo.com/tm-559-zay-shop
+
+-->
+</head>
+
+<body>
+
+    <!-- Start Banner Hero -->
+    <div id="template-mo-zay-hero-carousel" class="carousel slide" style="height: 40vh; background-color: #59ab6e!important;">
+        <div class="carousel-inner">
+            <div class="carousel-item active" style="height: 40vh;">
+                <div class="container" style="height: 100%;">
+                    <div class="row align-items-end justify-content-center h-100">
+                        <div class="col-lg-6 mb-0 d-flex justify-content-center">
+                            <h1 class="h1 text-success" style="margin-bottom: 10%; color: white!important;"><b>AgroDronMatch</b></h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Banner Hero -->
+    
+    <section class="container" style="height: 60vh;">
+        <div class="row text-center">
+            <div class="col-lg-6 m-auto">
+                <div class="d-flex flex-column align-items-center mt-4">
+                    <div class="input-group mb-2">
+                        <input type="email" class="form-control" id="correo" placeholder="Ingresar correo">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" id="clave" placeholder="Crear contraseña" autocomplete="current-password">
+                        <span class="input-group-text" id="password-toggle" style="background-color: white; border: none;">
+                            <i class="fas fa-eye"></i>
+                        </span>
+
+                        <span class="input-group-text" id="password-toggle" style="background-color: white; border: none;"> 
+                            <i class="fas fa-question-circle" style="color: #000000;"></i> 
+                        </span>
+                    </div>
+                    <button id="continuar_registro" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: white; color: black;">Continuar registro</button>
+                </div>
+            </div>
+        </div>
+        <div id="footer" class="bg-success py-3"></div> 
+    </section>
+
+    <script>
+        const continuar_registro_Boton = document.getElementById("continuar_registro");
+        // Agregar un event listener al botón
+        continuar_registro_Boton.addEventListener("click", () => {
+            window.location.href = "registro_perfil.html";
+        });
+    </script>
+
+    <!-- Start Script -->
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <script src="../js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/templatemo.js"></script>
+    <script src="../js/custom.js"></script>
+    
+    <!-- End Script -->
+</body>
+
+</html>

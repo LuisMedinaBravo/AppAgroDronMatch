@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Zay Shop eCommerce HTML CSS Template</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1.0, user-scalable=no, orientation-lock=portrait" >
+
+    <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/templatemo.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="assets/css/slick.min.css">
+    <link rel="stylesheet" href="assets/css/slick-theme.min.css">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+<!--
+    
+TemplateMo 559 Zay Shop
+
+https://templatemo.com/tm-559-zay-shop
+
+-->
+</head>
+
+<body>
+
+    <!-- Start Banner Hero -->
+    <div id="template-mo-zay-hero-carousel" class="carousel slide">
+        <ol class="carousel-indicators">
+            <li id="indicador" data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active" style="background-image: url('assets/img/drone-DJI-Agricultura-1024x692.jpg'); background-size: cover; background-position: center; height: 70vh;">
+                <div class="container">
+                    <div class="row p-5" style="width: 250px; height: 280px; backdrop-filter: blur(0px); margin-left: -17%; margin-top: -5%;">
+                        <div class="col-lg-6 mb-0 d-flex align-items-center">
+                            <div class="text-align-left align-self-center">
+                                <h1 class="h1 text-success"><b>AgroDronMatch</b></h1>
+                                <br><br><br><br><br><br><br><br>
+                                <div style="display: flex; justify-content: left; align-items: center; margin-left: 5%;">
+                                    <strong><h3 class="h2">Aplicación que te conecta con los proveedores de servicios de drones de fumigación</h3></strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mx-auto col-md-8 col-lg-6 order-lg-first" style="position: relative;">
+                            <img class="img-fluid" style="position: absolute; left: 40%;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item" style="background-image: url('assets/img/—Pngtree—vibrant\ summer\ scenery\ rolling\ green.jpg'); background-size: cover; background-position: center; height: 70vh;">
+                <div class="container">
+                    <div class="row p-5" style="width: 250px; height: 280px; backdrop-filter: blur(0px); margin-left: -17%; margin-top: -5%;">
+                        <div class="col-lg-6 mb-0 d-flex align-items-center">
+                            <div class="text-align-left align-self-center">
+                                <h1 class="h1 text-success"><b>AgroDronMatch</b></h1>
+                                <br><br><br><br><br><br><br><br>
+                                <div style="display: flex; justify-content: left; align-items: center; margin-left: 5%;">
+                                    <h3 class="h2">Funciona en todos los dispositivos. Accede desde cualquier lugar desde tu celular o tableta</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mx-auto col-md-8 col-lg-6 order-lg-first" style="position: relative;">
+                            <img class="img-fluid" style="position: absolute; left: 40%;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item" style="background-image: url('assets/img/fondo.jpg'); background-size: cover; background-position: center; height: 70vh;">
+                <div class="container">
+                    <div class="row p-5" style="width: 250px; height: 280px; backdrop-filter: blur(0px); margin-left: -17%; margin-top: -5%;">
+                        <div class="col-lg-6 mb-0 d-flex align-items-center">
+                            <div class="text-align-left align-self-center">
+                                <h1 class="h1 text-success"><b>AgroDronMatch</b></h1>
+                                <br><br><br><br><br><br><br><br>
+                                <div style="display: flex; justify-content: left; align-items: center; margin-left: 5%;">
+                                    <h3 class="h2">Obtén tu membresía de forma rápida y segura. Selecciona el plan que más se ajuste a ti.</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mx-auto col-md-8 col-lg-6 order-lg-first" style="position: relative;">
+                            <img class="img-fluid" style="position: absolute; left: 40%;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Banner Hero -->
+
+    <section class="container" style="height: 20vh;">
+        <div class="row text-center">
+            <div class="col-lg-6 m-auto">
+                <div class="d-flex flex-column align-items-center mt-2">
+                    <button id="iniciar_sesion" class="btn btn-secondary mb-2" style="width: 100%; height: 50px; background-color: #59ab6e; ">Iniciar Sesión</button>
+                    <button id="registro" class="btn btn-secondary" style="width: 100%; height: 50px; background-color: white; color: black; ">Registrarse</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Clickear indicador para mover el carrusel
+        window.addEventListener('DOMContentLoaded', () => {
+            const indicador = document.getElementById('indicador');
+            if (indicador) {
+                indicador.click();
+            }
+        });
+
+        // Obtener el botón con el id "registro"
+        const iniciar_sesion_Boton = document.getElementById("iniciar_sesion");
+        // Agregar un event listener al botón
+        iniciar_sesion_Boton.addEventListener("click", () => {
+            window.location.href = "assets/html/iniciar_sesion.html";
+        });
+
+        // Obtener el botón con el id "registro"
+        const registro_Boton = document.getElementById("registro");
+        // Agregar un event listener al botón
+        registro_Boton.addEventListener("click", () => {
+            window.location.href = "assets/html/registro.html";
+        });
+    </script>
+
+    <!-- Start Script -->
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/templatemo.min.js"></script>
+    <script src="assets/js/custom.js"></script>
+    <script src="assets/js/slick.min.js"></script>
+    
+    <!-- End Script -->
+</body>
+
+</html>

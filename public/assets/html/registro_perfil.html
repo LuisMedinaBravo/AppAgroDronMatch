@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Zay Shop eCommerce HTML CSS Template</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1.0, user-scalable=no, orientation-lock=portrait" >
+
+    <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico">
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/templatemo.css">
+    <link rel="stylesheet" href="../css/custom.css">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="../css/fontawesome.min.css">
+<!--
+    
+TemplateMo 559 Zay Shop
+
+https://templatemo.com/tm-559-zay-shop
+
+-->
+</head>
+
+<body>
+
+    <!-- Start Banner Hero -->
+    <div id="template-mo-zay-hero-carousel" class="carousel slide" style="height: 40vh; background-color: #59ab6e!important;">
+        <div class="carousel-inner">
+            <div class="carousel-item active" style="height: 40vh;">
+                <div class="container" style="height: 100%;">
+                    <div class="row align-items-end justify-content-center h-100">
+                        <div class="col-lg-6 mb-0 d-flex justify-content-center">
+                            <div>
+                                <h1 class="h1 text-success" style="color: white!important; margin-bottom: 0.5rem;"><b>AgroDronMatch</b></h1>
+                                <h2 class="h3" style="color: white!important; text-align: center;"><b>Paso 1: Seleccionar tipo de perfil</b></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Banner Hero -->
+    
+    <section class="container" style="height: 60vh;">
+        <div class="row text-center">
+            <div class="col-lg-6 m-auto">
+                <div class="d-flex flex-column align-items-center mt-4">
+                    <button id="cliente" class="btn btn-secondary">CLIENTE
+                        <h4 class="h4">¡Busca drones disponibles para fumigación!</h4>
+                    </button>
+                    <br>
+                    <button id="prestador" class="btn btn-secondary">PRESTADOR DE SERVICIO
+                        <h4 class="h4">¡Publica tus drones en servicio para fumigar!</h4>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="footer" class="bg-success py-3"></div>
+    </section>
+
+    <script>
+        const cliente_Boton = document.getElementById("cliente");
+        // Agregar un event listener al botón
+        cliente_Boton.addEventListener("click", () => {
+            window.location.href = "registro_cliente/registro_paso_2.html";
+        });
+
+        const prestador_Boton = document.getElementById("prestador");
+        // Agregar un event listener al botón
+        prestador_Boton.addEventListener("click", () => {
+            window.location.href = "registro_prestador/registro_paso_2.html";
+        });
+    </script>
+    <!-- Start Script -->
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <script src="../js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/templatemo.js"></script>
+    <script src="../js/custom.js"></script>
+    
+    <!-- End Script -->
+</body>
+
+</html>

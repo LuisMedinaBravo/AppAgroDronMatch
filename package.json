@@ -1,0 +1,14 @@
+{
+    "name": "agrodronmatch",
+    "version": "1.0.0",
+    "description": "Proyecto con Firebase",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "firebase": "^10.12.2"
+    },
+    "author": "Luis Medina",
+    "license": "MIT"
+}

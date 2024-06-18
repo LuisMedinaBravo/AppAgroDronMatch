@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Zay Shop eCommerce HTML CSS Template</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1.0, user-scalable=no, orientation-lock=portrait" >
+
+    <link rel="shortcut icon" type="image/x-icon" href="/public/assets/img/favicon.ico">
+
+    <link rel="shortcut icon" type="image/x-icon" href="../../img/favicon.ico">
+
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/templatemo.css">
+    <link rel="stylesheet" href="../../css/custom.css">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="../../css/fontawesome.min.css">
+<!--
+    
+TemplateMo 559 Zay Shop
+
+https://templatemo.com/tm-559-zay-shop
+
+-->
+</head>
+
+<body>
+
+    <!-- Start Banner Hero -->
+    <div id="template-mo-zay-hero-carousel" class="carousel slide" style="height: 40vh; background-color: #59ab6e!important;">
+        <div class="carousel-inner">
+            <div class="carousel-item active" style="height: 40vh;">
+                <div class="container" style="height: 100%;">
+                    <div class="row align-items-end justify-content-center h-100">
+                        <div class="col-lg-6 mb-0 d-flex justify-content-center">
+                            <div>
+                                <h1 class="h1 text-success" style="color: white!important; margin-bottom: 0.5rem;"><b>AgroDronMatch</b></h1>
+                                <h2 class="h3" style="color: white!important; text-align: center;"><b>Paso 4: Disponibildad de prestar servicio</b></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Banner Hero -->
+    
+    <section class="container" style="height: 60vh;">
+        <div class="row text-center">
+            <div class="col-lg-6 m-auto">
+                <div class="d-flex flex-column align-items-center mt-4">
+                    <div class="form-group mb-4"> 
+                        <label for="jornada">Disponibildad momento aplicación</label>
+                        <div> 
+                            <label><input type="checkbox" name="jornada[]" value="diurno" checked> Diurno</label> 
+                            <label><input type="checkbox" name="jornada[]" value="nocturno"> Nocturno</label>
+                        </div>
+                    </div>
+                    <div class="input-group mb-4">
+                        <label for="fecha" class="input-group-text">Fecha inicio:</label>
+                        <input type="text" class="form-control flatpickr-input" id="calendar-input-inicio" name="fecha" data-input>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label for="fecha" class="input-group-text">Fecha fin:</label>
+                        <input type="text" class="form-control flatpickr-input" id="calendar-input-fin" name="fecha" data-input>
+                    </div>
+                    <button id="continuar_registro_4" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: white; color: black;">Finalizar registro</button>
+                </div>
+            </div>
+        </div>
+        <div><p id="pre-footer">*La información podrá ser editada en su perfil</p></div> 
+        <div id="footer" class="bg-success py-3"></div>
+    </section>
+
+    <script>
+        const iniciar_sesion_Boton = document.getElementById("continuar_registro_4");
+        // Agregar un event listener al botón
+        iniciar_sesion_Boton.addEventListener("click", () => {
+            //window.location.href = "registro_paso_3.html.";
+        });
+    </script>
+
+    <!-- Start Script -->
+    <script src="../../js/jquery-3.7.1.min.js"></script>
+    <script src="../../js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../../js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/templatemo.js"></script>
+    <script src="../../js/custom.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/airbnb.css">
+    <script src="../../js/registro/prestador_paso_4.js"></script>
+    
+    
+    <!-- End Script -->
+</body>
+
+</html>
