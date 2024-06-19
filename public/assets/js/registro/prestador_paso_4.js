@@ -35,7 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
 const calendarInicio = flatpickr("#calendar-input-inicio", {
   dateFormat: "Y-m-d",
   defaultDate: new Date().toISOString().split('T')[0],
-  //minDate: new Date().toISOString().split('T')[0],
   disable: [
     function(date) {
       const today = new Date();
@@ -54,15 +53,15 @@ const calendarFin = flatpickr("#calendar-input-fin", {
       return date.getTime() < Date.now() + (24 * 60 * 60 * 1000);
     }
   ],
-  //maxDate: new Date(new Date().getTime() + (24 * 60 * 60 * 1000)).toISOString().split('T')[0],
   theme: "airbnb"
 });
 
-// Actualizar el valor mínimo del segundo calendario cuando cambie el valor del primero
+// Actualizar el valor mínimo del segundo calendario y borrar la selección cuando cambie el valor del primero
 calendarInicio.config.onChange.push(function(selectedDates) {
   if (selectedDates.length > 0) {
     const minDate = new Date(selectedDates[0]);
     minDate.setDate(minDate.getDate() + 1);
     calendarFin.set('minDate', minDate.toISOString().split('T')[0]);
+    calendarFin.clear();
   }
 });
