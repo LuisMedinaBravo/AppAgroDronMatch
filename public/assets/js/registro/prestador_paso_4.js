@@ -31,23 +31,38 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-//Calendario
-flatpickr("#calendar-input-inicio", {
-    dateFormat: "Y-m-d",
-    defaultDate: new Date().toISOString().split('T')[0],
-    minDate: new Date().toISOString().split('T')[0],
-    theme: "light"
+// Obtener referencias a los elementos de calendario
+const calendarInicio = flatpickr("#calendar-input-inicio", {
+  dateFormat: "Y-m-d",
+  defaultDate: new Date().toISOString().split('T')[0],
+  //minDate: new Date().toISOString().split('T')[0],
+  disable: [
+    function(date) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      return date.getTime() < today.getTime();
+    }
+  ],
+  theme: "light"
 });
 
-flatpickr("#calendar-input-fin", {
-    dateFormat: "Y-m-d",
-    minDate: new Date().toISOString().split('T')[0],
-    onOpen: function(selectedDates, dateStr, instance) {
-        instance.calendarContainer.style.width = "400px";
-        instance.calendarContainer.style.height = "300px";
-        instance.calendarContainer.style.backgroundColor = "#f5f5f5";
-        instance.calendarContainer.style.fontSize = "16px";
-        instance.calendarContainer.style.color = "#333";
-    },
-    theme: "airbnb"
+const calendarFin = flatpickr("#calendar-input-fin", {
+  dateFormat: "Y-m-d",
+  minDate: new Date(Date.now() + (24 * 60 * 60 * 1000)).toISOString().split('T')[0],
+  disable: [
+    function(date) {
+      return date.getTime() < Date.now() + (24 * 60 * 60 * 1000);
+    }
+  ],
+  //maxDate: new Date(new Date().getTime() + (24 * 60 * 60 * 1000)).toISOString().split('T')[0],
+  theme: "airbnb"
+});
+
+// Actualizar el valor mínimo del segundo calendario cuando cambie el valor del primero
+calendarInicio.config.onChange.push(function(selectedDates) {
+  if (selectedDates.length > 0) {
+    const minDate = new Date(selectedDates[0]);
+    minDate.setDate(minDate.getDate() + 1);
+    calendarFin.set('minDate', minDate.toISOString().split('T')[0]);
+  }
 });

@@ -49,30 +49,27 @@ https://templatemo.com/tm-559-zay-shop
                     <div class="input-group mb-2">
                         <input type="email" class="form-control" id="correo" placeholder="Ingresar correo">
                     </div>
+                    <div id="correo-error-message" class="error-message-correo"></div>
                     <div class="input-group mb-3">
                         <input type="password" class="form-control" id="clave" placeholder="Crear contraseña" autocomplete="current-password">
-                        <span class="input-group-text" id="password-toggle" style="background-color: white; border: none;">
+                        <span class="input-group-text" id="ojo" style="background-color: white; border: none;">
                             <i class="fas fa-eye"></i>
                         </span>
-
-                        <span class="input-group-text" id="password-toggle" style="background-color: white; border: none;"> 
-                            <i class="fas fa-question-circle" style="color: #000000;"></i> 
-                        </span>
+                        
+                        <div class="input-group-text" id="pregunta" style="background-color: white; border: none;" onclick="showTooltip()">
+                            <i class="fas fa-question-circle" style="color: #000000;"></i>
+                        </div>
+                        <span id="tooltiptext" class="tooltiptext" style="visibility: hidden;">La contraseña debe tener mínimo 8 caracteres, incluyendo mayúscula y número</span>
+                        
+                                 
                     </div>
-                    <button id="continuar_registro" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: white; color: black;">Continuar registro</button>
+                    <div id="clave-error-message" class="error-message-clave"></div>
+                    <button id="continuar_registro" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: white; color: black; margin-top: 3%;">Continuar registro</button>
                 </div>
             </div>
         </div>
         <div id="footer" class="bg-success py-3"></div> 
     </section>
-
-    <script>
-        const continuar_registro_Boton = document.getElementById("continuar_registro");
-        // Agregar un event listener al botón
-        continuar_registro_Boton.addEventListener("click", () => {
-            window.location.href = "registro_perfil.html";
-        });
-    </script>
 
     <!-- Start Script -->
     <script src="../js/jquery-3.7.1.min.js"></script>
@@ -80,6 +77,7 @@ https://templatemo.com/tm-559-zay-shop
     <script src="../js/bootstrap.bundle.min.js"></script>
     <script src="../js/templatemo.js"></script>
     <script src="../js/custom.js"></script>
+    <script src="../js/registro/registro.js"></script>
     
     <!-- End Script -->
 </body>

@@ -328,7 +328,44 @@ button:active {
   transition: all 0.3s ease;
 }
 
+/* Apariencia de input para el rut*/
 #rut:disabled {
   opacity: 1;
   background-color: white;
+}
+
+/* Mensajes de error de correo y clave al crear cuenta*/
+.error-message-correo {
+  color: red;
+  font-size: 12px!important;
+  margin-top: 2px;
+}
+.error-message-clave {
+  color: red;
+  font-size: 12px!important;
+  margin-top: -10px;
+}
+.form-control.error {
+  border-color: red;
+}
+
+/* Tooltip ícono de pregunta */
+
+.tooltiptext {
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 10px;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: visibility 0s, opacity 0.3s linear;
+}
+.tooltiptext.visible {
+  visibility: visible;
+  opacity: 1;
 }
