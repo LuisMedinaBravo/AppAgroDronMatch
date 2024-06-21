@@ -1,20 +1,8 @@
+
+//Lógica Switches
 document.addEventListener('DOMContentLoaded', function() {
     // Obtener los checkboxes de disponibilidad
     const availabilityCheckboxes = document.querySelectorAll('input[name="jornada[]"]');
-  
-    // Función de validación
-    function validateAvailability() {
-      // Obtener el estado actual de los checkboxes
-      const diurnoChecked = document.querySelector('input[name="jornada[]"][value="diurno"]').checked;
-      const nocturnoChecked = document.querySelector('input[name="jornada[]"][value="nocturno"]').checked;
-  
-      // Verificar si al menos uno de los checkboxes está marcado
-      if (diurnoChecked || nocturnoChecked) {
-        return true;
-      } else {
-        return false;
-      }
-    }
   
     // Agregar evento de cambio a los checkboxes
     availabilityCheckboxes.forEach(checkbox => {
@@ -63,5 +51,32 @@ calendarInicio.config.onChange.push(function(selectedDates) {
     minDate.setDate(minDate.getDate() + 1);
     calendarFin.set('minDate', minDate.toISOString().split('T')[0]);
     calendarFin.clear();
+  }
+});
+
+// Clikear botón finalizar registro
+const finishButton = document.getElementById("continuar_registro_4");
+finishButton.addEventListener("click", function() {
+  // Verificar que se haya seleccionado una fecha de inicio y fin
+  const startDate = calendarInicio.selectedDates[0];
+  const endDate = calendarFin.selectedDates[0];
+  if (!startDate || !endDate) {
+    // Establecer el borde rojo para el campo que no tenga selección
+    if (!startDate) {
+      document.getElementById("calendar-input-inicio").value = "Ingresar fecha";
+      document.getElementById("calendar-input-inicio").style.border = "1px solid red";
+    } else {
+      document.getElementById("calendar-input-inicio").style.border = "";
+    }
+    if (!endDate) {
+      document.getElementById("calendar-input-fin").value = "Ingresar fecha";
+      document.getElementById("calendar-input-fin").style.border = "1px solid red";
+    } else {
+      document.getElementById("calendar-input-fin").style.border = "";
+    }
+  }else{
+    document.getElementById("calendar-input-inicio").style.border = "";
+    document.getElementById("calendar-input-fin").style.border = "";
+    window.location.href = "perifl.html";
   }
 });

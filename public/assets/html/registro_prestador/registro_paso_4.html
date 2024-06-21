@@ -17,6 +17,7 @@
     <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="../../css/fontawesome.min.css">
+    <link rel="stylesheet" href="../../css/flatpickr4.6.13.min.css">
 <!--
     
 TemplateMo 559 Zay Shop
@@ -54,12 +55,22 @@ https://templatemo.com/tm-559-zay-shop
                 <div class="d-flex flex-column align-items-center mt-4">
                     <div class="form-group mb-4"> 
                         <label for="jornada">Disponibildad momento aplicación</label>
-                        <div> 
+                        <!-- <div> 
                             <label><input type="checkbox" name="jornada[]" value="diurno" checked> Diurno</label> 
                             <label><input type="checkbox" name="jornada[]" value="nocturno"> Nocturno</label>
+                        </div> -->
+                        <div>
+                            <label class="switch">
+                              <input type="checkbox" name="jornada[]" value="diurno" checked>
+                              <span class="slider round">Diurno</span>
+                            </label>
+                            <label class="switch">
+                              <input type="checkbox" name="jornada[]" value="nocturno">
+                              <span class="slider round">Nocturno</span>
+                            </label>
                         </div>
                     </div>
-                    <div class="input-group mb-4">
+                    <div class="input-group mb-2">
                         <label for="fecha" class="input-group-text">Fecha inicio:</label>
                         <input type="text" class="form-control flatpickr-input" id="calendar-input-inicio" name="fecha" data-input>
                     </div>
@@ -89,9 +100,7 @@ https://templatemo.com/tm-559-zay-shop
     <script src="../../js/bootstrap.bundle.min.js"></script>
     <script src="../../js/templatemo.js"></script>
     <script src="../../js/custom.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/airbnb.css">
+    <script src="../../js/flatpickr4.6.13.min.js"></script>
     <script src="../../js/registro/prestador_paso_4.js"></script>
     
     

@@ -60,13 +60,39 @@ ojoSpan.addEventListener("click", function() {
 
 // Lógica para mostrar el tooltip
 function showTooltip() {
-    var tooltipElement = document.getElementById("tooltiptext");
-    tooltipElement.classList.toggle("visible");
-    // Ocultar el tooltip después de 3 segundos
-    setTimeout(function() {
-        tooltipElement.classList.remove("visible");
-    }, 3000);
+  var tooltipElement = document.getElementById("tooltiptext");
+  tooltipElement.classList.toggle("visible");   
 }
+
+// Lógica para ocultar el tooltip al hacer clic en los inputs con ID "correo" y "clave"
+document.addEventListener("click", function(event) {
+  var targetElement = event.target;
+  if (targetElement.matches("#correo, #clave, #container, #footer")) {
+      hideTooltip();
+  }
+});
+
+// Función para ocultar el tooltip
+function hideTooltip() {
+  var tooltipElement = document.getElementById("tooltiptext");
+  tooltipElement.classList.remove("visible");
+  tooltipElement.classList.add("hidden");
+}
+
+//Lógica del footer
+$(document).ready(function() {
+  var $footer = $('#footer');
+
+  // Ocultar el footer cuando se hace click en un input
+  $('input').on('focus', function() {
+    $footer.hide();
+  });
+
+  // Mostrar el footer cuando se quita el foco del input
+  $('input').on('blur', function() {
+    $footer.show();
+  });
+});
 
 //Clikear botón continuar registro
 const continueButton = document.getElementById("continuar_registro");

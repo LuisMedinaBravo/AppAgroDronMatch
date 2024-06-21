@@ -33,15 +33,6 @@ function loadRegiones() {
     menu.style.maxHeight = "240px"; // Establecer la altura máxima a 240px
     menu.style.overflowY = "auto"; // Habilitar el desplazamiento vertical
     // Agregar la opción de ubicación actual
-    var currentLocationItem = document.createElement("li");
-    var currentLocationLink = document.createElement("a");
-    currentLocationLink.classList.add("dropdown-item");
-    currentLocationLink.href = "#";
-    currentLocationLink.onclick = function() {
-        getLocation();
-    };
-    currentLocationItem.appendChild(currentLocationLink);
-    menu.appendChild(currentLocationItem);
 
     // Agregar las demás regiones
     for (var i = 0; i < regionesYComunas.length; i++) {
@@ -114,3 +105,18 @@ function setLocation(location) {
     var dropdownMenu = document.querySelector('.dropdown-menu');
     dropdownMenu.classList.remove('show');
 }
+
+//Lógica del footer
+$(document).ready(function() {
+    var $footer = $('#footer');
+  
+    // Ocultar el footer cuando se hace click en un input
+    $('input').on('focus', function() {
+      $footer.hide();
+    });
+  
+    // Mostrar el footer cuando se quita el foco del input
+    $('input').on('blur', function() {
+      $footer.show();
+    });
+  });

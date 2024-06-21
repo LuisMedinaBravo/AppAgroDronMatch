@@ -53,14 +53,16 @@ https://templatemo.com/tm-559-zay-shop
                     <div class="input-group mb-2">
                         <input type="text" class="form-control" id="nombre" autocomplete="off" placeholder="Ingresar nombre">
                     </div>
+                    <div id="nombre-error-message" class="error-message-nombre"></div>
                     <div class="input-group mb-2">
                         <input type="text" class="form-control" id="rut" autocomplete="off" placeholder="Ingresar rut">
-                        <span class="icon-container" style="margin-left: 1%; transform: translateY(20%);">
+                        <span class="icon-container" id="basurero" style="margin-left: 1%; transform: translateY(20%);">
                             <i class="fas fa-trash"></i>
                         </span>
                     </div>
+                    <div id="rut-error-message" class="error-message-rut"></div>
                     <div class="input-group mb-3">
-                        <input class="form-control" id="ubicacion" placeholder="Ubicación" autocomplete="current-password" readonly>
+                        <input class="form-control" id="ubicacion" placeholder="Ubicación" autocomplete="current-password" readonly style="pointer-events: none;">
                         <button class="btn btn-outline-secondary dropdown-toggle" id="elegir_ubicacion" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black; background-color: white;">
                             Elegir ubicación
                         </button>
@@ -75,18 +77,6 @@ https://templatemo.com/tm-559-zay-shop
         <div><p id="pre-footer">*La información podrá ser editada en su perfil</p></div> 
         <div id="footer" class="bg-success py-3"></div>
     </section>
-
-    <script>
-        document.getElementById('rut').addEventListener('input', function() {
-            formatRut(this);
-        });
-
-        const continuar_registro_Boton = document.getElementById("continuar_registro_2");
-        // Agregar un event listener al botón
-        continuar_registro_Boton.addEventListener("click", () => {
-            window.location.href = "registro_paso_3.html";
-        });
-    </script>
 
     <!-- Start Script -->
     <script src="../../js/jquery-3.7.1.min.js"></script>
