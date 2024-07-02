@@ -24,60 +24,98 @@ https://templatemo.com/tm-559-zay-shop
 -->
 </head>
 
-<body>
+<body class="animate-section" style=" overflow: hidden;">
 
     <!-- Start Banner Hero -->
-    <div id="template-mo-zay-hero-carousel" class="carousel slide" style="height: 40vh; background-color: #59ab6e!important;">
+    <div id="template-mo-zay-hero-carousel" class="carousel slide" style="height: 40vh;">
         <div class="carousel-inner">
-            <div class="carousel-item active" style="height: 40vh;">
+            <div id="carousel-active" class="carousel-item active" style="height: 40vh; background-image: url('../../img/DJI_0188.jpg'); background-size: cover; background-position: center;">
                 <div class="container" style="height: 100%;">
                     <div class="row align-items-end justify-content-center h-100">
                         <div class="col-lg-6 mb-0 d-flex justify-content-center">
                             <div>
-                                <h1 class="h1 text-success" style="color: white!important; margin-bottom: 0.5rem;"><b>AgroDronMatch</b></h1>
-                                <h2 class="h3" style="color: white!important; text-align: center;"><b>Cliente</b></h2>
-                                <h2 class="h3" style="color: white!important; text-align: center;"><b>Paso 2: Completar datos personales</b></h2>
+                                <h1 class="h1 text-success" style="color: white !important; margin-bottom: 0.5rem;"><b>AgroDronMatch</b></h1>
+                                <h4 class="h4" style="color: white !important; text-align: center;"><b>Paso 2: Completar datos personales</b></h4>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="flecha-atras">
+                    <i class="fas fa-chevron-left"></i>
                 </div>
             </div>
         </div>
     </div>
     <!-- End Banner Hero -->
     
-    <section class="container" style="height: 60vh;">
+    <section id="container" class="container" style="height: 60vh;">
         <div class="row text-center">
             <div class="col-lg-6 m-auto">
                 <div class="d-flex flex-column align-items-center mt-4">
                     <div class="input-group mb-2">
-                        <input type="text" class="form-control" id="nombre" autocomplete="off" placeholder="Ingresar nombre">
+                        <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-user"></i></span>
+                        <input type="text" class="form-control" id="nombre" autocomplete="off" placeholder="Ingresar nombre completo">
                     </div>
-                    <div id="nombre-error-message" class="error-message-nombre"></div>
-                    <div class="input-group mb-2">
-                        <input type="text" class="form-control" id="rut" autocomplete="off" placeholder="Ingresar rut">
-                        <span class="icon-container" id="basurero" style="margin-left: 1%; transform: translateY(20%);">
-                            <i class="fas fa-trash"></i>
-                        </span>
-                    </div>
-                    <div id="rut-error-message" class="error-message-rut"></div>
-                    <div class="input-group mb-3">
-                        <input class="form-control" id="ubicacion" placeholder="Ubicación" autocomplete="current-password" readonly style="pointer-events: none;">
-                        <button class="btn btn-outline-secondary dropdown-toggle" id="elegir_ubicacion" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black; background-color: white;">
-                            Elegir ubicación
-                        </button>
-                        <ul class="dropdown-menu" id="regiones-menu">
-                            <li><a class="dropdown-item" href="#" onclick="getLocation()">Ubicación actual</a></li>
-                        </ul>
-                    </div>
-                    <button id="continuar_registro_2" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: white; color: black;">Continuar registro</button>
+                <div id="nombre-error-message" class="error-message-nombre"></div>
+                <div class="input-group mb-2">
+                    <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-user-tie"></i></span>
+                    <input type="text" class="form-control" id="nombre_agricola" autocomplete="off" placeholder="Ingresar nombre agrícola">
                 </div>
+                <div id="nombre-agricola-error-message" class="error-message-nombre"></div>
+                    <div class="input-group mb-2" class="form-control">
+                        <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-calendar-alt"></i></span>
+                        <input type="text" class="form-control" id="nacimiento" autocomplete="off" placeholder="Ingresar fecha nacimiento" readonly style="background-color: white;">
+                    </div>
+                    <div id="calendario-error-message" class="error-message-calendario"></div>
+                    <div class="nacimiento" style="display: none;">
+                        <div class="date-selector">
+                            <div class="date-selector__item">
+                                <h5 class="h5">DÍA</h5>
+                                <input type="text" id="day-input" readonly>
+                                <div class="date-selector__item__options" id="day-options"></div>
+                            </div>
+                            <div class="date-selector__item">
+                                <h5 class="h5">MES</h5>
+                                <input type="text" id="month-input" readonly>
+                                <div class="date-selector__item__options" id="month-options"></div>
+                            </div>
+                            <div class="date-selector__item">
+                                <h5 class="h5">AÑO</h5>
+                                <input type="text" id="year-input" readonly>
+                                <div class="date-selector__item__options" id="year-options"></div>
+                            </div>
+                        </div>
+                        <div style="text-align: center; margin-bottom: -15px;">
+                            <button id="confirmar_fecha" class="btn btn-secondary" style="width: 45%; height: 40px; background-color: white; color: black;">Confirmar</button>
+                        </div>
+                    </div>
+                 <button id="continuar_registro_2" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: white; color: black; margin-top: 3%;">Continuar registro</button>
             </div>
-        </div>
-        <div><p id="pre-footer">*La información podrá ser editada en su perfil</p></div> 
-        <div id="footer" class="bg-success py-3"></div>
+            <div><p id="pre-footer">*La información podrá ser editada en su perfil</p></div> 
+            <div id="footer" class="bg-success py-3"></div>
     </section>
 
+    <script>
+        //Lógica flecha
+        document.querySelector('.flecha-atras').addEventListener('click', function() {
+            window.location.href = '../registro.html';
+        });
+        //Lógica del footer
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedSections = document.querySelectorAll('.animate-section');
+            const footer = document.getElementById('footer');
+
+            function showFooter() {
+                footer.style.opacity = '1';
+                footer.style.transform = 'translateY(0)';
+            }
+
+            animatedSections.forEach(section => {
+                section.addEventListener('animationend', showFooter);
+            });
+        });
+    </script>
+    
     <!-- Start Script -->
     <script src="../../js/jquery-3.7.1.min.js"></script>
     <script src="../../js/jquery-migrate-1.2.1.min.js"></script>
@@ -85,8 +123,7 @@ https://templatemo.com/tm-559-zay-shop
     <script src="../../js/templatemo.js"></script>
     <script src="../../js/custom.js"></script>
     <script src="../../js/registro/cliente_paso_2.js"></script>
-    <script src="../../json/comunas-regiones.json"></script>
-    
+    <script src="../../js/registro/fecha_nacimiento.js"></script> 
     <!-- End Script -->
 </body>
 

@@ -1,82 +1,209 @@
+let itemSeleccionado = null;
+//Cargar archivo JSON con las ubicaciones de Chile
+var regionesYComunas;
 
-//Lógica Switches
-document.addEventListener('DOMContentLoaded', function() {
-    // Obtener los checkboxes de disponibilidad
-    const availabilityCheckboxes = document.querySelectorAll('input[name="jornada[]"]');
+fetch('../../json/comunas-regiones.json')
+  .then(response => response.json())
+  .then(data => {
+    regionesYComunas = data.regiones;
+    loadRegiones();
+  })
+  .catch(error => {
+    console.error('Error al cargar el archivo JSON:', error);
+  });
+
+function showPosition(position) {
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+    var currentLocation = `(${latitude.toFixed(2)}, ${longitude.toFixed(2)})`;
+    document.getElementById("ubicacion").value = currentLocation;
+}
+
+function loadRegiones() {
+    var menu = document.getElementById("regiones-menu");
+    menu.innerHTML = ""; // Limpiar el menú antes de agregar las opciones
+
+    menu.style.maxWidth = "240px"; // Establecer la anchura máxima a 240px
+    menu.style.maxHeight = "240px"; // Establecer la altura máxima a 240px
+    menu.style.overflowY = "auto"; // Habilitar el desplazamiento vertical
+    // Agregar la opción de ubicación actual
+
+    // Agregar las demás regiones
+    for (var i = 0; i < regionesYComunas.length; i++) {
+        var regionItem = document.createElement("li");
+        var regionLink = document.createElement("a");
+        regionLink.classList.add("dropdown-item");
+        regionLink.href = "#";
+        regionLink.textContent = regionesYComunas[i].region;
+        regionLink.onclick = function() {
+            const loadComunasPromise = new Promise((resolve, reject) => {
+                loadComunas(this.textContent);
+                resolve();
+            });
+              
+            loadComunasPromise.then(() => {
+                setTimeout(() => {
+                    const elegirUbicacion = document.getElementById('elegir_ubicacion');
+                    elegirUbicacion.click();
+                }, 300); // Espera 1 segundo antes de realizar el clic
+            }).catch((error) => {
+                console.error('Ocurrió un error:', error);
+            });
+        };
+        regionItem.appendChild(regionLink);
+        menu.appendChild(regionItem);
+    }
+    aplicarEstiloSeleccion(); // Llamar a la función para aplicar el estilo de selección
+}
+
+function loadComunas(region) {
+    var menu = document.getElementById("regiones-menu");
+    menu.innerHTML = ""; // Limpiar el menú antes de agregar las opciones
+
+    menu.style.maxWidth = "240px"; // Establecer la anchura máxima a 240px
+    menu.style.maxHeight = "240px"; // Establecer la altura máxima a 240px
+    menu.style.overflowY = "auto"; // Habilitar el desplazamiento vertical
+
+    var comunasItem = document.createElement("li");
+    var comunasLink = document.createElement("a");
+    comunasLink.classList.add("dropdown-item");
+    comunasLink.href = "#";
+    //comunasLink.textContent = "Comunas de " + region;
+    comunasLink.onclick = function() {
+        // No hacer nada, este es solo un título
+    };
+    comunasItem.appendChild(comunasLink);
+    menu.appendChild(comunasItem);
+
+    for (var i = 0; i < regionesYComunas.find(r => r.region === region).comunas.length; i++) {
+        var comunaItem = document.createElement("li");
+        var comunaLink = document.createElement("a");
+        comunaLink.classList.add("dropdown-item");
+        comunaLink.href = "#";
+        comunaLink.textContent = regionesYComunas.find(r => r.region === region).comunas[i];
+        comunaLink.onclick = function() {
+            setLocation(this.textContent);
+            itemSeleccionado = this.textContent; // Actualiza la variable con el ítem seleccionado
+            loadRegiones();
+        };
+        comunaItem.appendChild(comunaLink);
+        menu.appendChild(comunaItem);
+    }
+    aplicarEstiloSeleccion(); // Llamar a la función para aplicar el estilo de selección
+}
+
+function setLocation(location) {
+    // Obtener el valor actual del input
+    var currentValue = document.getElementById("ubicacion").value;
   
-    // Agregar evento de cambio a los checkboxes
-    availabilityCheckboxes.forEach(checkbox => {
-      checkbox.addEventListener('change', () => {
-        // Obtener el estado actual de los checkboxes
-        const diurnoChecked = document.querySelector('input[name="jornada[]"][value="diurno"]').checked;
-        const nocturnoChecked = document.querySelector('input[name="jornada[]"][value="nocturno"]').checked;
+    // Concatenar el valor actual con el nuevo dron seleccionado, separados por coma
+    if (currentValue === "") {
+      document.getElementById("ubicacion").value = location;
+    } else {
+      var values = currentValue.split(", "); // Dividir el valor actual por comas
+      if (values.indexOf(location) === -1) { // Verificar si la ubicación ya está en la lista
+        document.getElementById("ubicacion").value = currentValue + ", " + location;
+      }
+    }
+
+    // Guardar las ubicaciones en localStorage
+    var locations = document.getElementById("ubicacion").value.split(", ");
+    localStorage.setItem("ubicacion_servicio", locations.join(","));
   
-        // Permitir desmarcar solo si la otra casilla está marcada
-        if (!diurnoChecked && !nocturnoChecked) {
-          checkbox.checked = true;
-        }
-      });
+    // Obtener todos los enlaces dentro del menú desplegable
+    var dropdownLinks = document.querySelectorAll("#regiones-menu li a");
+  
+    // Remover los estilos de color de todos los enlaces
+    dropdownLinks.forEach(function(link) {
+      link.style.backgroundColor = '';
+      link.style.color = '';
+      link.classList.remove('selected'); // Elimina la clase 'selected' de todos los enlaces
+    });
+  
+    // Agregar los estilos de color al enlace seleccionado
+    var selectedLink = document.querySelector(`#regiones-menu li a[textContent="${location}"]`);
+    if (selectedLink) {
+      selectedLink.style.backgroundColor = '#007bff';
+      selectedLink.style.color = '#fff';
+      selectedLink.classList.add('selected'); // Agrega la clase 'selected' al enlace seleccionado
+    }
+  
+    // Actualizar la variable con el ítem seleccionado
+    itemSeleccionado = location;
+  
+    // Cerrar el menú desplegable
+    var dropdown = document.querySelector('.dropdown-toggle');
+    dropdown.classList.remove('show');
+    var dropdownMenu = document.querySelector('.dropdown-menu');
+    dropdownMenu.classList.remove('show');
+}
+
+function aplicarEstiloSeleccion() {
+    // Obtener todos los enlaces dentro del menú desplegable
+    var dropdownLinks = document.querySelectorAll("#regiones-menu li a");
+  
+    // Aplicar el estilo de color de fondo a los elementos seleccionados
+    dropdownLinks.forEach(function(link) {
+      if (itemSeleccionado && link.textContent === itemSeleccionado) {
+        link.style.backgroundColor = '#007bff';
+        link.style.color = '#fff';
+        link.classList.add('selected');
+      } else {
+        link.style.backgroundColor = '';
+        link.style.color = '';
+        link.classList.remove('selected');
+      }
+    });
+  }
+
+// Función de validación
+function validarUbicacion() {
+    const dronErrorMessage = document.getElementById('ubicacion-error-message');
+    if(itemSeleccionado == null){
+      dronErrorMessage.textContent = "Por favor, agregar ubicaciones";
+      dronErrorMessage.style.display = 'block';
+      return false;
+    }else{
+      dronErrorMessage.style.display = 'none';
+      dronErrorMessage.textContent = "";
+      return true;
+    }
+  }
+
+//Lógica del footer
+$(document).ready(function() {
+    var $footer = $('#footer');
+  
+    // Ocultar el footer cuando se hace click en un input
+    $('input').on('focus', function() {
+      $footer.hide();
+    });
+  
+    // Mostrar el footer cuando se quita el foco del input
+    $('input').on('blur', function() {
+      $footer.show();
     });
 });
 
-// Obtener referencias a los elementos de calendario
-const calendarInicio = flatpickr("#calendar-input-inicio", {
-  dateFormat: "Y-m-d",
-  defaultDate: new Date().toISOString().split('T')[0],
-  disable: [
-    function(date) {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      return date.getTime() < today.getTime();
-    }
-  ],
-  theme: "light"
-});
+//Lógica del pre-footer
+$(document).ready(function() {
+  var $prefooter = $('#pre-footer');
 
-const calendarFin = flatpickr("#calendar-input-fin", {
-  dateFormat: "Y-m-d",
-  minDate: new Date(Date.now() + (24 * 60 * 60 * 1000)).toISOString().split('T')[0],
-  disable: [
-    function(date) {
-      return date.getTime() < Date.now() + (24 * 60 * 60 * 1000);
-    }
-  ],
-  theme: "airbnb"
-});
+  // Ocultar el footer cuando se hace click en un input
+  $('input').on('focus', function() {
+    $prefooter.hide();
+  });
 
-// Actualizar el valor mínimo del segundo calendario y borrar la selección cuando cambie el valor del primero
-calendarInicio.config.onChange.push(function(selectedDates) {
-  if (selectedDates.length > 0) {
-    const minDate = new Date(selectedDates[0]);
-    minDate.setDate(minDate.getDate() + 1);
-    calendarFin.set('minDate', minDate.toISOString().split('T')[0]);
-    calendarFin.clear();
-  }
+  // Mostrar el footer cuando se quita el foco del input
+  $('input').on('blur', function() {
+    $prefooter.show();
+  });
 });
 
 // Clikear botón finalizar registro
 const finishButton = document.getElementById("continuar_registro_4");
 finishButton.addEventListener("click", function() {
-  // Verificar que se haya seleccionado una fecha de inicio y fin
-  const startDate = calendarInicio.selectedDates[0];
-  const endDate = calendarFin.selectedDates[0];
-  if (!startDate || !endDate) {
-    // Establecer el borde rojo para el campo que no tenga selección
-    if (!startDate) {
-      document.getElementById("calendar-input-inicio").value = "Ingresar fecha";
-      document.getElementById("calendar-input-inicio").style.border = "1px solid red";
-    } else {
-      document.getElementById("calendar-input-inicio").style.border = "";
-    }
-    if (!endDate) {
-      document.getElementById("calendar-input-fin").value = "Ingresar fecha";
-      document.getElementById("calendar-input-fin").style.border = "1px solid red";
-    } else {
-      document.getElementById("calendar-input-fin").style.border = "";
-    }
-  }else{
-    document.getElementById("calendar-input-inicio").style.border = "";
-    document.getElementById("calendar-input-fin").style.border = "";
-    window.location.href = "perifl.html";
+  if (validarUbicacion()) {
+    window.location.href = "../../html/registro_prestador/registro_paso_5.html";
   }
 });

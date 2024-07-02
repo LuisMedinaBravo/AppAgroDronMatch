@@ -24,18 +24,24 @@ https://templatemo.com/tm-559-zay-shop
 -->
 </head>
 
-<body>
+<body class="animate-section" style="overflow: hidden;">
 
     <!-- Start Banner Hero -->
-    <div id="template-mo-zay-hero-carousel" class="carousel slide" style="height: 40vh; background-color: #59ab6e!important;">
+    <div id="template-mo-zay-hero-carousel" class="carousel slide" style="height: 40vh;">
         <div class="carousel-inner">
-            <div class="carousel-item active" style="height: 40vh;">
+            <div id="carousel-active" class="carousel-item active" style="height: 40vh; background-image: url('../img/DJI_0188.jpg'); background-size: cover; background-position: center;">
                 <div class="container" style="height: 100%;">
                     <div class="row align-items-end justify-content-center h-100">
                         <div class="col-lg-6 mb-0 d-flex justify-content-center">
-                            <h1 class="h1 text-success" style="margin-bottom: 10%; color: white!important;"><b>AgroDronMatch</b></h1>
+                            <div>
+                                <h1 class="h1 text-success" style="color: white !important; margin-bottom: 0.5rem;"><b>AgroDronMatch</b></h1>
+                                <h4 class="h4" style="color: white !important; text-align: center;"><b>Paso 1: Ingresar datos para crear cuenta</b></h4>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <div class="flecha-atras">
+                    <i class="fas fa-chevron-left"></i>
                 </div>
             </div>
         </div>
@@ -47,23 +53,27 @@ https://templatemo.com/tm-559-zay-shop
             <div class="col-lg-6 m-auto">
                 <div class="d-flex flex-column align-items-center mt-4">
                     <div class="input-group mb-2">
+                        <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-envelope"></i></span>
                         <input type="email" class="form-control" id="correo" autocomplete="off" placeholder="Ingresar correo">
                     </div>
                     <div id="correo-error-message" class="error-message-correo"></div>
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-2">
+                        <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-lock"></i></span>
                         <input type="password" class="form-control" id="clave" placeholder="Crear contraseña" autocomplete="current-password">
                         <span class="input-group-text" id="ojo" style="background-color: white; border: none;">
                             <i class="fas fa-eye"></i>
                         </span>
-                        
                         <div class="input-group-text" id="pregunta" style="background-color: white; border: none;" onclick="showTooltip()">
                             <i class="fas fa-question-circle" style="color: #000000;"></i>
                         </div>
-                        <span id="tooltiptext" class="tooltiptext" style="visibility: hidden;">La contraseña debe tener mínimo 8 caracteres, incluyendo mayúscula y número</span>
-                        
-                                 
+                        <span id="tooltiptext" class="tooltiptext" style="visibility: hidden;">La contraseña debe tener mínimo 8 caracteres, incluyendo mayúsculas y números</span>                            
                     </div>
                     <div id="clave-error-message" class="error-message-clave"></div>
+                    <div class="input-group mb-2" style="margin-top: 3%;">
+                        <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-lock"></i></span>
+                        <input type="password" class="form-control" id="clave_repetir" placeholder="Reingresar contraseña" autocomplete="current-password">
+                    </div>
+                    <div id="clave-repetir-error-message" class="error-message-clave"></div>
                     <button id="continuar_registro" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: white; color: black; margin-top: 3%;">Continuar registro</button>
                 </div>
             </div>
@@ -71,13 +81,34 @@ https://templatemo.com/tm-559-zay-shop
         <div id="footer" class="bg-success py-3"></div> 
     </section>
 
+    <script>
+        //Lógica flecha
+        document.querySelector('.flecha-atras').addEventListener('click', function() {
+            window.location.href = 'registro_perfil.html';
+        });
+        //Lógica del footer
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedSections = document.querySelectorAll('.animate-section');
+            const footer = document.getElementById('footer');
+
+            function showFooter() {
+                footer.style.opacity = '1';
+                footer.style.transform = 'translateY(0)';
+            }
+
+            animatedSections.forEach(section => {
+                section.addEventListener('animationend', showFooter);
+            });
+        });
+    </script>
+
     <!-- Start Script -->
     <script src="../js/jquery-3.7.1.min.js"></script>
     <script src="../js/jquery-migrate-1.2.1.min.js"></script>
     <script src="../js/bootstrap.bundle.min.js"></script>
     <script src="../js/templatemo.js"></script>
     <script src="../js/custom.js"></script>
-    <script src="../js/registro/registro.js"></script>
+    <script src="../js/registro/registro_paso_1.js"></script>
     
     <!-- End Script -->
 </body>

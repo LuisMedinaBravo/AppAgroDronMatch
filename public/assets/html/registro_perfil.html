@@ -24,21 +24,24 @@ https://templatemo.com/tm-559-zay-shop
 -->
 </head>
 
-<body>
+<body class="animate-section" style="overflow: hidden;">
 
     <!-- Start Banner Hero -->
-    <div id="template-mo-zay-hero-carousel" class="carousel slide" style="height: 40vh; background-color: #59ab6e!important;">
+    <div id="template-mo-zay-hero-carousel" class="carousel slide" style="height: 40vh;">
         <div class="carousel-inner">
-            <div class="carousel-item active" style="height: 40vh;">
+            <div id="carousel-active" class="carousel-item active" style="height: 40vh; background-image: url('../img/DJI_0188.jpg'); background-size: cover; background-position: center;">
                 <div class="container" style="height: 100%;">
                     <div class="row align-items-end justify-content-center h-100">
                         <div class="col-lg-6 mb-0 d-flex justify-content-center">
                             <div>
-                                <h1 class="h1 text-success" style="color: white!important; margin-bottom: 0.5rem;"><b>AgroDronMatch</b></h1>
-                                <h2 class="h3" style="color: white!important; text-align: center;"><b>Paso 1: Seleccionar tipo de perfil</b></h2>
+                                <h1 class="h1 text-success" style="color: white !important; margin-bottom: 0.5rem;"><b>AgroDronMatch</b></h1>
+                                <h4 class="h4" style="color: white !important; text-align: center;"><b>Selecciona tu usuario</b></h4>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="flecha-atras">
+                    <i class="fas fa-chevron-left"></i>
                 </div>
             </div>
         </div>
@@ -49,11 +52,11 @@ https://templatemo.com/tm-559-zay-shop
         <div class="row text-center">
             <div class="col-lg-6 m-auto">
                 <div class="d-flex flex-column align-items-center mt-4">
-                    <button id="cliente" class="btn btn-secondary">CLIENTE
+                    <button id="cliente" class="btn btn-secondary" style="color: black!important;">CLIENTE
                         <h4 class="h4">¡Busca drones disponibles para fumigación!</h4>
                     </button>
                     <br>
-                    <button id="prestador" class="btn btn-secondary">PRESTADOR DE SERVICIO
+                    <button id="prestador" class="btn btn-secondary" style="color: black!important;">PRESTADOR DE SERVICIO
                         <h4 class="h4">¡Publica tus drones en servicio para fumigar!</h4>
                     </button>
                 </div>
@@ -63,16 +66,38 @@ https://templatemo.com/tm-559-zay-shop
     </section>
 
     <script>
+        //Lógica flecha
+        document.querySelector('.flecha-atras').addEventListener('click', function() {
+            window.location.href = '../../index.html';
+        });
+        //Lógica del footer
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedSections = document.querySelectorAll('.animate-section');
+            const footer = document.getElementById('footer');
+
+            function showFooter() {
+                footer.style.opacity = '1';
+                footer.style.transform = 'translateY(0)';
+            }
+
+            animatedSections.forEach(section => {
+                section.addEventListener('animationend', showFooter);
+            });
+        });
+
         const cliente_Boton = document.getElementById("cliente");
         // Agregar un event listener al botón
         cliente_Boton.addEventListener("click", () => {
-            window.location.href = "registro_cliente/registro_paso_2.html";
+            // Guardar el valor de "correo" en el campo "perfil" del LocalStorage
+            localStorage.setItem('perfil', "cliente");
+            window.location.href = "registro.html";
         });
 
         const prestador_Boton = document.getElementById("prestador");
         // Agregar un event listener al botón
         prestador_Boton.addEventListener("click", () => {
-            window.location.href = "registro_prestador/registro_paso_2.html";
+            localStorage.setItem('perfil', "prestador");
+            window.location.href = "registro.html";
         });
     </script>
     <!-- Start Script -->

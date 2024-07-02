@@ -6,8 +6,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1.0, user-scalable=no, orientation-lock=portrait" >
 
-    <link rel="shortcut icon" type="image/x-icon" href="/public/assets/img/favicon.ico">
-
     <link rel="shortcut icon" type="image/x-icon" href="../../img/favicon.ico">
 
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
@@ -17,7 +15,6 @@
     <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="../../css/fontawesome.min.css">
-    <link rel="stylesheet" href="../../css/flatpickr4.6.13.min.css">
 <!--
     
 TemplateMo 559 Zay Shop
@@ -27,58 +24,55 @@ https://templatemo.com/tm-559-zay-shop
 -->
 </head>
 
-<body>
+<body class="animate-section" style="overflow: hidden;">
 
     <!-- Start Banner Hero -->
-    <div id="template-mo-zay-hero-carousel" class="carousel slide" style="height: 40vh; background-color: #59ab6e!important;">
+    <div id="template-mo-zay-hero-carousel" class="carousel slide" style="height: 20vh;">
         <div class="carousel-inner">
-            <div class="carousel-item active" style="height: 40vh;">
+            <div id="carousel-active" class="carousel-item active" style="height: 20vh; background-image: url('../../img/DJI_0188.jpg'); background-size: cover; background-position: center;">
                 <div class="container" style="height: 100%;">
                     <div class="row align-items-end justify-content-center h-100">
                         <div class="col-lg-6 mb-0 d-flex justify-content-center">
                             <div>
-                                <h1 class="h1 text-success" style="color: white!important; margin-bottom: 0.5rem;"><b>AgroDronMatch</b></h1>
-                                <h2 class="h3" style="color: white!important; text-align: center;"><b>Prestador de servicios</b></h2>
-                                <h2 class="h3" style="color: white!important; text-align: center;"><b>Paso 4: Disponibildad de prestar servicio</b></h2>
+                                <h1 class="h1 text-success" style="color: white !important; margin-bottom: 0.5rem;"><b>AgroDronMatch</b></h1>
+                                <h4 class="h4" style="color: white !important; text-align: center;"><b>Paso 4: Datos disp. aplicación</b></h4>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="flecha-atras">
+                    <i class="fas fa-chevron-left"></i>
                 </div>
             </div>
         </div>
     </div>
     <!-- End Banner Hero -->
     
-    <section class="container" style="height: 60vh;">
+    <section class="container" style="height: 80vh;">
         <div class="row text-center">
             <div class="col-lg-6 m-auto">
                 <div class="d-flex flex-column align-items-center mt-4">
-                    <div class="form-group mb-4"> 
-                        <label for="jornada">Disponibildad momento aplicación</label>
-                        <!-- <div> 
-                            <label><input type="checkbox" name="jornada[]" value="diurno" checked> Diurno</label> 
-                            <label><input type="checkbox" name="jornada[]" value="nocturno"> Nocturno</label>
-                        </div> -->
-                        <div>
-                            <label class="switch">
-                              <input type="checkbox" name="jornada[]" value="diurno" checked>
-                              <span class="slider round">Diurno</span>
-                            </label>
-                            <label class="switch">
-                              <input type="checkbox" name="jornada[]" value="nocturno">
-                              <span class="slider round">Nocturno</span>
-                            </label>
-                        </div>
+                    <div class="input-group mb-2">
+                        <h3 class="h3">Ubicaciones donde prestas servicio</h3>
+                    </div>
+                    <div class="input-group mb-3">    
+                        <input class="form-control" id="ubicacion" placeholder="Ubicación(es)" autocomplete="off" readonly style="pointer-events: none;">
+                        <button class="btn btn-outline-secondary dropdown-toggle" id="elegir_ubicacion" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black; background-color: white;">
+                            Elegir ubicación
+                        </button>
+                        <ul class="dropdown-menu" id="regiones-menu"></ul>
+                    </div>
+                    <div id="ubicacion-error-message" class="error-message-ubicacion"></div>
+                    <div class="input-group mb-2">
+                        <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-map"></i></span>
+                        <input type="text" class="form-control" id="region" placeholder="Región" autocomplete="off">
                     </div>
                     <div class="input-group mb-2">
-                        <label for="fecha" class="input-group-text">Fecha inicio:</label>
-                        <input type="text" class="form-control flatpickr-input" id="calendar-input-inicio" name="fecha" data-input>
+                        <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-map-marker-alt"></i></span>
+                        <input type="text" class="form-control" id="comuna" placeholder="Comuna" autocomplete="off">
                     </div>
-                    <div class="input-group mb-3">
-                        <label for="fecha" class="input-group-text">Fecha fin:</label>
-                        <input type="text" class="form-control flatpickr-input" id="calendar-input-fin" name="fecha" data-input>
-                    </div>
-                    <button id="continuar_registro_4" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: white; color: black;">Finalizar registro</button>
+                    <button id="guardar_agregar" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: white!important; color: black!important; margin-top: 3%;">Guardar/Agregar ubicación</button>
+                    <button id="continuar_registro_4" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: white; color: black; margin-top: 3%;">Continuar registro</button>
                 </div>
             </div>
         </div>
@@ -87,10 +81,23 @@ https://templatemo.com/tm-559-zay-shop
     </section>
 
     <script>
-        const iniciar_sesion_Boton = document.getElementById("continuar_registro_4");
-        // Agregar un event listener al botón
-        iniciar_sesion_Boton.addEventListener("click", () => {
-            //window.location.href = "registro_paso_3.html.";
+        //Lógica flecha
+        document.querySelector('.flecha-atras').addEventListener('click', function() {
+            window.location.href = 'registro_paso_3.html';
+        });
+        //Lógica del footer
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedSections = document.querySelectorAll('.animate-section');
+            const footer = document.getElementById('footer');
+
+            function showFooter() {
+                footer.style.opacity = '1';
+                footer.style.transform = 'translateY(0)';
+            }
+
+            animatedSections.forEach(section => {
+                section.addEventListener('animationend', showFooter);
+            });
         });
     </script>
 
@@ -100,9 +107,7 @@ https://templatemo.com/tm-559-zay-shop
     <script src="../../js/bootstrap.bundle.min.js"></script>
     <script src="../../js/templatemo.js"></script>
     <script src="../../js/custom.js"></script>
-    <script src="../../js/flatpickr4.6.13.min.js"></script>
     <script src="../../js/registro/prestador_paso_4.js"></script>
-    
     
     <!-- End Script -->
 </body>

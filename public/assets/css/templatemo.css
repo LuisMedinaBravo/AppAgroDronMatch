@@ -51,30 +51,53 @@ body, ul, li, p, a, label, input, div {
 }
 
 .h1 {
-  font-family: 'Archivo', sans-serif !important;
-  font-size: 26px !important;
-  font-weight: 400 !important;
-  color: #ffffff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto con un tono azulado */
-  letter-spacing: 2px; /* Espacio adicional entre letras */
-  text-transform: uppercase; /* Convertir a mayúsculas */
-  padding: 10px 20px; /* Agregar espacio interno */
-  border-radius: 5px; /* Bordes redondeados */
+  font-family: 'Libre Baskerville', serif !important;
+  font-size: 28px !important;
+  font-weight: 600 !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: 2px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: -15%;
+}
+
+.h1 span.uppercase {
+  text-transform: uppercase; /* Hacer que las letras específicas sean mayúsculas */
+  font-size: 34px !important; /* Aumentado el tamaño de fuente */
 }
 
 .h2 {
   font-size: 14px !important;
   font-weight: 500;
-  margin-left: 5%;
   color: #ffffff;
-  text-shadow: 2px 2px 2px rgba(1, 1, 1, 1); /* Crea un efecto de sombra de texto */
+  text-shadow: 2px 2px 2px rgba(1, 1, 1, 1);
   -webkit-text-stroke: 0.7px #ffffff;
+  background-color: #181818b4;
+  padding: 5px 10px;
+  border-radius: 15px 15px 15px 0; /* Bordes redondeados con la parte inferior en punta */
+  box-shadow: 3px 3px 0 0 rgba(0,0,0,0.75);
+  position: relative; /* Para posicionar el pseudo-elemento */
+}
+
+.h2:after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 15px;
+  width: 0;
+  height: 0;
+  border-top: 10px solid #181818;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
 }
 
 .h3 {
-  font-size: 15px !important;
-  font-weight: 400;
-  color: #ffffff;
+  font-size: 18px !important;
+  font-weight: bold;
+  color: black;
+  width: fit-content; /* o un ancho fijo */
+  margin: 0 auto;
+  margin-bottom: 15px;
 }
 
 .h4 {
@@ -83,6 +106,22 @@ body, ul, li, p, a, label, input, div {
   color: #ffffff;
   margin-top: 5px;
   font-family: 'Montserrat', sans-serif; /* Cambiamos la tipografía */
+}
+
+.h5 {
+  font-size: 15px !important;
+  font-weight: bold;
+  margin-left: 0%;
+  color: #59ab6e;
+  text-shadow: 0.5px 0.5px 0.5px rgba(1, 1, 1, 1); /* Crea un efecto de sombra de texto */
+}
+
+.h6 {
+  font-size: 12px !important;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-left: 0%;
+  color: black;
 }
 
 /* General */
@@ -113,11 +152,7 @@ body, ul, li, p, a, label, input, div {
 
 /* Hero Carousel */
 #template-mo-zay-hero-carousel { 
-  background: #59ab6e !important;
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 7px;
-  border-bottom-left-radius: 7px;
+  background: white;
 }
 /* Accordion */
 .templatemo-accordion a { color: #000;}
@@ -147,11 +182,23 @@ body, ul, li, p, a, label, input, div {
   font-size: 15px;
   margin-top: 20px;
 }
-.container input{
+.container input {
+  border-top-width: 0;
+  border-right-width: 0;
+  border-left-width: 0;
   border-radius: 3%;
+  border-bottom: 1px solid rgb(164, 164, 164); /* Establecer el border-bottom inicial como transparente */
+  transition: border-bottom-color 0.5s ease; /* Agregar una transición suave para el cambio de color */
 }
-.container button{
-  border-radius: 3%;
+
+.container input:focus {
+  outline: none; /* Eliminar el outline por defecto */
+  border-bottom: 1.5px solid black; /* Cambiar el color del borde inferior al hacer clic */
+}
+.container button {
+  border-radius: 25px; /* Cambiado a 15px para obtener un borde más redondeado */
+  color: white!important; /* Mantener el color de las letras en blanco */
+  background-color: #59ab6e!important; /* Mantener el color de fondo verde */
 }
 .container .dropdown-menu{
   border-radius: 5%;
@@ -172,9 +219,13 @@ button:active {
   opacity: 1;
 }
 /* Carousel Hero */
+.carousel-item {
+  transition-duration: 0.3s; /* Ajusta este valor para controlar la velocidad de la transición */
+}
+
 #template-mo-zay-hero-carousel .carousel-indicators li {
   margin-top: -20px;
-  background-color: #ffee00;
+  background-color: #f9a825;
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -236,15 +287,17 @@ button:active {
   padding-top: 0.75rem !important;
   padding-bottom: 0.75rem !important;
   position: fixed;
+  opacity: 0;
   bottom: 0;
   left: 0;
   right: 0;
   height: 5%;
-  border-top-left-radius: 7px;
-  border-top-right-radius: 7px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   border-bottom-right-radius: 0px;
   border-bottom-left-radius: 0px;
   transition: transform 0.3s ease-in-out;
+  animation: none !important;
 }
 /*
 // Extra small devices (portrait phones, less than 576px)
@@ -264,6 +317,13 @@ button:active {
   height: 70vh;
 }
 
+#carousel-active{
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
 @media (min-width: 576px) {
   .tempaltemo-carousel .h1 { font-size: 1em !important;}
 }
@@ -275,10 +335,11 @@ button:active {
 
 /*// Separador*/ 
 .separator {
-  width: 60%;
-  height: 0.5px;
+  width: 50%;
+  height: 0.7px;
   background-color: #000000;
   margin: 20px auto;
+  margin-top: 10px;
   position: relative;
 }
 
@@ -300,7 +361,7 @@ button:active {
   height: 20px;
   display: inline-block;
   vertical-align: middle;
-  margin-right: 20px;
+  margin-right: 10px;
   background-size: contain;
 }
 
@@ -310,12 +371,12 @@ button:active {
 }
 
 #cliente {
-  width: 100%; 
-  height: 100px; 
-  font-size: 20px; 
-  font-family: 'Arial Black', sans-serif; /* Cambiamos la tipografía */
+  width: 100%;
+  height: 100px;
+  font-size: 20px;
+  font-family: 'Arial Black', sans-serif;
   font-weight: bold;
-  background: linear-gradient(to right, #24df30, #1cbc28, #14992e, #0b762f, #035a30);
+  background: linear-gradient(to bottom, #81c784, #66bb6a, #59ab6e, #388e3c, #1b5e20);
   color: #000000;
   border: none;
   border-radius: 10px;
@@ -329,7 +390,7 @@ button:active {
   font-size: 20px; 
   font-family: 'Arial Black', sans-serif; /* Cambiamos la tipografía */
   font-weight: bold;
-  background: linear-gradient(to right, #ffff00, #ffdd00, #ffbb00, #ff9c00, #ff7c00);
+  background: linear-gradient(to bottom, #ffeb3b, #fdd835, #fbc02d, #f9a825, #f57f17);
   color: #000000;
   border: none;
   border-radius: 10px;
@@ -337,37 +398,51 @@ button:active {
   transition: all 0.3s ease;
 }
 
-/* Apariencia de input para el rut*/
-#rut:disabled {
-  opacity: 1;
-  background-color: white;
-}
-
 /* Mensajes de error de correo y clave al crear cuenta*/
 .error-message-correo {
   color: red;
   font-size: 12px!important;
-  margin-top: 1px;
+  margin-top: -2px;
 }
 .error-message-clave {
   color: red;
   font-size: 12px!important;
-  margin-top: 1px;
+  margin-top: -8px;
 }
 .error-message-nombre {
   color: red;
   font-size: 12px!important;
-  margin-top: 1px;
+  margin-top: 0px;
 }
-.error-message-rut {
+.error-message-calendario {
   color: red;
   font-size: 12px!important;
-  margin-top: 1px;
+  margin-top: 0px;
 }
 .error-message-empresa {
   color: red;
   font-size: 12px!important;
-  margin-top: 1px;
+  margin-top: 0px;
+}
+.error-message-cultivo {
+  color: red;
+  font-size: 12px!important;
+  margin-top: 0px;
+}
+.error-message-hectarea {
+  color: red;
+  font-size: 12px!important;
+  margin-top: 0px;
+}
+.error-message-dron {
+  color: red;
+  font-size: 12px!important;
+  margin-top: 0px;
+}
+.error-message-ubicacion {
+  color: red;
+  font-size: 12px!important;
+  margin-top: 0px;
 }
 .form-control.error {
   border-color: red;
@@ -435,13 +510,14 @@ input:checked + .slider.round:before {
   -ms-transform: translateX(110px);
   transform: translateX(115px);
 }
+
 input:checked + .slider {
-  background-color: #28a745;
+  background-color: #66bb6a;
   color: #ffffff; /* Text color when switch is active: white */
   font-weight: bold;
 }
 input:focus + .slider {
-  box-shadow: 0 0 1px #25940f;
+  box-shadow: 0 0 1px #1b5e20;
 }
 /* Rounded sliders */
 .slider.round {
@@ -468,7 +544,7 @@ input:focus + .slider {
   display: none;
   position: absolute;
   z-index: 1;
-  background-color: #28a745; /* Color verde de fondo */
+  background-color: #59ab6e; /* Color verde de fondo */
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   padding: 12px 16px;
@@ -510,4 +586,200 @@ input:focus + .slider {
   background-color: transparent; /* Color verde más oscuro al seleccionar */
   color: white; /* Color de texto blanco */
   width: 100%;
+}
+
+.dropdown-item.selected {
+  background-color: #007bff !important;
+  color: white !important;
+}
+
+.selected {
+  background-color: #007bff !important;
+  color: #fff !important;
+}
+
+/* Flecha para volver atrás */
+.flecha-atras{
+  position: fixed; 
+  top: 20px; 
+  left: 20px;
+  color: black;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  transform: scale(1.5); /* Escalar la flecha 1.5 veces más grande */
+}
+
+/* Animación de cambio de páginas */
+.animate-from-right {
+  animation: fadeInLeft 0.1s ease-in-out;
+}
+
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-section {
+  animation: fadeInLeft 0.1s ease-in-out;
+}
+
+/* Fecha de nacimiento */
+.nacimiento{
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  z-index: 1000000;
+  padding: 20px;
+  box-shadow: 0 -4px 6px black;
+  overflow: auto!important; /* Esto agrega scroll interno al div si su contenido excede la altura */
+  animation: slideUp 0.5s ease-in-out;
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.date-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.date-selector__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 120px;
+  height: 150px;
+  border-radius: 8px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.date-selector__item input {
+  text-align: center;
+  width: 100px;
+  height: 100%;
+  font-size: 24px;
+  text-align: center;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  font-size: 16px!important;
+}
+
+.date-selector__item__options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 200px;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 1;
+  transition: transform 0.3s ease;
+
+  /* Estilos para hacer la barra de desplazamiento transparente */
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+
+  /* Estilos para permitir el desplazamiento con el dedo */
+  scroll-behavior: smooth; /* Hace que el desplazamiento sea suave */
+  -webkit-overflow-scrolling: touch; /* Habilita el desplazamiento con el dedo en dispositivos móviles */
+}
+
+/* Estilos para la barra de desplazamiento en navegadores webkit (Chrome, Safari, etc.) */
+.date-selector__item__options::-webkit-scrollbar {
+  width: 8px;
+}
+
+.date-selector__item__options::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.date-selector__item__options::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+.date-selector__item__options div {
+  padding: 8px;
+  cursor: pointer;
+  font-size: 15px!important;
+}
+
+.date-selector__item__options div:hover {
+  background-color: #f1f1f1;
+}
+
+.date-selector__item.active .date-selector__item__options {
+  transform: translateY(-100%);
+}
+
+.date-selector__item.active input {
+  transform: translateY(-100%);
+}
+
+/* Spinner */
+#nprogress {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  text-align: center;
+}
+
+.spinner {
+  display: none;
+  position: fixed;
+  width: 10px;
+  color: #59ab6e;
+  border-top-color: transparent;
+  border-radius: 50%;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.nprogress-text {
+  display: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px !important;
+  margin-top: 25px;
+  color: black;
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Calendario Flatpickr */
+.selected-day {
+  color: white !important;
+  background-color: #f9a825 !important;
 }

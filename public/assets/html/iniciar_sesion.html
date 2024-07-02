@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="../css/templatemo.css">
     <link rel="stylesheet" href="../css/custom.css">
 
-    <!-- Load fonts style after rendering the layout styles -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="../css/fontawesome.min.css">
+    <!-- Incluir CSS de NProgress -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
 <!--
     
 TemplateMo 559 Zay Shop
@@ -24,39 +24,51 @@ https://templatemo.com/tm-559-zay-shop
 -->
 </head>
 
-<body>
+<body class="animate-section" style="overflow: hidden;">
 
     <!-- Start Banner Hero -->
-    <div id="template-mo-zay-hero-carousel" class="carousel slide" style="height: 40vh; background-color: #59ab6e!important;">
+    <div id="template-mo-zay-hero-carousel" class="carousel slide" style="height: 40vh;">
         <div class="carousel-inner">
-            <div class="carousel-item active" style="height: 40vh;">
+            <div id="carousel-active" class="carousel-item active" style="height: 40vh; background-image: url('../img/DJI_0188.jpg'); background-size: cover; background-position: center;">
                 <div class="container" style="height: 100%;">
                     <div class="row align-items-end justify-content-center h-100">
                         <div class="col-lg-6 mb-0 d-flex justify-content-center">
-                            <h1 class="h1 text-success" style="margin-bottom: 10%; color: white!important;"><b>AgroDronMatch</b></h1>
+                            <div>
+                                <h1 class="h1 text-success" style="color: white !important; margin-bottom: 0.5rem;"><b>AgroDronMatch</b></h1>
+                                <h4 class="h4" style="color: white !important; text-align: center;"><b>Inicio de sesión</b></h4>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <div id="flecha_atras" class="flecha-atras">
+                    <i class="fas fa-chevron-left"></i>
                 </div>
             </div>
         </div>
     </div>
     <!-- End Banner Hero -->
     
-    <section class="container" style="height: 50vh;">
+    <section id="container" class="container" style="height: 50vh;">
         <div class="row text-center">
             <div class="col-lg-6 m-auto">
                 <div class="d-flex flex-column align-items-center mt-4">
                     <div class="input-group mb-2">
+                        <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-envelope"></i></span>
                         <input type="email" class="form-control" id="correo" autocomplete="off" placeholder="Ingresar correo">
                     </div>
                     <div id="correo-error-message" class="error-message-correo"></div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" id="clave" placeholder="Ingresar clave" autocomplete="current-password">
+                        <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-lock"></i></span>
+                        <input type="password" class="form-control" id="clave" placeholder="Ingresar contraseña" autocomplete="current-password">
                         <span class="input-group-text" id="ojo" style="background-color: white; border: none;">
                             <i class="fas fa-eye"></i>
                         </span>
                     </div>
                     <div id="clave-error-message" class="error-message-clave"></div>
+                    <div style="display: flex; align-items: center;">
+                        <h6 id="texto_1" class="h6" style="display: none;">¿Problemas al iniciar sesión?</h6>
+                        <h6 id="texto_2" class="h6" style="color: #59ab6e; margin-left: 5px; display: none;">Toca aquí</h6>
+                    </div>
                     <button id="confirmar" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: white; color: black; margin-top: 3%;">Confirmar</button>
                     
                     <!-- <hr style="width: 100%; margin-top: 20x; border-top: 3px solid #000000; color: #000000;"> -->
@@ -64,7 +76,7 @@ https://templatemo.com/tm-559-zay-shop
                         <div class="circle"></div>
                     </div>
                     
-                    <button id="google_Boton" class="btn btn-secondary mb-2" style="width: 70%; height: 50px; background-color: white; color:black; margin-top: 0px;"><span></span>
+                    <button id="google_Boton" class="btn btn-secondary mb-2" style="width: 70%; height: 40px; background-color: white!important; color:black!important; margin-top: -8px;"><span></span>
                         <span>Continuar con Google</span>
                     </button>
                     <!-- <button class="btn btn-secondary" style="width: 70%; height: 50px; background-color: white; color: black;">Continuar con Microsoft</button> -->
@@ -73,6 +85,43 @@ https://templatemo.com/tm-559-zay-shop
         </div>
         <div id="footer" class="bg-success py-3"></div> 
     </section>
+    <div id="nprogress">
+        <div id="spinner" class="spinner" role="spinner">
+          <div class="spinner-icon"></div>
+        </div>  
+        </div>
+        <div id="nprogress-text-1" class="nprogress-text">
+            <i class="fas fa-check" style="color: #59ab6e;"></i>
+            <br>¡Sesión iniciada!
+        </div>
+        <div id="nprogress-text-2" class="nprogress-text">
+            <i class="fas fa-envelope"></i>
+            <br>Por favor, verifica tu correo electrónico antes de restablecer tu contraseña
+        </div>
+        <div id="nprogress-text-3" class="nprogress-text">
+            <i class="fas fa-times" style="color: red"></i>
+            <br>Correo y/o contraseña incorrectos
+        </div>
+    <script>
+        //Lógica flecha
+        document.querySelector('.flecha-atras').addEventListener('click', function() {
+            window.location.href = '../../index.html';
+        });
+        //Lógica del footer
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedSections = document.querySelectorAll('.animate-section');
+            const footer = document.getElementById('footer');
+
+            function showFooter() {
+                footer.style.opacity = '1';
+                footer.style.transform = 'translateY(0)';
+            }
+
+            animatedSections.forEach(section => {
+                section.addEventListener('animationend', showFooter);
+            });
+        });
+    </script>
 
     <!-- Start Script -->
     <script src="../js/jquery-3.7.1.min.js"></script>
@@ -80,8 +129,25 @@ https://templatemo.com/tm-559-zay-shop
     <script src="../js/bootstrap.bundle.min.js"></script>
     <script src="../js/templatemo.js"></script>
     <script src="../js/custom.js"></script>
+    <!-- Incluir JS de NProgress -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
     <script src="../js/inicio_sesion/usuario_clave.js"></script>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase.js"></script>
+    <!-- Firebase Authentication -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script>
     
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyAYmN4AgZ7ErfKE_vih5yMuKkc9_8cVuR0",
+        authDomain: "agrodronmatchapp.firebaseapp.com",
+        projectId: "agrodronmatchapp",
+        storageBucket: "agrodronmatchapp.appspot.com",
+        messagingSenderId: "321379887089",
+        appId: "1:321379887089:web:3c1ff1f586b358c2df0650"
+      };
+      firebase.initializeApp(firebaseConfig);
+    </script>
     <!-- End Script -->
 </body>
 

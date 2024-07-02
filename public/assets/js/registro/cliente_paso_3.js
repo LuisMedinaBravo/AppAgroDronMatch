@@ -1,15 +1,3 @@
-function toggleDropdown(button) {
-    button.classList.toggle("show");
-    button.nextElementSibling.classList.toggle("show");
-}
-
-function selectOption(option) {
-    const button = option.parentNode.previousElementSibling;
-    button.textContent = option.textContent;
-    button.setAttribute("value", option.getAttribute("value"));
-    toggleDropdown(button);
-}
-
 //Lógica del footer
 $(document).ready(function() {
     var $footer = $('#footer');
@@ -24,3 +12,27 @@ $(document).ready(function() {
       $footer.show();
     });
   });
+  
+//Lógica del pre-footer
+$(document).ready(function() {
+    var $prefooter = $('#pre-footer');
+  
+    // Ocultar el footer cuando se hace click en un input
+    $('input').on('focus', function() {
+      $prefooter.hide();
+    });
+  
+    // Mostrar el footer cuando se quita el foco del input
+    $('input').on('blur', function() {
+      $prefooter.show();
+    });
+  });
+
+//MAPA
+
+// Clikear botón continuar registro
+const continueButton = document.getElementById("continuar_registro_3");
+continueButton.addEventListener("click", function() {
+
+    window.location.href = "registro_paso_4.html";
+});

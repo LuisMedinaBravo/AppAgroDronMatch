@@ -6,15 +6,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1.0, user-scalable=no, orientation-lock=portrait" >
 
+    <link rel="shortcut icon" type="image/x-icon" href="/public/assets/img/favicon.ico">
+
     <link rel="shortcut icon" type="image/x-icon" href="../../img/favicon.ico">
 
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/templatemo.css">
     <link rel="stylesheet" href="../../css/custom.css">
 
-    <!-- Load fonts style after rendering the layout styles -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="../../css/fontawesome.min.css">
+
 <!--
     
 TemplateMo 559 Zay Shop
@@ -24,48 +25,62 @@ https://templatemo.com/tm-559-zay-shop
 -->
 </head>
 
-<body>
+<body class="animate-section" style="overflow: hidden;">
 
     <!-- Start Banner Hero -->
-    <div id="template-mo-zay-hero-carousel" class="carousel slide" style="height: 40vh; background-color: #59ab6e!important;">
+    <div id="template-mo-zay-hero-carousel" class="carousel slide" style="height: 20vh;">
         <div class="carousel-inner">
-            <div class="carousel-item active" style="height: 40vh;">
+            <div id="carousel-active" class="carousel-item active" style="height: 20vh; background-image: url('../../img/DJI_0188.jpg'); background-size: cover; background-position: center;">
                 <div class="container" style="height: 100%;">
                     <div class="row align-items-end justify-content-center h-100">
                         <div class="col-lg-6 mb-0 d-flex justify-content-center">
                             <div>
-                                <h1 class="h1 text-success" style="color: white!important; margin-bottom: 0.5rem;"><b>AgroDronMatch</b></h1>
-                                <h2 class="h3" style="color: white!important; text-align: center;"><b>Prestador de servicios</b></h2>
-                                <h2 class="h3" style="color: white!important; text-align: center;"><b>Paso 3: Completar datos de servicio</b></h2>
+                                <h1 class="h1 text-success" style="color: white !important; margin-bottom: 0.5rem;"><b>AgroDronMatch</b></h1>
+                                <h4 class="h4" style="color: white !important; text-align: center;"><b>Paso 3: Registro de dron</b></h4>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="flecha-atras">
+                    <i class="fas fa-chevron-left"></i>
                 </div>
             </div>
         </div>
     </div>
     <!-- End Banner Hero -->
     
-    <section class="container" style="height: 60vh;">
+    <section class="container" style="height: 80vh;">
         <div class="row text-center">
             <div class="col-lg-6 m-auto">
                 <div class="d-flex flex-column align-items-center mt-4">
                     <div class="input-group mb-2">
-                        <input type="text" class="form-control" id="marca" placeholder="Marca dron">
+                        <h3 class="h3">Agregar los drones que tengas a servicio</h3>
                     </div>
-                    <div class="input-group mb-2">
-                        <input type="text" class="form-control" id="modelo" placeholder="Modelo dron">
-                    </div>
-                    <div class="input-group mb-3">
-                        <input class="form-control" id="ubicacion" placeholder="Ubicación" autocomplete="current-password" readonly style="pointer-events: none;">
-                        <button class="btn btn-outline-secondary dropdown-toggle" id="elegir_ubicacion" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black; background-color: white;">
-                            Elegir ubicación
+                    <div class="input-group mb-3">  
+                        <input class="form-control" id="dron_preferencia" placeholder="Dron(es)" autocomplete="off" readonly style="pointer-events: none;">
+                        <button class="btn btn-outline-secondary dropdown-toggle" id="elegir_dron" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black; background-color: white;">
+                            Seleccionar de la lista
                         </button>
-                        <ul class="dropdown-menu" id="regiones-menu">
-                            <li><a class="dropdown-item" href="#" onclick="getLocation()">Ubicación actual</a></li>
+                        <ul class="dropdown-menu" id="marcas-modelos">
                         </ul>
                     </div>
-                    <button id="continuar_registro_3" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: white; color: black;">Continuar registro</button>
+                    <div id="dron-error-message" class="error-message-dron"></div>
+                    <div class="input-group mb-2">
+                        <span class="input-group-text" style="background-color: white; border: none;">
+                            <img src="../../img/png/dron_icono.png" style="width: 30px; height: 40px; margin-left: -6px; filter: brightness(0);">
+                          </span>
+                       <input type="text" class="form-control" id="marca" placeholder="Dron de preferencia" autocomplete="off">
+                     </div>
+                     <div class="input-group mb-2">
+                       <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-trademark" style="margin-left: -2px;"></i></span>
+                       <input type="text" class="form-control" id="modelo" placeholder="Modelo de preferencia" autocomplete="off">
+                     </div>
+                     <div class="input-group mb-2">
+                        <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-gas-pump"></i></span>
+                        <input type="number" class="form-control" id="estanque" placeholder="Capacidad de estanque" autocomplete="off">
+                      </div>
+                      <button id="guardar_agregar" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: white!important; color: black!important; margin-top: 3%;">Guardar equipo/Agregar dron</button> 
+                    <button id="continuar_registro_3" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: white; color: black; margin-top: 3%;">Continuar registro</button>
                 </div>
             </div>
         </div>
@@ -74,11 +89,25 @@ https://templatemo.com/tm-559-zay-shop
     </section>
 
     <script>
-        const iniciar_sesion_Boton = document.getElementById("continuar_registro_3");
-        // Agregar un event listener al botón
-        iniciar_sesion_Boton.addEventListener("click", () => {
-            window.location.href = "registro_paso_4.html";
+        //Lógica flecha
+        document.querySelector('.flecha-atras').addEventListener('click', function() {
+            window.location.href = 'registro_paso_2.html';
         });
+        //Lógica del footer
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedSections = document.querySelectorAll('.animate-section');
+            const footer = document.getElementById('footer');
+
+            function showFooter() {
+                footer.style.opacity = '1';
+                footer.style.transform = 'translateY(0)';
+            }
+
+            animatedSections.forEach(section => {
+                section.addEventListener('animationend', showFooter);
+            });
+        });
+
     </script>
 
     <!-- Start Script -->
@@ -88,6 +117,7 @@ https://templatemo.com/tm-559-zay-shop
     <script src="../../js/templatemo.js"></script>
     <script src="../../js/custom.js"></script>
     <script src="../../js/registro/prestador_paso_3.js"></script>
+    
     
     <!-- End Script -->
 </body>

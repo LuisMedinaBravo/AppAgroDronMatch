@@ -1,0 +1,12 @@
+{
+    "drones": [
+        {
+            "marca": "DJI",
+            "modelo": ["Arica", "Camarones", "Putre", "General Lagos"]
+        },
+        {
+            "marca": "XAG",
+            "modelo": ["Iquique", "Alto Hospicio", "Pozo Almonte", "Camiña", "Colchane", "Huara", "Pica"]
+        }
+    ]
+}
