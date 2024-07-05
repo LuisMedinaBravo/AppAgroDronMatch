@@ -116,9 +116,9 @@ finishButton.addEventListener("click", function() {
       setTimeout(() => {
         nprogress.style.display = 'none';
         nprogressText2.style.display = 'none';
-        container.style.display = 'block';
         localStorage.clear();
         window.location.href = "../../html/iniciar_sesion.html";
+        //container.style.display = 'block';
       }, 9000);
   })
   .catch((error) => {

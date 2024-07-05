@@ -33,6 +33,11 @@ body, ul, li, p, a, label, input, div {
   font-family: 'Montserrat', sans-serif;
   font-size: 18px !important;
   font-weight: 300 !important;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
 }
 
 /* Estilos para tabletas y celulares */
@@ -40,6 +45,10 @@ body, ul, li, p, a, label, input, div {
   body {
     display: block;
     font-size: 14px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 }
 
@@ -47,6 +56,10 @@ body, ul, li, p, a, label, input, div {
 @media (min-width: 1201px) {
   body {
     display: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 }
 
@@ -54,6 +67,7 @@ body, ul, li, p, a, label, input, div {
   font-family: 'Libre Baskerville', serif !important;
   font-size: 28px !important;
   font-weight: 600 !important;
+  color: white;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   letter-spacing: 2px;
   padding: 10px 20px;
@@ -230,11 +244,15 @@ button:active {
   height: 10px;
   border-radius: 50%;
 }
+#template-mo-zay-hero-carousel .carousel-indicators button {
+  pointer-events: none;
+}
 #template-mo-zay-hero-carousel .carousel-control-next i,
 #template-mo-zay-hero-carousel .carousel-control-prev i {
   color: #59ab6e !important;
   font-size: 2.8em !important;
 }
+
 /* Carousel Brand */
 .tempaltemo-carousel .h1 {
   font-size: .5em !important;
@@ -248,8 +266,7 @@ button:active {
 .leaflet-control a, .leaflet-control { font-size: 10px !important;}
 .form-control { border: 1px solid #e8e8e8;}
 .form-control:focus {
-  border-color: #bdba00bd;
-  box-shadow: 0 0 0 0.1rem rgba(255, 255, 0, 0.1);
+  box-shadow: none;
 }
 /* Footer */
 #tempaltemo_footer a { color: #dcdde1;}
@@ -339,7 +356,7 @@ button:active {
   height: 0.7px;
   background-color: #000000;
   margin: 20px auto;
-  margin-top: 10px;
+  margin-top: 15px;
   position: relative;
 }
 
@@ -573,12 +590,12 @@ input:focus + .slider {
   display: block;
   padding: 8px 16px;
   text-decoration: none;
-  color: white; /* Color de texto blanco */
-  margin-left: -15px; /* Alinea el texto a la izquierda */
+  color: white;
+  margin-left: -15px;
   margin-top: -15px;
   border-bottom: 1px solid white; /* Línea de separación */
-  margin-bottom: 10px; /* Agrega espacio entre los elementos */
-  width: 235%; /* Agrega esta línea para que la línea de separación ocupe todo el ancho */
+  margin-bottom: 10px;
+  width: auto; /* Cambia el ancho a "auto" para que la línea de separación tenga el mismo ancho que el elemento */
 }
 
 .input-group.mb-3 .dropdown-menu .dropdown-item:hover,
@@ -688,7 +705,7 @@ input:focus + .slider {
   top: 100%;
   left: 0;
   width: 100%;
-  max-height: 200px;
+  max-height: 180px;
   background-color: #fff;
   border-radius: 8px;
   overflow-y: auto;
@@ -782,4 +799,17 @@ input:focus + .slider {
 .selected-day {
   color: white !important;
   background-color: #f9a825 !important;
+}
+
+/* Selección "Otro" en tipo de cultivo */
+
+#otro-cultivo::placeholder {
+  color: white!important;
+  width: 100%;
+  background-color: #59ab6e!important;
+  border: none;
+  text-align: left;
+}
+.dropdown-item input:focus {
+  width: 90%!important;
 }

@@ -2,6 +2,22 @@
 const dropdownButton = document.getElementById('dropdownMenuButtonCultivo');
 const dropdownMenu = document.querySelector('.dropdown-menu');
 const dropdownItems = document.querySelectorAll('.dropdown-item');
+const otherCultivoInput = document.getElementById('otro-cultivo');
+
+otherCultivoInput.addEventListener('click', function() {
+  this.style.width = '100%';
+  // Remove the placeholder text when the input is clicked
+  this.placeholder = 'Otro...';
+});
+
+otherCultivoInput.addEventListener('input', function() {
+  // Limitar el input a 17 caracteres
+  this.value = this.value.slice(0, 17);
+  
+  // Actualizar el valor del botón con el valor del input "Otro"
+  dropdownButton.textContent = this.value || 'Tipo de cultivo';
+  localStorage.setItem('cultivo', this.value);
+});
 
 // Agregar event listener al botón del menú desplegable
 dropdownButton.addEventListener('click', () => {
@@ -26,13 +42,39 @@ dropdownItems.forEach(item => {
     // Ocultar el menú desplegable
     dropdownMenu.classList.remove('show');
     localStorage.setItem('cultivo', selectedText);
+
+    // Clear the "otro" input
+    // otherCultivoInput.value = '';
+    // otherCultivoInput.placeholder = "";
   });
+});
+
+otherCultivoInput.addEventListener('click', (event) => {
+  // Mantener el menú desplegable abierto
+  event.stopPropagation();
+  dropdownMenu.classList.add('show');
+});
+
+otherCultivoInput.addEventListener('input', () => {
+  // Actualizar el valor del botón con el valor del input "Otro"
+  dropdownButton.textContent = otherCultivoInput.value || 'Tipo de cultivo';
+  localStorage.setItem('cultivo', otherCultivoInput.value);
 });
 
 // Ocultar el menú desplegable al hacer clic fuera de él
 window.addEventListener('click', (event) => {
-  if (!event.target.matches('.btn-secondary, .dropdown-item')) {
+  if (!event.target.matches('.btn-secondary, .dropdown-item, #otro-cultivo')) {
     dropdownMenu.classList.remove('show');
+    // Mostrar el valor almacenado en localStorage
+    const cultivoGuardado = localStorage.getItem('cultivo');
+    if (cultivoGuardado) {
+      dropdownButton.textContent = cultivoGuardado;
+    } else {
+      dropdownButton.textContent = 'Tipo de cultivo';
+    }
+    // Clear the "otro" input
+  //   otherCultivoInput.value = '';
+  //   otherCultivoInput.placeholder = "";
   }
 });
 
@@ -40,7 +82,7 @@ function validarCultivoSeleccionado() {
   const selectedOption = document.querySelector('.dropdown-item.active');
   const cultivoErrorMessage = document.getElementById('cultivo-error-message');
 
-  if (!selectedOption) {
+  if (!selectedOption && otherCultivoInput.value.trim() === '') {
     cultivoErrorMessage.textContent = 'Por favor, seleccionar un tipo de cultivo';
     return false;
   } else {
@@ -236,7 +278,8 @@ const flechaAtras = document.getElementById('flecha_atras');
 // Clikear botón finalizar registro
 const finishButton = document.getElementById("finalizar_registro");
 finishButton.addEventListener("click", function() {
-  if (validarCultivoSeleccionado() && validarHectarea() && validarDron()) {
+  if (validarCultivoSeleccionado() && validarHectarea()) {
+  //if (validarCultivoSeleccionado() && validarHectarea() && validarDron()) {
     const correo = localStorage.getItem("correo");
     const clave = localStorage.getItem("clave");
 
@@ -267,9 +310,11 @@ finishButton.addEventListener("click", function() {
         setTimeout(() => {
           nprogress.style.display = 'none';
           nprogressText2.style.display = 'none';
-          container.style.display = 'block';
           localStorage.clear();
           window.location.href = "../../html/iniciar_sesion.html";
+          //container.style.display = 'block';
+          
+          
         }, 9000);
     })
     .catch((error) => {

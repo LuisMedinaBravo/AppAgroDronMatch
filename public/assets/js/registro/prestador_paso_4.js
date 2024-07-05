@@ -203,7 +203,8 @@ $(document).ready(function() {
 // Clikear botón finalizar registro
 const finishButton = document.getElementById("continuar_registro_4");
 finishButton.addEventListener("click", function() {
-  if (validarUbicacion()) {
-    window.location.href = "../../html/registro_prestador/registro_paso_5.html";
-  }
+  // if (validarUbicacion()) {
+  //   window.location.href = "../../html/registro_prestador/registro_paso_5.html";
+  // }
+  window.location.href = "../../html/registro_prestador/registro_paso_5.html";
 });

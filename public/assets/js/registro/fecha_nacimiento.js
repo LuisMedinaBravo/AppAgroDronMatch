@@ -1,13 +1,15 @@
 document.getElementById('nacimiento').addEventListener('click', showDateSelector);
 
 function showDateSelector() {
+    
+    document.addEventListener('click', handleClickOutside);
+
     const dateSelector = document.querySelector('.nacimiento');
     dateSelector.style.display = 'block';
-  
-    document.addEventListener('click', handleClickOutside);
+    
   }
   
-  function handleClickOutside(event) {
+function handleClickOutside(event) {
     const dateSelector = document.querySelector('.nacimiento');
     const nacimientoInput = document.getElementById('nacimiento');
   
@@ -15,7 +17,7 @@ function showDateSelector() {
       dateSelector.style.display = 'none';
       document.removeEventListener('click', handleClickOutside);
     }
-  }
+}
 
 // Meses
 const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];

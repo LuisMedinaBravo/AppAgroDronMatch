@@ -201,7 +201,8 @@ $(document).ready(function() {
 // Clikear botón finalizar registro
 const finishButton = document.getElementById("continuar_registro_3");
 finishButton.addEventListener("click", function() {
-  if (validarDron()) {
-    window.location.href = "../../html/registro_prestador/registro_paso_4.html";
-  }
+  // if (validarDron()) {
+  //   window.location.href = "../../html/registro_prestador/registro_paso_4.html";
+  // }
+  window.location.href = "../../html/registro_prestador/registro_paso_4.html";
 });
