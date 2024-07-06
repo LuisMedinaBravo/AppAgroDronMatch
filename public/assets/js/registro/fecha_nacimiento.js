@@ -1,13 +1,11 @@
 document.getElementById('nacimiento').addEventListener('click', showDateSelector);
 
 function showDateSelector() {
-    
     document.addEventListener('click', handleClickOutside);
 
     const dateSelector = document.querySelector('.nacimiento');
-    dateSelector.style.display = 'block';
-    
-  }
+    dateSelector.style.display = 'block';    
+}
   
 function handleClickOutside(event) {
     const dateSelector = document.querySelector('.nacimiento');

@@ -118,12 +118,12 @@ $(document).ready(function() {
 $(document).ready(function() {
   var $prefooter = $('#pre-footer');
 
-  // Ocultar el footer cuando se hace click en un input
+  // Ocultar el pre-footer cuando se hace click en un input
   $('input').on('focus', function() {
     $prefooter.hide();
   });
 
-  // Mostrar el footer cuando se quita el foco del input
+  // Mostrar el pre-footer cuando se quita el foco del input
   $('input').on('blur', function() {
     $prefooter.show();
   });

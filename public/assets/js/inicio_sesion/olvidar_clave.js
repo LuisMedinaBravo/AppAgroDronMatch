@@ -38,6 +38,21 @@ function validarCorreo() {
     }
 }
 
+//Lógica del footer
+$(document).ready(function() {
+  var $footer = $('#footer');
+
+  // Ocultar el footer cuando se hace click en un input
+  $('input').on('focus', function() {
+    $footer.hide();
+  });
+
+  // Mostrar el footer cuando se quita el foco del input
+  $('input').on('blur', function() {
+    $footer.show();
+  });
+});
+
 const nprogress = document.getElementById('nprogress');
 const loader = document.getElementById('spinner');
 const nprogressText1 = document.getElementById('nprogress-text-1');
@@ -46,7 +61,7 @@ const nprogressText3 = document.getElementById('nprogress-text-3');
 const container = document.getElementById('container');
 const flechaAtras = document.getElementById('flecha_atras');
 
-//Clikear botón confimrar de envío de correo de restablecer contraseña
+//Clikear botón confirmar de envío de correo de restablecer contraseña
 const continueButton = document.getElementById("confirmar");
 continueButton.addEventListener("click", function() {
     if (validarCorreo()) {

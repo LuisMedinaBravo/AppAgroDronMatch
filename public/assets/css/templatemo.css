@@ -123,7 +123,7 @@ body, ul, li, p, a, label, input, div {
 }
 
 .h5 {
-  font-size: 15px !important;
+  font-size: 18px !important;
   font-weight: bold;
   margin-left: 0%;
   color: #59ab6e;
@@ -617,7 +617,7 @@ input:focus + .slider {
 
 /* Flecha para volver atrás */
 .flecha-atras{
-  position: fixed; 
+  position: absolute; 
   top: 20px; 
   left: 20px;
   color: black;
@@ -646,17 +646,18 @@ input:focus + .slider {
 }
 
 /* Fecha de nacimiento */
-.nacimiento{
+.nacimiento {
   display: none;
-  position: fixed;
+  position: absolute;
+  margin-bottom: -10px;
   bottom: 0;
   left: 0;
   width: 100%;
   background-color: white;
   z-index: 1000000;
-  padding: 20px;
+  padding: 75px;
   box-shadow: 0 -4px 6px black;
-  overflow: auto!important; /* Esto agrega scroll interno al div si su contenido excede la altura */
+  overflow: auto!important;
   animation: slideUp 0.5s ease-in-out;
 }
 
@@ -673,7 +674,8 @@ input:focus + .slider {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 30px;
+  gap: 50px;
+  height: 80px;
 }
 
 .date-selector__item {
@@ -682,7 +684,7 @@ input:focus + .slider {
   align-items: center;
   position: relative;
   width: 120px;
-  height: 150px;
+  height: 140px;
   border-radius: 8px;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
@@ -691,7 +693,6 @@ input:focus + .slider {
   text-align: center;
   width: 100px;
   height: 100%;
-  font-size: 24px;
   text-align: center;
   border: none;
   background: transparent;
