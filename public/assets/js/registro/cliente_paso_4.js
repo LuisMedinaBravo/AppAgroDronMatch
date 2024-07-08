@@ -92,42 +92,45 @@ function validarCultivoSeleccionado() {
 }
   
   // Verificar hectárea
-  const hectareaInput = document.getElementById('hectarea');
-  const hectareaErrorMessage = document.getElementById('hectarea-error-message');
-  
-  hectareaInput.addEventListener('input', function() {
-    validarHectarea();
-  });
-  
-  function validarHectarea() {
-    const hectarea_value = parseInt(hectareaInput.value, 10);
-  
-    if (hectareaInput.value === "") {
-      hectareaErrorMessage.textContent = "Por favor, ingresar hectáreas a buscar";
-      hectareaErrorMessage.style.display = 'block';
-      hectareaInput.classList.add('error');
-      hectareaInput.style.border = '1px solid red'; // Agregar borde rojo al input
-      return false;
-    } else if (isNaN(hectarea_value) || hectarea_value === 0) {
-      hectareaErrorMessage.textContent = "Ingrese un número válido";
-      hectareaErrorMessage.style.display = 'block';
-      hectareaInput.classList.add('error');
-      hectareaInput.style.border = '1px solid red'; // Agregar borde rojo al input
-      return false;
-    } else if (hectarea_value < 1 || hectarea_value > 500) {
-      hectareaErrorMessage.textContent = "El número de hectáreas debe estar entre 1 y 500.";
-      hectareaErrorMessage.style.display = 'block';
-      hectareaInput.classList.add('error');
-      hectareaInput.style.border = '1px solid red'; // Agregar borde rojo al input
-      return false;
-    } else {
-      hectareaErrorMessage.style.display = 'none';
-      hectareaInput.classList.remove('error');
-      hectareaInput.style.border = ''; // Remover el borde rojo del input
-      localStorage.setItem('hectarea', hectarea_value);
-      return true;
-    }
+const hectareaInput = document.getElementById('hectarea');
+const hectareaErrorMessage = document.getElementById('hectarea-error-message');
+
+hectareaInput.addEventListener('input', function() {
+  validarHectarea();
+});
+
+function validarHectarea() {
+  // Use a regular expression to allow only numeric characters
+  hectareaInput.value = hectareaInput.value.replace(/\D/g, '');
+
+  const hectarea_value = parseInt(hectareaInput.value, 10);
+
+  if (hectareaInput.value === "") {
+    hectareaErrorMessage.textContent = "Por favor, ingresar hectáreas a buscar";
+    hectareaErrorMessage.style.display = 'block';
+    hectareaInput.classList.add('error');
+    hectareaInput.style.border = '1px solid red';
+    return false;
+  } else if (isNaN(hectarea_value) || hectarea_value === 0) {
+    hectareaErrorMessage.textContent = "Ingrese un número válido";
+    hectareaErrorMessage.style.display = 'block';
+    hectareaInput.classList.add('error');
+    hectareaInput.style.border = '1px solid red';
+    return false;
+  } else if (hectarea_value < 1 || hectarea_value > 500) {
+    hectareaErrorMessage.textContent = "El número de hectáreas debe estar entre 1 y 500.";
+    hectareaErrorMessage.style.display = 'block';
+    hectareaInput.classList.add('error');
+    hectareaInput.style.border = '1px solid red';
+    return false;
+  } else {
+    hectareaErrorMessage.style.display = 'none';
+    hectareaInput.classList.remove('error');
+    hectareaInput.style.border = '';
+    localStorage.setItem('hectarea', hectarea_value);
+    return true;
   }
+}
   
   // Variable global para almacenar el ítem seleccionado
   let itemSeleccionado = null;

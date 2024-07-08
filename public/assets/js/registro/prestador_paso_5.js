@@ -51,8 +51,11 @@ const calendarInicio = flatpickr("#calendar-input-inicio", {
   ],
   mode: "multiple",
   onChange: function(selectedDates, dateStr, instance) {
-    // Actualizar el valor del campo de entrada con los días seleccionados
-    calendarInput.value = dateStr;
+    // Calcular el número de días seleccionados
+    const numDaysSelected = selectedDates.length;
+
+    // Actualizar el valor del campo de entrada con el número de días seleccionados
+    calendarInput.value = `${numDaysSelected} día(s) seleccionado(s)`;
 
     // Guardar las fechas seleccionadas en el localStorage
     localStorage.setItem("fecha_no_disponible", dateStr);
