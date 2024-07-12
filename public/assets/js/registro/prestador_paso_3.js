@@ -254,16 +254,18 @@ if (modelo === "") {
 });
 
 estanqueInput.addEventListener('input', () => {
-const estanque = estanqueInput.value.replace(/Litros/i, '').trim();
-const dotCount = (estanque.match(/\./g) || []).length;
-if (estanque === "" || estanque === "." || dotCount > 1 || /^\.\d+$/.test(estanque)) {
-  estanqueErrorMessage.textContent = "Por favor, ingresar la capacidad del estanque";
-  estanqueInput.classList.add("error");
-} else {
-  estanqueErrorMessage.textContent = "";
-  estanqueInput.classList.remove("error");
-  estanqueValidacion = true;
-}
+  const estanque = estanqueInput.value.replace(/Litros/i, '').trim();
+  const dotCount = (estanque.match(/\./g) || []).length;
+  const endsWithDot = estanque.endsWith('.');
+
+  if (estanque === "" || estanque === "." || dotCount > 1 || /^\.\d+$/.test(estanque) || endsWithDot) {
+    estanqueErrorMessage.textContent = "Por favor, ingresar la capacidad del estanque";
+    estanqueInput.classList.add("error");
+  } else {
+    estanqueErrorMessage.textContent = "";
+    estanqueInput.classList.remove("error");
+    estanqueValidacion = true;
+  }
 });
 
 // Agregar el evento de clic al botón "guardar_dron"
