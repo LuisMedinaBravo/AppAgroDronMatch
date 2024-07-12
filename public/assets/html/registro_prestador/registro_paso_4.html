@@ -55,15 +55,17 @@ https://templatemo.com/tm-559-zay-shop
                     <div class="input-group mb-2">
                         <h3 class="h3">Ubicaciones donde prestas servicio</h3>
                     </div>
-                    <div id="ubicacion-error-message" class="error-message-ubicacion"></div>
+                    
                     <div class="input-group mb-2">
                         <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-map"></i></span>
                         <textarea class="form-control" id="region" placeholder="Buscar región" autocomplete="off" rows="3" style="resize: vertical; height: 60px;"></textarea>
                     </div>
+                    <div id="region-error-message" class="error-message-region"></div>
                     <div class="input-group mb-2">
                         <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-map-marker-alt"></i></span>
                         <textarea class="form-control" id="comuna" placeholder="Buscar comuna" autocomplete="off" disabled rows="3" style="resize: vertical; height: 60px;"></textarea>
                     </div>
+                    <div id="comuna-error-message" class="error-message-comuna"></div>
                     <button id="guardar_ubicacion" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: #59ab6e; color: white; margin-top: 3%; display: block;">Guardar ubicación</button>
                     <button id="agregar_ubicacion" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: white!important; color: black!important; margin-top: 3%; display: none;">Agregar/cambiar ubicación</button>
                     <button id="continuar_registro_4" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: #59ab6e; color: white; margin-top: 3%; display: none;">Continuar registro</button>
@@ -75,7 +77,7 @@ https://templatemo.com/tm-559-zay-shop
         <div id="footer" class="bg-success py-3"></div>
     </section>
 
-    <section id="container-regiones" style="height: 80vh; display: none; overflow: auto;">
+    <section id="container-regiones" style="height: 80vh; display: none; overflow-x: hidden; overflow-y: auto;">
         <div class="row">
             <div class="d-flex flex-column align-items-start mt-4">
                 <div style="width: 100%;">
@@ -88,13 +90,14 @@ https://templatemo.com/tm-559-zay-shop
         </div>
     </section>
 
-    <section id="container-comunas" style="height: 80vh; display: none; overflow: auto;">
+    <section id="container-comunas" style="height: 80vh; display: none; overflow-x: hidden; overflow-y: auto;">
         <div class="row">
           <div class="d-flex flex-column align-items-start mt-4">
             <div style="width: 100%;">
               <div id="comunas-container" class="input-group-append" style="display: flex; flex-direction: column; align-items: flex-start; width: 100%; margin-left: 5%;"></div>
             </div>
             <div class="input-group mb-2" style="text-align: center; margin-bottom: -40px; margin-top: 5px;">
+                <button id="cancelar_comunas" class="btn btn-secondary" style="width: 45%; height: 40px; background-color: white; color: black; display: block; margin: 0 auto; border-radius: 25px; color: white; background-color: #f9a825; border: #f9a825;">Cancelar</button>
                 <button id="confirmar_comunas" class="btn btn-secondary" style="width: 45%; height: 40px; background-color: white; color: black; display: block; margin: 0 auto; border-radius: 25px; color: white; background-color: #59ab6e; border: #59ab6e;">Confirmar</button>
             </div>
           </div>

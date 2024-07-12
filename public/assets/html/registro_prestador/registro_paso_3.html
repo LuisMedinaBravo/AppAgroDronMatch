@@ -41,7 +41,7 @@ https://templatemo.com/tm-559-zay-shop
                         </div>
                     </div>
                 </div>
-                <div class="flecha-atras">
+                <div id="flecha-atras" class="flecha-atras">
                     <i class="fas fa-chevron-left"></i>
                 </div>
             </div>
@@ -49,7 +49,7 @@ https://templatemo.com/tm-559-zay-shop
     </div>
     <!-- End Banner Hero -->
     
-    <section class="container" style="height: 80vh;">
+    <section id="main-section" class="container" style="height: 80vh;">
         <div class="row text-center">
             <div class="col-lg-6 m-auto">
                 <div class="d-flex flex-column align-items-center mt-4">
@@ -68,24 +68,56 @@ https://templatemo.com/tm-559-zay-shop
                     <div class="input-group mb-2">
                         <span class="input-group-text" style="background-color: white; border: none;">
                             <img src="../../img/png/dron_icono.png" style="width: 30px; height: 40px; margin-left: -6px; filter: brightness(0);">
-                          </span>
-                       <input type="text" class="form-control" id="marca" placeholder="Marca" autocomplete="off">
+                        </span>
+                        <textarea type="text" class="form-control" id="marca" placeholder="Marca" autocomplete="off" style="resize: vertical; height: 40px; margin-top: 10px;"></textarea>
                      </div>
+                     <div id="marca-error-message" class="error-message-marca"></div>
                      <div class="input-group mb-2">
                        <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-trademark" style="margin-left: -2px;"></i></span>
-                       <input type="text" class="form-control" id="modelo" placeholder="Modelo" autocomplete="off">
+                       <textarea type="text" class="form-control" id="modelo" placeholder="Modelo" autocomplete="off" disabled rows="3" style="resize: vertical; height: 40px;"></textarea>
                      </div>
+                     <div id="modelo-error-message" class="error-message-modelo"></div>
                      <div class="input-group mb-2">
                         <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-gas-pump"></i></span>
-                        <input type="number" class="form-control" id="estanque" placeholder="Capacidad de estanque" autocomplete="off">
-                      </div>
-                      <button id="guardar_agregar" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: white!important; color: black!important; margin-top: 3%;">Guardar equipo/Agregar dron</button> 
-                    <button id="continuar_registro_3" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: white; color: black; margin-top: 3%;">Continuar registro</button>
+                        <input type="text" class="form-control" id="estanque" placeholder="Capacidad de estanque (L)" autocomplete="off" disabled oninput="verificarCapacidadEstanque()">
+                    </div>
+                    <div id="estanque-error-message" class="error-message-estanque"></div>
+                    <button id="guardar_dron" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: #59ab6e; color: white; margin-top: 3%; display: block;">Guardar dron</button>
+                    <button id="agregar_dron" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: white!important; color: black!important; margin-top: 3%; display: none;">Agregar/cambiar dron</button>
+                    <button id="continuar_registro_3" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: #59ab6e; color: white; margin-top: 3%; display: none;">Continuar registro</button>
+                    <button id="cancelar_dron" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: #f9a825!important; color: white!important; margin-top: 3%; display: none;">Cancelar</button>
                 </div>
             </div>
         </div>
         <div><p id="pre-footer">*La información podrá ser editada en tu perfil</p></div> 
         <div id="footer" class="bg-success py-3"></div>
+    </section>
+
+    <section id="container-marcas" style="height: 80vh; display: none; overflow-x: hidden; overflow-y: auto;">
+        <div class="row">
+            <div class="d-flex flex-column align-items-start mt-4">
+                <div style="width: 100%;">
+                    <div id="marcas-container" class="input-group-append" style="display: flex; flex-direction: column; align-items: flex-start; width: 100%; margin-left: 5%;"></div>
+                </div>
+                <div class="input-group mb-2" style="text-align: center; margin-bottom: -40px; margin-top: 5px;">
+                    <button id="cancelar_marcas" class="btn btn-secondary" style="width: 45%; height: 40px; background-color: white; color: black; display: block; margin: 0 auto; border-radius: 25px; color: white; background-color: #f9a825; border: #f9a825;">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="container-modelos" style="height: 80vh; display: none; overflow-x: hidden; overflow-y: auto;">
+        <div class="row">
+          <div class="d-flex flex-column align-items-start mt-4">
+            <div style="width: 100%;">
+              <div id="modelos-container" class="input-group-append" style="display: flex; flex-direction: column; align-items: flex-start; width: 100%; margin-left: 5%;"></div>
+            </div>
+            <div class="input-group mb-2" style="text-align: center; margin-bottom: -40px; margin-top: 5px;">
+                <button id="cancelar_modelos" class="btn btn-secondary" style="width: 45%; height: 40px; background-color: white; color: black; display: block; margin: 0 auto; border-radius: 25px; color: white; background-color: #f9a825; border: #f9a825;">Cancelar</button>
+                <button id="confirmar_modelos" class="btn btn-secondary" style="width: 45%; height: 40px; background-color: white; color: black; display: block; margin: 0 auto; border-radius: 25px; color: white; background-color: #59ab6e; border: #59ab6e;">Confirmar</button>
+            </div>
+          </div>
+        </div>
     </section>
 
     <script>
@@ -117,8 +149,6 @@ https://templatemo.com/tm-559-zay-shop
     <script src="../../js/templatemo.js"></script>
     <script src="../../js/custom.js"></script>
     <script src="../../js/registro/prestador_paso_3.js"></script>
-    
-    
     <!-- End Script -->
 </body>
 

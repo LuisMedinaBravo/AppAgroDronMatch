@@ -3,6 +3,8 @@ window.addEventListener('load', () => {
     localStorage.removeItem('ubicaciones');
 });
 document.getElementById('region').addEventListener('click', () => {
+
+    document.getElementById("flecha-atras").style.display="none";
 // Fetch the regiones-comunas.json file
 fetch('../../json/comunas-regiones.json')
     .then(response => response.json())
@@ -90,7 +92,7 @@ document.getElementById('comuna').addEventListener('click', () => {
 
             // Verificar si la comuna está seleccionada y establecer el color verde
             if (selectedComunas.includes(comuna)) {
-                label.style.backgroundColor = 'green';
+                label.style.backgroundColor = '#66bb6a';
                 label.style.color = 'white';
             }
 
@@ -110,6 +112,12 @@ document.getElementById('comuna').addEventListener('click', () => {
 document.getElementById('cancelar_regiones').addEventListener('click', () => {
         document.getElementById('main-section').style.display = 'block';
         document.getElementById('container-regiones').style.display = 'none';
+});
+
+document.getElementById('cancelar_comunas').addEventListener('click', () => {
+    document.getElementById('comuna').value = "";
+    document.getElementById('main-section').style.display = 'block';
+    document.getElementById('container-comunas').style.display = 'none';
 });
 
 document.getElementById('confirmar_comunas').addEventListener('click', () => {
@@ -151,8 +159,32 @@ function updateRegionInput() {
 
         // Update the comuna input value
         document.getElementById('comuna').value = selectedComunas.join(', ');
+
         })
         .catch(error => console.error('Error fetching regiones-comunas.json:', error));
+}
+
+function updateRegionInputFromLocalStorage() {
+    // Obtener los datos de ubicaciones del localStorage
+    const ubicaciones = JSON.parse(localStorage.getItem('ubicaciones')) || {};
+
+    // Obtener la lista de regiones y comunas seleccionadas
+    const selectedComunas = [];
+    const regionesSet = new Set();
+    for (const region in ubicaciones) {
+        const comunas = ubicaciones[region];
+        comunas.forEach(comuna => {
+            selectedComunas.push(comuna);
+            regionesSet.add(region);
+        });
+    }
+    const regiones = Array.from(regionesSet);
+
+    // Actualizar el input de región
+    document.getElementById('region').value = regiones.join(', ');
+
+    // Actualizar el input de comuna
+    document.getElementById('comuna').value = selectedComunas.join(', ');
 }
 
 function saveUbicacionesToLocalStorage() {
@@ -183,16 +215,59 @@ function saveUbicacionesToLocalStorage() {
 
 // Obtener los elementos necesarios
 const regionInput = document.getElementById('region');
+const regionErrorMessage = document.getElementById("region-error-message");
 const comunaInput = document.getElementById('comuna');
+const comunaErrorMessage = document.getElementById("comuna-error-message");
 const guardarUbicacionBtn = document.getElementById('guardar_ubicacion');
 const agregarUbicacionBtn = document.getElementById('agregar_ubicacion');
 const cancelarUbicacionBtn = document.getElementById('cancelar_ubicacion');
 const continuarRegistroBtn = document.getElementById('continuar_registro_4');
 
+regionInput.addEventListener('input', () => {
+    const region = regionInput.value.trim();
+    if (region === "") {
+        regionErrorMessage.textContent = "Por favor, ingresar región";
+        regionInput.classList.add("error");
+    } else {
+        regionErrorMessage.textContent = "";
+        regionInput.classList.remove("error");
+    }
+});
+
+comunaInput.addEventListener('input', () => {
+  const comuna = comunaInput.value.trim();
+  if (comuna === "") {
+      comunaErrorMessage.textContent = "Por favor, ingresar comuna";
+      comunaInput.classList.add("error");
+  } else {
+      comunaErrorMessage.textContent = "";
+      comunaInput.classList.remove("error");
+  }
+});
+
 // Agregar el evento de clic al botón "guardar_ubicacion"
 guardarUbicacionBtn.addEventListener('click', () => {
-    // Verificar si los inputs de "region" y "comuna" no están vacíos
-    if (regionInput.value.trim() !== '' && comunaInput.value.trim() !== '') {
+
+    if(regionInput.value.trim() === ''){
+    
+        regionErrorMessage.textContent = "Por favor, ingresar región";
+        regionInput.classList.add("error");
+        comunaErrorMessage.textContent = "";
+        comunaInput.classList.remove("error");
+    
+      }else if(comunaInput.value.trim() === ''){
+    
+        comunaErrorMessage.textContent = "Por favor, ingresar comuna";
+        comunaInput.classList.add("error");
+        regionErrorMessage.textContent = "";
+        regionInput.classList.remove("error");
+
+    }else if (regionInput.value.trim() !== '' && comunaInput.value.trim() !== '') {
+
+        regionErrorMessage.textContent = "";
+        regionInput.classList.remove("error");
+        comunaErrorMessage.textContent = "";
+        comunaInput.classList.remove("error");
         // Ocultar el botón "guardar_ubicacion"
         guardarUbicacionBtn.style.display = 'none';
         cancelarUbicacionBtn.style.display = 'none';
@@ -247,11 +322,10 @@ cancelarUbicacionBtn.addEventListener('click', () => {
     comunaInput.value = '';
     comunaInput.disabled = true;
 
-    updateRegionInput();
+    updateRegionInputFromLocalStorage();
 
     document.getElementById("flecha-atras").style.display="block";
 });
-
 
 //Lógica del footer
 $(document).ready(function() {
@@ -283,11 +357,8 @@ $(document).ready(function() {
   });
 });
 
-// Clikear botón finalizar registro
+// Clikear botón continuar registro
 const finishButton = document.getElementById("continuar_registro_4");
 finishButton.addEventListener("click", function() {
-  // if (validarUbicacion()) {
-  //   window.location.href = "../../html/registro_prestador/registro_paso_5.html";
-  // }
   window.location.href = "../../html/registro_prestador/registro_paso_5.html";
 });

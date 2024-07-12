@@ -456,6 +456,31 @@ button:active {
   font-size: 12px!important;
   margin-top: 0px;
 }
+.error-message-region {
+  color: red;
+  font-size: 12px!important;
+  margin-top: 0px;
+}
+.error-message-comuna {
+  color: red;
+  font-size: 12px!important;
+  margin-top: 0px;
+}
+.error-message-marca {
+  color: red;
+  font-size: 12px!important;
+  margin-top: 0px;
+}
+.error-message-modelo {
+  color: red;
+  font-size: 12px!important;
+  margin-top: 0px;
+}
+.error-message-estanque {
+  color: red;
+  font-size: 12px!important;
+  margin-top: 0px;
+}
 .error-message-ubicacion {
   color: red;
   font-size: 12px!important;

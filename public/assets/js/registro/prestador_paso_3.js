@@ -1,171 +1,406 @@
-// Variable global para almacenar el ítem seleccionado
-let itemSeleccionado = null;
-//Cargar el archivo JSON con los drones
-var marcasYModelos;
+// Agregar un evento de carga de la página
+window.addEventListener('load', () => {
+  localStorage.removeItem('drones');
+});
 
+document.getElementById('marca').addEventListener('click', () => {
+document.getElementById("flecha-atras").style.display="none";
 fetch('../../json/drones-marca-modelo.json')
   .then(response => response.json())
   .then(data => {
-    marcasYModelos = data.drones;
-    loadMarcas();
+      // Get the list of marcas from the data
+      const marcas = data.drones.map(item => item.marca);
+
+      // Create a label for each marca and append it to the marcas-container
+      const marcasContainer = document.getElementById('marcas-container');
+      marcasContainer.innerHTML = ''; // Clear the container before adding new labels
+
+      marcas.forEach(marca => {
+          const label = document.createElement('label');
+          label.classList.add('mr-2');
+          label.style.textAlign = 'left';
+          label.style.width = '100%';
+          label.innerHTML = `
+            <span class="input-group-text" style="background-color: white; border: none; display: flex; align-items: center;">
+              <img src="../../img/png/dron_icono.png" style="width: 30px; height: 40px; margin-right: 6px; filter: brightness(0);">
+              ${marca}
+            </span>
+            `;
+          label.addEventListener('click', () => {
+              // Update the region input value
+              document.getElementById('marca').value = marca;
+              // Obtener el elemento de entrada de texto
+              document.getElementById('modelo').disabled = false;
+              document.getElementById('modelo').value = "";
+              // Show the main section and hide the container-marcas section
+              document.getElementById('main-section').style.display = 'block';
+              document.getElementById('container-marcas').style.display = 'none';
+          });
+          marcasContainer.appendChild(label);
+          const br = document.createElement('br');
+          marcasContainer.appendChild(br);
+      });
+      // Hide the main-container and show the container-marcas
+      document.getElementById('main-section').style.display = 'none';
+      document.getElementById('container-marcas').style.display = 'block';
   })
-  .catch(error => {
-    console.error('Error al cargar el archivo JSON:', error);
-  });
+  .catch(error => console.error('Error fetching drones-marca-modelo.json:', error));
+});
 
-function loadMarcas() {
-    var menu = document.getElementById("marcas-modelos");
-    menu.innerHTML = ""; // Limpiar el menú antes de agregar las opciones
 
-    menu.style.maxWidth = "240px"; // Establecer la anchura máxima a 240px
-    menu.style.maxHeight = "240px"; // Establecer la altura máxima a 240px
-    menu.style.overflowY = "auto"; // Habilitar el desplazamiento vertical
+let selectedModelos= [];
+document.getElementById('modelo').addEventListener('click', () => {
+  // Fetch the regiones-comunas.json file
+  fetch('../../json/drones-marca-modelo.json')
+      .then(response => response.json())
+      .then(data => {
+          // Get the selected region from the input field
+          //const selectedRegion = document.getElementById('region').value;
+          const selectedMarca = document.getElementById('marca').value.split(', ').pop();
+          // Find the communes for the selected region
+          const selectedModelo = data.drones.find(item => item.marca === selectedMarca).modelo;
 
-    // Agregar las marcas
-    for (var i = 0; i < marcasYModelos.length; i++) {
-        var marcaItem = document.createElement("li");
-        var marcaLink = document.createElement("a");
-        marcaLink.classList.add("dropdown-item");
-        marcaLink.href = "#";
-        marcaLink.textContent = marcasYModelos[i].marca;
-        marcaLink.onclick = function() {
-          const loadModelosPromise = new Promise((resolve, reject) => {
-            loadModelos(this.textContent);
-            resolve();
+          // Clear the previous communes
+          const modelosContainer = document.getElementById('modelos-container');
+          modelosContainer.innerHTML = '';
+
+          // Crear una etiqueta para cada comuna y agregarla al contenedor de comunas
+          selectedModelo.forEach(modelo => {
+          const label = document.createElement('label');
+          label.classList.add('mr-2', 'modelo-label');
+          label.style.textAlign = 'left';
+          label.style.width = '100%';
+          label.innerHTML = `<span><i class="fas fa-trademark"></i></span> ${modelo}`;
+
+          // Agregar estilos y animación para cuando se hace clic en la etiqueta
+          label.style.padding = '10px 20px'; // Aumentar el height del verde
+          label.style.transition = 'background-color 0.3s ease, color 0.3s ease'; // Animación
+          label.style.borderRadius = '20px'; // Agregar border-radius
+
+          label.addEventListener('click', () => {
+              // Actualizar el valor del input de comuna cuando se hace clic en una comuna
+              if (label.style.color === 'white') {
+              label.style.color = 'black';
+              label.style.backgroundColor = 'transparent';
+              selectedModelos = selectedModelos.filter(c => c !== modelo);
+              // Actualizar el valor del input de comuna
+              document.getElementById('modelo').value = selectedModelos.join(', ');
+              } else {
+              label.style.color = 'white';
+              label.style.backgroundColor = '#66bb6a'; // Establecer el color verde
+              selectedModelos.push(modelo);
+              // Actualizar el valor del input de comuna
+              document.getElementById('modelo').value = selectedModelos.join(', ');
+              }
           });
-            
-          loadModelosPromise.then(() => {
-              setTimeout(() => {
-                  const elegirDron = document.getElementById('elegir_dron');
-                  elegirDron.click();
-              }, 300); // Espera 1 segundo antes de realizar el click
-          }).catch((error) => {
-              console.error('Ocurrió un error:', error);
+
+          // Verificar si la comuna está seleccionada y establecer el color verde
+          if (selectedModelos.includes(modelo)) {
+              label.style.backgroundColor = '#66bb6a';
+              label.style.color = 'white';
+          }
+
+          modelosContainer.appendChild(label);
+          const br = document.createElement('br');
+          modelosContainer.appendChild(br);
           });
-        };
-        marcaItem.appendChild(marcaLink);
-        menu.appendChild(marcaItem);
-    }
-    aplicarEstiloSeleccion(); // Llamar a la función para aplicar el estilo de selección
-}
 
-function loadModelos(marca) {
-    var menu = document.getElementById("marcas-modelos");
-    menu.innerHTML = ""; // Limpiar el menú antes de agregar las opciones
+          // Show the container-comunas section
+          document.getElementById('main-section').style.display = 'none';
+          document.getElementById('container-modelos').style.display = 'block';
+      })
+      .catch(error => console.error('Error fetching drones-marca-modelo.json:', error));
+});
 
-    menu.style.maxWidth = "240px"; // Establecer la anchura máxima a 240px
-    menu.style.maxHeight = "240px"; // Establecer la altura máxima a 240px
-    menu.style.overflowY = "auto"; // Habilitar el desplazamiento vertical
+document.getElementById('cancelar_marcas').addEventListener('click', () => {
+      document.getElementById('main-section').style.display = 'block';
+      document.getElementById('container-marcas').style.display = 'none';
+});
 
-    var modelosItem = document.createElement("li");
-    var modelosLink = document.createElement("a");
-    modelosLink.classList.add("dropdown-item");
-    modelosLink.href = "#";
-    modelosLink.onclick = function() {
-        // No hacer nada, este es solo un título
-    };
-    modelosItem.appendChild(modelosLink);
-    menu.appendChild(modelosItem);
+document.getElementById('cancelar_modelos').addEventListener('click', () => {
+  document.getElementById('modelo').value = "";
+  document.getElementById('main-section').style.display = 'block';
+  document.getElementById('container-modelos').style.display = 'none';
+});
 
-    for (var i = 0; i < marcasYModelos.find(r => r.marca === marca).modelo.length; i++) {
-        var modeloItem = document.createElement("li");
-        var modeloLink = document.createElement("a");
-        modeloLink.classList.add("dropdown-item");
-        modeloLink.href = "#";
-        modeloLink.textContent = marcasYModelos.find(r => r.marca === marca).modelo[i];
-        modeloLink.onclick = function() {
-            setLocation(this.textContent);
-            itemSeleccionado = this.textContent; // Actualiza la variable con el ítem seleccionado
-            loadMarcas();
-        };
-        modeloItem.appendChild(modeloLink);
-        menu.appendChild(modeloItem);
-    }
-    aplicarEstiloSeleccion(); // Llamar a la función para aplicar el estilo de selección
-}
-
-function setLocation(location) {
-  // Obtener el valor actual del input
-  var currentValue = document.getElementById("dron_preferencia").value;
-
-  // Separar los drones seleccionados en un array
-  var selectedDrones = currentValue.split(", ");
-
-  // Verificar si el dron seleccionado ya está en la lista
-  if (selectedDrones.includes(location)) {
-    // Si ya está en la lista, no hacer nada
-    return;
-  }
-
-  // Concatenar el valor actual con el nuevo dron seleccionado, separados por coma
-  if (currentValue === "") {
-    document.getElementById("dron_preferencia").value = location;
+document.getElementById('confirmar_modelos').addEventListener('click', () => {
+  if (selectedModelos.length > 0) {
+      document.getElementById('estanque').disabled = false;
+      document.getElementById('main-section').style.display = 'block';
+      document.getElementById('container-modelos').style.display = 'none';
+      // Aquí puedes guardar las comunas seleccionadas
+      console.log('Comunas seleccionadas:', selectedModelos);
+      // Ocultar el mensaje de error
+      //document.getElementById('ubicacion-error-message').textContent = '';
+      // Actualizar el input de region
+      updateRegionInput();
   } else {
-    document.getElementById("dron_preferencia").value = currentValue + ", " + location;
+      // Mostrar un mensaje de error
+      //document.getElementById('ubicacion-error-message').textContent = 'Debe seleccionar al menos una comuna.';
   }
+});
 
-  // Guardar las ubicaciones en localStorage
-  var locations = document.getElementById("dron_preferencia").value.split(", ");
-  localStorage.setItem("dron_servicio", locations.join(","));
-  
-  // Obtener todos los enlaces dentro del menú desplegable
-  var dropdownLinks = document.querySelectorAll("#marcas-modelos li a");
+// Agrega un event listener al botón "guardar_dron"
+document.getElementById('guardar_dron').addEventListener('click', () => {
+  saveUbicacionesToLocalStorage();
+});
 
-  // Remover los estilos de color de todos los enlaces
-  dropdownLinks.forEach(function(link) {
-    link.style.backgroundColor = '';
-    link.style.color = '';
-    link.classList.remove('selected'); // Elimina la clase 'selected' de todos los enlaces
-  });
+function updateRegionInput() {
+  // Fetch the regiones-comunas.json file
+  fetch('../../json/drones-marca-modelo.json')
+      .then(response => response.json())
+      .then(data => {
+      // Get the list of regions from the data
+      const marcasSet = new Set();
+      selectedModelos.forEach(modelo => {
+          const region = data.drones.find(item => item.modelo.includes(modelo)).marca;
+          marcasSet.add(region);
+      });
+      const marcas = Array.from(marcasSet);
 
-  // Agregar los estilos de color al enlace seleccionado
-  var selectedLink = document.querySelector(`#marcas-modelos li a[textContent="${location}"]`);
-  if (selectedLink) {
-    selectedLink.style.backgroundColor = '#007bff';
-    selectedLink.style.color = '#fff';
-    selectedLink.classList.add('selected'); // Agrega la clase 'selected' al enlace seleccionado
-  }
+      // Update the region input value
+      document.getElementById('marca').value = marcas.join(', ');
 
-  // Actualizar la variable con el ítem seleccionado
-  itemSeleccionado = location;
+      // Update the comuna input value
+      document.getElementById('modelo').value = selectedModelos.join(', ');
 
-  // Cerrar el menú desplegable
-  var dropdown = document.querySelector('.dropdown-toggle');
-  dropdown.classList.remove('show');
-  var dropdownMenu = document.querySelector('.dropdown-menu');
-  dropdownMenu.classList.remove('show');
+      })
+      .catch(error => console.error('Error fetching drones-marca-modelo.json:', error));
 }
 
-function aplicarEstiloSeleccion() {
-  // Obtener todos los enlaces dentro del menú desplegable
-  var dropdownLinks = document.querySelectorAll("#marcas-modelos li a");
+function updateRegionInputFromLocalStorage() {
+  // Obtener los datos de drones del localStorage
+  const drones = JSON.parse(localStorage.getItem('drones')) || {};
 
-  // Aplicar el estilo de color de fondo a los elementos seleccionados
-  dropdownLinks.forEach(function(link) {
-    if (itemSeleccionado && link.textContent === itemSeleccionado) {
-      link.style.backgroundColor = '#007bff';
-      link.style.color = '#fff';
-      link.classList.add('selected');
-    } else {
-      link.style.backgroundColor = '';
-      link.style.color = '';
-      link.classList.remove('selected');
-    }
-  });
+  // Obtener la lista de regiones y comunas seleccionadas
+  const selectedModelos = [];
+  const marcasSet = new Set();
+  for (const marca in drones) {
+      const modelos = drones[marca];
+      modelos.forEach(modelo => {
+        selectedModelos.push(modelo);
+          marcasSet.add(marca);
+      });
+  }
+  const marcas = Array.from(marcasSet);
+
+  // Actualizar el input de región
+  document.getElementById('marca').value = marcas.join(', ');
+
+  // Actualizar el input de comuna
+  document.getElementById('modelo').value = selectedModelos.join(', ');
 }
 
-// Función de validación
-function validarDron() {
-  const dronErrorMessage = document.getElementById('dron-error-message');
-  if(itemSeleccionado == null){
-    dronErrorMessage.textContent = "Por favor, seleccionar dron a buscar";
-    dronErrorMessage.style.display = 'block';
-    return false;
-  }else{
-    dronErrorMessage.style.display = 'none';
-    dronErrorMessage.textContent = "";
-    return true;
+function saveUbicacionesToLocalStorage() {
+  // Fetch the regiones-comunas.json file
+  fetch('../../json/drones-marca-modelo.json')
+      .then(response => response.json())
+      .then(data => {
+          // Get the list of regions from the data
+          const marcasSet = new Set();
+          const drones = {};
+          selectedModelos.forEach(modelo => {
+              const marca = data.drones.find(item => item.modelo.includes(modelo)).marca;
+              marcasSet.add(marca);
+              if (!drones[marca]) {
+                drones[marca] = [];
+              }
+              drones[marca].push(modelo);
+          });
+          const marcas = Array.from(marcasSet);
+
+          // Guardar la región y las comunas en el localStorage
+          localStorage.setItem('drones', JSON.stringify(drones));
+      })
+      .catch(error => console.error('Error fetching drones-marca-modelo.json:', error));
+}
+
+
+
+// Obtener los elementos necesarios
+const marcaInput = document.getElementById('marca');
+const marcaErrorMessage = document.getElementById("marca-error-message");
+const modeloInput = document.getElementById('modelo');
+const modeloErrorMessage = document.getElementById("modelo-error-message");
+const estanqueInput = document.getElementById("estanque");
+const estanqueErrorMessage = document.getElementById("estanque-error-message");
+const guardarDronBtn = document.getElementById('guardar_dron');
+const agregarDronBtn = document.getElementById('agregar_dron');
+const cancelarDronBtn = document.getElementById('cancelar_dron');
+const continuarRegistroBtn = document.getElementById('continuar_registro_3');
+
+var estanqueValidacion = false;
+
+marcaInput.addEventListener('input', () => {
+  const marca = marcaInput.value.trim();
+  if (marca === "") {
+      marcaErrorMessage.textContent = "Por favor, ingresar marca del dron";
+      marcaInput.classList.add("error");
+  } else {
+      marcaErrorMessage.textContent = "";
+      marcaInput.classList.remove("error");
   }
+});
+
+modeloInput.addEventListener('input', () => {
+const modelo = modeloInput.value.trim();
+if (modelo === "") {
+    modeloErrorMessage.textContent = "Por favor, ingresar modelo del dron";
+    modeloInput.classList.add("error");
+} else {
+    modeloErrorMessage.textContent = "";
+    modeloInput.classList.remove("error");
+}
+});
+
+estanqueInput.addEventListener('input', () => {
+const estanque = estanqueInput.value.replace(/Litros/i, '').trim();
+const dotCount = (estanque.match(/\./g) || []).length;
+if (estanque === "" || estanque === "." || dotCount > 1 || /^\.\d+$/.test(estanque)) {
+  estanqueErrorMessage.textContent = "Por favor, ingresar la capacidad del estanque";
+  estanqueInput.classList.add("error");
+} else {
+  estanqueErrorMessage.textContent = "";
+  estanqueInput.classList.remove("error");
+  estanqueValidacion = true;
+}
+});
+
+// Agregar el evento de clic al botón "guardar_dron"
+guardarDronBtn.addEventListener('click', () => {
+
+  if(marcaInput.value === ''){
+    
+    marcaErrorMessage.textContent = "Por favor, ingresar la marca del dron";
+    marcaInput.classList.add("error");
+    modeloErrorMessage.textContent = "";
+    modeloInput.classList.remove("error");
+    estanqueErrorMessage.textContent = "";
+    estanqueInput.classList.remove("error");
+
+  }else if(modeloInput.value === ''){
+
+    modeloErrorMessage.textContent = "Por favor, ingresar el modelo del dron";
+    modeloInput.classList.add("error");
+    marcaErrorMessage.textContent = "";
+    marcaInput.classList.remove("error");
+    estanqueErrorMessage.textContent = "";
+    estanqueInput.classList.remove("error");
+
+  }else if(estanqueValidacion == false){
+
+    estanqueErrorMessage.textContent = "Por favor, ingresar la capacidad del estanque";
+    estanqueInput.classList.add("error");
+    marcaErrorMessage.textContent = "";
+    marcaInput.classList.remove("error");
+    modeloErrorMessage.textContent = "";
+    modeloInput.classList.remove("error");
+    
+  } else if (marcaInput.value.trim() !== '' && modeloInput.value.trim() !== '' && estanqueValidacion == true) {
+
+      marcaErrorMessage.textContent = "";
+      marcaInput.classList.remove("error");
+      modeloErrorMessage.textContent = "";
+      modeloInput.classList.remove("error");
+      estanqueErrorMessage.textContent = "";
+      estanqueInput.classList.remove("error");
+    
+      document.getElementById('estanque').disabled = true;
+      // Ocultar el botón "guardar_dron"
+      guardarDronBtn.style.display = 'none';
+      cancelarDronBtn.style.display = 'none';
+
+      // Mostrar los botones "agregar_dron" y "continuar_registro_3"
+      agregarDronBtn.style.display = 'inline-block';
+      continuarRegistroBtn.style.display = 'inline-block';
+      marcaInput.value = "";
+      marcaInput.disabled = true;
+      modeloInput.value = "";
+      modeloInput.disabled = true;
+      updateRegionInput();
+
+      document.getElementById("flecha-atras").style.display="block";
+  }
+});
+
+// Agregar el evento de clic al botón "agregar_dron"
+agregarDronBtn.addEventListener('click', () => {
+  // Mostrar los botones "guardar_dron" y "cancelar_dron"
+
+  continuarRegistroBtn.style.display = 'none';
+
+  guardarDronBtn.style.display = 'inline-block';
+  cancelarDronBtn.style.display = 'inline-block';
+
+  // Ocultar el botón "agregar_dron"
+  agregarDronBtn.style.display = 'none';
+
+  // Habilitar los inputs de "region" y "comuna"
+  marcaInput.disabled = false;
+  modeloInput.disabled = true;
+
+  document.getElementById("flecha-atras").style.display="none";
+});
+
+// Agregar el evento de clic al botón "cancelar_dron"
+cancelarDronBtn.addEventListener('click', () => {
+
+  document.getElementById('estanque').disabled = true;
+  // Ocultar los botones "guardar_dron" y "cancelar_dron"
+  guardarDronBtn.style.display = 'none';
+  cancelarDronBtn.style.display = 'none';
+
+  // Mostrar el botón "agregar_dron"
+  agregarDronBtn.style.display = 'inline-block';
+
+  // Mostrar el botón "continuar_registro_4"
+  continuarRegistroBtn.style.display = 'inline-block';
+
+  // Limpiar y deshabilitar los inputs de "region" y "comuna"
+  marcaInput.value = '';
+  marcaInput.disabled = true;
+  modeloInput.value = '';
+  modeloInput.disabled = true;
+
+  updateRegionInputFromLocalStorage();
+
+  document.getElementById("flecha-atras").style.display="block";
+});
+
+
+// Obtener el campo de entrada
+const marca = document.getElementById('marca');
+// Agregar un evento de 'focus' al campo de entrada
+marca.addEventListener('focus', (event) => {
+  // Evitar que el teclado se abra
+  event.preventDefault();
+  // Enfocar el campo de entrada
+  marca.blur();
+});
+
+// Obtener el campo de entrada
+const modelo = document.getElementById('modelo');
+// Agregar un evento de 'focus' al campo de entrada
+modelo.addEventListener('focus', (event) => {
+  // Evitar que el teclado se abra
+  event.preventDefault();
+  // Enfocar el campo de entrada
+  modelo.blur();
+});
+
+function verificarCapacidadEstanque() {
+  const capacidad_estanque = document.getElementById('estanque');
+  const currentPosition = capacidad_estanque.selectionStart;
+
+  // Reemplazar cualquier carácter que no sea un número o un punto por una cadena vacía
+  let nuevovalor = capacidad_estanque.value.replace(/[^0-9.]/g, '');
+  // Agregar "Litros" solo si hay un valor ingresado
+  if (nuevovalor !== '') {
+    nuevovalor += " Litros";
+  }
+  capacidad_estanque.value = nuevovalor;
+  // Restablecer la posición del cursor
+  capacidad_estanque.setSelectionRange(currentPosition, currentPosition);
 }
 
 //Lógica del footer
@@ -198,11 +433,8 @@ $(document).ready(function() {
   });
 });
 
-// Clikear botón finalizar registro
-const finishButton = document.getElementById("continuar_registro_3");
-finishButton.addEventListener("click", function() {
-  // if (validarDron()) {
-  //   window.location.href = "../../html/registro_prestador/registro_paso_4.html";
-  // }
-  window.location.href = "../../html/registro_prestador/registro_paso_4.html";
+// Clikear botón continuar registro
+const continueButton = document.getElementById("continuar_registro_3");
+continueButton.addEventListener("click", function() {
+    window.location.href = "../../html/registro_prestador/registro_paso_4.html";
 });
