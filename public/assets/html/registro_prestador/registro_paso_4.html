@@ -40,7 +40,7 @@ https://templatemo.com/tm-559-zay-shop
                         </div>
                     </div>
                 </div>
-                <div class="flecha-atras">
+                <div id="flecha-atras" class="flecha-atras">
                     <i class="fas fa-chevron-left"></i>
                 </div>
             </div>
@@ -58,20 +58,20 @@ https://templatemo.com/tm-559-zay-shop
                     <div id="ubicacion-error-message" class="error-message-ubicacion"></div>
                     <div class="input-group mb-2">
                         <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-map"></i></span>
-                        <input type="text" class="form-control" id="region" placeholder="Buscar región" autocomplete="off">
+                        <textarea class="form-control" id="region" placeholder="Buscar región" autocomplete="off" rows="3" style="resize: vertical; height: 60px;"></textarea>
                     </div>
                     <div class="input-group mb-2">
                         <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-map-marker-alt"></i></span>
-                        <input type="text" class="form-control" id="comuna" placeholder="Buscar comuna" autocomplete="off" disabled>
+                        <textarea class="form-control" id="comuna" placeholder="Buscar comuna" autocomplete="off" disabled rows="3" style="resize: vertical; height: 60px;"></textarea>
                     </div>
-                    <button id="guardar_ubicacion" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: white!important; color: black!important; margin-top: 3%; display: block;">Guardar ubicación</button>
+                    <button id="guardar_ubicacion" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: #59ab6e; color: white; margin-top: 3%; display: block;">Guardar ubicación</button>
                     <button id="agregar_ubicacion" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: white!important; color: black!important; margin-top: 3%; display: none;">Agregar/cambiar ubicación</button>
-                    <button id="continuar_registro_4" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: white; color: black; margin-top: 3%; display: none;">Continuar registro</button>
-                    <button id="cancelar_ubicacion" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: white; color: black; margin-top: 3%; display: none;">Cancelar</button>
+                    <button id="continuar_registro_4" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: #59ab6e; color: white; margin-top: 3%; display: none;">Continuar registro</button>
+                    <button id="cancelar_ubicacion" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: #f9a825!important; color: white!important; margin-top: 3%; display: none;">Cancelar</button>
                 </div>
             </div>
         </div>
-        <div><p id="pre-footer">*La información podrá ser editada en tu perfil</p></div> 
+        <div><p id="pre-footer">*La información podrá ser editada en tu perfil</p></div>
         <div id="footer" class="bg-success py-3"></div>
     </section>
 
@@ -80,6 +80,9 @@ https://templatemo.com/tm-559-zay-shop
             <div class="d-flex flex-column align-items-start mt-4">
                 <div style="width: 100%;">
                     <div id="regiones-container" class="input-group-append" style="display: flex; flex-direction: column; align-items: flex-start; width: 100%; margin-left: 5%;"></div>
+                </div>
+                <div class="input-group mb-2" style="text-align: center; margin-bottom: -40px; margin-top: 5px;">
+                    <button id="cancelar_regiones" class="btn btn-secondary" style="width: 45%; height: 40px; background-color: white; color: black; display: block; margin: 0 auto; border-radius: 25px; color: white; background-color: #f9a825; border: #f9a825;">Cancelar</button>
                 </div>
             </div>
         </div>
@@ -91,241 +94,12 @@ https://templatemo.com/tm-559-zay-shop
             <div style="width: 100%;">
               <div id="comunas-container" class="input-group-append" style="display: flex; flex-direction: column; align-items: flex-start; width: 100%; margin-left: 5%;"></div>
             </div>
-            <div class="input-group mb-2">
-                <div style="text-align: center; margin-bottom: -40px; margin-top: 35px;">
-                    <button id="confirmar_comunas" class="btn btn-secondary" style="width: 45%; height: 40px; background-color: white; color: black;">Confirmar</button>
-                </div>
+            <div class="input-group mb-2" style="text-align: center; margin-bottom: -40px; margin-top: 5px;">
+                <button id="confirmar_comunas" class="btn btn-secondary" style="width: 45%; height: 40px; background-color: white; color: black; display: block; margin: 0 auto; border-radius: 25px; color: white; background-color: #59ab6e; border: #59ab6e;">Confirmar</button>
             </div>
           </div>
         </div>
     </section>
-    
-    <script>
-        // Agregar un evento de carga de la página
-        window.addEventListener('load', () => {
-            localStorage.removeItem('ubicaciones');
-        });
-        document.getElementById('region').addEventListener('click', () => {
-        // Fetch the regiones-comunas.json file
-        fetch('../../json/comunas-regiones.json')
-            .then(response => response.json())
-            .then(data => {
-                // Get the list of regions from the data
-                const regiones = data.regiones.map(item => item.region);
-
-                // Create a label for each region and append it to the regiones-container
-                const regionesContainer = document.getElementById('regiones-container');
-                regiones.forEach(region => {
-                    const label = document.createElement('label');
-                    label.classList.add('mr-2');
-                    label.style.textAlign = 'left';
-                    label.style.width = '100%';
-                    label.innerHTML = `<span><i class="fas fa-map"></i></span> ${region}`;
-                    label.addEventListener('click', () => {
-                        // Update the region input value
-                        document.getElementById('region').value = region;
-                        // Obtener el elemento de entrada de texto
-                        document.getElementById('comuna').disabled = false;
-                        document.getElementById('comuna').value = "";
-                        // Show the main section and hide the container-regiones section
-                        document.getElementById('main-section').style.display = 'block';
-                        document.getElementById('container-regiones').style.display = 'none';
-                    });
-                    regionesContainer.appendChild(label);
-                    const br = document.createElement('br');
-                    regionesContainer.appendChild(br);
-                });
-                // Hide the main-container and show the container-regiones
-                document.getElementById('main-section').style.display = 'none';
-                document.getElementById('container-regiones').style.display = 'block';
-            })
-            .catch(error => console.error('Error fetching regiones-comunas.json:', error));
-    });
-    </script>
-    
-    <script>
-        let selectedComunas = [];
-        document.getElementById('comuna').addEventListener('click', () => {
-        // Fetch the regiones-comunas.json file
-        fetch('../../json/comunas-regiones.json')
-            .then(response => response.json())
-            .then(data => {
-            // Get the selected region from the input field
-            //const selectedRegion = document.getElementById('region').value;
-            const selectedRegion = document.getElementById('region').value.split(', ').pop();
-            // Find the communes for the selected region
-            const selectedComunes = data.regiones.find(item => item.region === selectedRegion).comunas;
-
-            // Clear the previous communes
-            const comunasContainer = document.getElementById('comunas-container');
-            comunasContainer.innerHTML = '';
-
-            // Crear una etiqueta para cada comuna y agregarla al contenedor de comunas
-            selectedComunes.forEach(comuna => {
-            const label = document.createElement('label');
-            label.classList.add('mr-2');
-            label.style.textAlign = 'left';
-            label.style.width = '100%';
-            label.innerHTML = `<span><i class="fas fa-map-marker-alt"></i></span> ${comuna}`;
-            label.addEventListener('click', () => {
-                // Actualizar el valor del input de comuna cuando se hace clic en una comuna
-                if (label.style.backgroundColor === 'green') {
-                    label.style.backgroundColor = 'transparent';
-                    selectedComunas = selectedComunas.filter(c => c !== comuna);
-                    // Actualizar el valor del input de comuna
-                    document.getElementById('comuna').value = selectedComunas.join(', ');
-                } else {
-                    label.style.backgroundColor = 'green';
-                    selectedComunas.push(comuna);
-                    // Actualizar el valor del input de comuna
-                    document.getElementById('comuna').value = selectedComunas.join(', ');
-                }
-            }); 
-            // Verificar si la comuna está seleccionada y establecer el color verde
-            if (selectedComunas.includes(comuna)) {
-                label.style.backgroundColor = 'green';
-            }
-            comunasContainer.appendChild(label);
-            const br = document.createElement('br');
-            comunasContainer.appendChild(br);
-        });
-            // Show the container-comunas section
-            document.getElementById('main-section').style.display = 'none';
-            document.getElementById('container-comunas').style.display = 'block';
-            })
-            .catch(error => console.error('Error fetching regiones-comunas.json:', error));
-        });
-
-        document.getElementById('confirmar_comunas').addEventListener('click', () => {
-        if (selectedComunas.length > 0) {
-            
-            document.getElementById('main-section').style.display = 'block';
-            document.getElementById('container-comunas').style.display = 'none';
-            // Aquí puedes guardar las comunas seleccionadas
-            console.log('Comunas seleccionadas:', selectedComunas);
-            // Ocultar el mensaje de error
-            //document.getElementById('ubicacion-error-message').textContent = '';
-            // Actualizar el input de region
-            updateRegionInput();
-        } else {
-        // Mostrar un mensaje de error
-        //document.getElementById('ubicacion-error-message').textContent = 'Debe seleccionar al menos una comuna.';
-        }
-    });
-
-    // Agrega un event listener al botón "guardar_ubicacion"
-    document.getElementById('guardar_ubicacion').addEventListener('click', () => {
-    saveUbicacionesToLocalStorage();
-    });
-
-    function updateRegionInput() {
-    // Fetch the regiones-comunas.json file
-    fetch('../../json/comunas-regiones.json')
-        .then(response => response.json())
-        .then(data => {
-        // Get the list of regions from the data
-        const regionesSet = new Set();
-        selectedComunas.forEach(comuna => {
-            const region = data.regiones.find(item => item.comunas.includes(comuna)).region;
-            regionesSet.add(region);
-        });
-        const regiones = Array.from(regionesSet);
-
-        // Update the region input value
-        document.getElementById('region').value = regiones.join(', ');
-        })
-        .catch(error => console.error('Error fetching regiones-comunas.json:', error));
-    }
-
-    function saveUbicacionesToLocalStorage() {
-    // Fetch the regiones-comunas.json file
-    fetch('../../json/comunas-regiones.json')
-        .then(response => response.json())
-        .then(data => {
-        // Get the list of regions from the data
-        const regionesSet = new Set();
-        const ubicaciones = {};
-        selectedComunas.forEach(comuna => {
-            const region = data.regiones.find(item => item.comunas.includes(comuna)).region;
-            regionesSet.add(region);
-            if (!ubicaciones[region]) {
-            ubicaciones[region] = [];
-            }
-            ubicaciones[region].push(comuna);
-        });
-        const regiones = Array.from(regionesSet);
-
-        // Guardar la región y las comunas en el localStorage
-        localStorage.setItem('ubicaciones', JSON.stringify(ubicaciones));
-        })
-        .catch(error => console.error('Error fetching regiones-comunas.json:', error));
-    }
-        
-    </script>
-    
-    <script>
-        // Obtener los elementos necesarios
-        const regionInput = document.getElementById('region');
-        const comunaInput = document.getElementById('comuna');
-        const guardarUbicacionBtn = document.getElementById('guardar_ubicacion');
-        const agregarUbicacionBtn = document.getElementById('agregar_ubicacion');
-        const cancelarUbicacionBtn = document.getElementById('cancelar_ubicacion');
-        const continuarRegistroBtn = document.getElementById('continuar_registro_4');
-
-        // Agregar el evento de clic al botón "guardar_ubicacion"
-        guardarUbicacionBtn.addEventListener('click', () => {
-            // Verificar si los inputs de "region" y "comuna" no están vacíos
-            if (regionInput.value.trim() !== '' && comunaInput.value.trim() !== '') {
-                // Ocultar el botón "guardar_ubicacion"
-                guardarUbicacionBtn.style.display = 'none';
-                cancelarUbicacionBtn.style.display = 'none';
-
-                // Mostrar los botones "agregar_ubicacion" y "continuar_registro_4"
-                agregarUbicacionBtn.style.display = 'inline-block';
-                continuarRegistroBtn.style.display = 'inline-block';
-                regionInput.value = "";
-                regionInput.disabled = true;
-                comunaInput.value = "";
-                comunaInput.disabled = true;
-            }
-        });
-
-        // Agregar el evento de clic al botón "agregar_ubicacion"
-        agregarUbicacionBtn.addEventListener('click', () => {
-            // Mostrar los botones "guardar_ubicacion" y "cancelar_ubicacion"
-
-            continuarRegistroBtn.style.display = 'none';
-
-            guardarUbicacionBtn.style.display = 'inline-block';
-            cancelarUbicacionBtn.style.display = 'inline-block';
-
-            // Ocultar el botón "agregar_ubicacion"
-            agregarUbicacionBtn.style.display = 'none';
-
-            // Habilitar los inputs de "region" y "comuna"
-            regionInput.disabled = false;
-            comunaInput.disabled = true;
-        });
-
-        // Agregar el evento de clic al botón "cancelar_ubicacion"
-        cancelarUbicacionBtn.addEventListener('click', () => {
-            // Ocultar los botones "guardar_ubicacion" y "cancelar_ubicacion"
-            guardarUbicacionBtn.style.display = 'none';
-            cancelarUbicacionBtn.style.display = 'none';
-
-            // Mostrar el botón "agregar_ubicacion"
-            agregarUbicacionBtn.style.display = 'inline-block';
-
-            // Mostrar el botón "continuar_registro_4"
-            continuarRegistroBtn.style.display = 'inline-block';
-
-            // Limpiar y deshabilitar los inputs de "region" y "comuna"
-            regionInput.value = '';
-            regionInput.disabled = true;
-            comunaInput.value = '';
-            comunaInput.disabled = true;
-        });
-    </script>
 
     <script>
         //Lógica flecha
