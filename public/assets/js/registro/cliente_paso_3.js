@@ -101,7 +101,7 @@ navigator.geolocation.getCurrentPosition(
 );
 
 geocoder.on('result', (event) => {
-  document.getElementById('continuar_registro_3').disabled=false;
+
   if (event.result && event.result.geometry && event.result.geometry.coordinates) {
     const [lng, lat] = event.result.geometry.coordinates;
     if (marker) {
@@ -127,7 +127,7 @@ geocoder.on('result', (event) => {
         fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${mapboxgl.accessToken}`)
           .then(response => response.json())
           .then(data => {
-            const address = data.features[0].place_name;
+            var address = data.features[0].place_name;
             geocoder.setInput(address);
             localStorage.setItem('predio', address); // Guarda la dirección en el localStorage
           })
@@ -140,12 +140,18 @@ geocoder.on('result', (event) => {
   } else {
     console.error('Error getting the coordinates from the geocoder result:', event.result);
   }
+  if(localStorage.getItem('predio') == ""){
+    document.getElementById('continuar_registro_3').disabled=true;
+  }else{
+    document.getElementById('continuar_registro_3').disabled=false;
+  }
 });
 
 geocoder.on('clear', () => {
   if (marker) {
     marker.remove();
     marker = null;
+    localStorage.setItem('predio', ""); // Guarda la dirección en el localStorage
     document.getElementById('continuar_registro_3').disabled=true;
   }
 });

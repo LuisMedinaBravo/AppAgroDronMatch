@@ -37,7 +37,6 @@ body, ul, li, p, a, label, input, div {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-
 }
 
 /* Estilos para tabletas y celulares */
@@ -846,7 +845,13 @@ input:focus + .slider {
 }
 
 /* Mapa Mapbox */
-#map { position: absolute; width: 100%; }
+#map { 
+  position: absolute;
+  width: 100%;
+}
+#map a {
+  pointer-events: none;
+}
 .mapboxgl-ctrl-geocoder {
   max-width: 150px; /* Ajusta el ancho según tus necesidades */
   max-height: 50px; /* Ajusta la altura según tus necesidades */
