@@ -2,11 +2,11 @@
     "drones": [
         {
             "marca": "DJI",
-            "modelo": ["Arica", "Camarones", "Putre", "General Lagos"]
+            "modelo": ["AgrasT10", "AgrasT16", "AgrasT20", "AgrasT20P", "AgrasT30", "AgrasT25", "AgrasT40", "AgrasT50"]
         },
         {
             "marca": "XAG",
-            "modelo": ["Iquique", "Alto Hospicio", "Pozo Almonte", "Camiña", "Colchane", "Huara", "Pica"]
+            "modelo": ["P30", "P40", "P80", "P100", "P100Pro"]
         }
     ]
 }

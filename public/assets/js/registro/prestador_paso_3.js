@@ -27,7 +27,7 @@ fetch('../../json/drones-marca-modelo.json')
             </span>
             `;
           label.addEventListener('click', () => {
-              // Update the region input value
+              // Update the marca input value
               document.getElementById('marca').value = marca;
               // Obtener el elemento de entrada de texto
               document.getElementById('modelo').disabled = false;
@@ -39,7 +39,11 @@ fetch('../../json/drones-marca-modelo.json')
           marcasContainer.appendChild(label);
           const br = document.createElement('br');
           marcasContainer.appendChild(br);
+
+          marcaErrorMessage.textContent = "";
+          marcaInput.classList.remove("error");
       });
+
       // Hide the main-container and show the container-marcas
       document.getElementById('main-section').style.display = 'none';
       document.getElementById('container-marcas').style.display = 'block';
@@ -50,51 +54,56 @@ fetch('../../json/drones-marca-modelo.json')
 
 let selectedModelos= [];
 document.getElementById('modelo').addEventListener('click', () => {
-  // Fetch the regiones-comunas.json file
   fetch('../../json/drones-marca-modelo.json')
       .then(response => response.json())
       .then(data => {
-          // Get the selected region from the input field
-          //const selectedRegion = document.getElementById('region').value;
+
           const selectedMarca = document.getElementById('marca').value.split(', ').pop();
-          // Find the communes for the selected region
+          // Find the modelos for the selected marca
           const selectedModelo = data.drones.find(item => item.marca === selectedMarca).modelo;
 
-          // Clear the previous communes
+          // Clear the previous modelos
           const modelosContainer = document.getElementById('modelos-container');
           modelosContainer.innerHTML = '';
 
-          // Crear una etiqueta para cada comuna y agregarla al contenedor de comunas
+          // Crear una etiqueta para cada modelo y agregarla al contenedor de marcas
           selectedModelo.forEach(modelo => {
-          const label = document.createElement('label');
-          label.classList.add('mr-2', 'modelo-label');
-          label.style.textAlign = 'left';
-          label.style.width = '100%';
-          label.innerHTML = `<span><i class="fas fa-trademark"></i></span> ${modelo}`;
+            const label = document.createElement('label');
+            label.classList.add('mr-2', 'modelo-label');
+            label.style.textAlign = 'left';
+            label.style.width = '100%';
+            label.innerHTML = `<span><i class="fas fa-trademark"></i></span> ${modelo}`;
 
-          // Agregar estilos y animación para cuando se hace clic en la etiqueta
-          label.style.padding = '10px 20px'; // Aumentar el height del verde
-          label.style.transition = 'background-color 0.3s ease, color 0.3s ease'; // Animación
-          label.style.borderRadius = '20px'; // Agregar border-radius
+            // Agregar estilos y animación para cuando se hace clic en la etiqueta
+            label.style.padding = '10px 20px'; // Aumentar el height del verde
+            label.style.transition = 'background-color 0.3s ease, color 0.3s ease'; // Animación
+            label.style.borderRadius = '20px'; // Agregar border-radius
 
-          label.addEventListener('click', () => {
-              // Actualizar el valor del input de comuna cuando se hace clic en una comuna
-              if (label.style.color === 'white') {
-              label.style.color = 'black';
-              label.style.backgroundColor = 'transparent';
-              selectedModelos = selectedModelos.filter(c => c !== modelo);
-              // Actualizar el valor del input de comuna
-              document.getElementById('modelo').value = selectedModelos.join(', ');
-              } else {
-              label.style.color = 'white';
-              label.style.backgroundColor = '#66bb6a'; // Establecer el color verde
-              selectedModelos.push(modelo);
-              // Actualizar el valor del input de comuna
-              document.getElementById('modelo').value = selectedModelos.join(', ');
-              }
+            label.addEventListener('click', () => {
+                document.getElementById('confirmar_modelos').disabled = false;
+                if (label.style.color === 'white') {
+                  label.style.color = 'black';
+                  label.style.backgroundColor = 'transparent';
+                  selectedModelos = selectedModelos.filter(c => c !== modelo);
+                  // Actualizar el valor del input de modelo
+                  document.getElementById('modelo').value = selectedModelos.join(', ');
+                } else {
+                  label.style.color = 'white';
+                  label.style.backgroundColor = '#66bb6a'; // Establecer el color verde
+                  selectedModelos.push(modelo);
+                  // Actualizar el valor del input de modelo
+                  document.getElementById('modelo').value = selectedModelos.join(', ');
+                }
+
+                // Verificar si hay al menos una etiqueta seleccionada
+                if (selectedModelos.length > 0) {
+                  document.getElementById('confirmar_modelos').disabled = false;
+                } else {
+                    document.getElementById('confirmar_modelos').disabled = true;
+                }
           });
 
-          // Verificar si la comuna está seleccionada y establecer el color verde
+          // Verificar si el modelo está seleccionada y establecer el color verde
           if (selectedModelos.includes(modelo)) {
               label.style.backgroundColor = '#66bb6a';
               label.style.color = 'white';
@@ -103,9 +112,11 @@ document.getElementById('modelo').addEventListener('click', () => {
           modelosContainer.appendChild(label);
           const br = document.createElement('br');
           modelosContainer.appendChild(br);
-          });
 
-          // Show the container-comunas section
+          modeloErrorMessage.textContent = "";
+          modeloInput.classList.remove("error");
+        });
+
           document.getElementById('main-section').style.display = 'none';
           document.getElementById('container-modelos').style.display = 'block';
       })
@@ -125,32 +136,30 @@ document.getElementById('cancelar_modelos').addEventListener('click', () => {
 
 document.getElementById('confirmar_modelos').addEventListener('click', () => {
   if (selectedModelos.length > 0) {
-      document.getElementById('estanque').disabled = false;
       document.getElementById('main-section').style.display = 'block';
       document.getElementById('container-modelos').style.display = 'none';
-      // Aquí puedes guardar las comunas seleccionadas
-      console.log('Comunas seleccionadas:', selectedModelos);
-      // Ocultar el mensaje de error
-      //document.getElementById('ubicacion-error-message').textContent = '';
-      // Actualizar el input de region
-      updateRegionInput();
+
+      //console.log('Comunas seleccionadas:', selectedModelos);
+      
+      modeloErrorMessage.textContent = "";
+      modeloInput.classList.remove("error");
+      // Actualizar el input de marca
+      updateMarcaInput();
   } else {
       // Mostrar un mensaje de error
-      //document.getElementById('ubicacion-error-message').textContent = 'Debe seleccionar al menos una comuna.';
   }
 });
 
 // Agrega un event listener al botón "guardar_dron"
 document.getElementById('guardar_dron').addEventListener('click', () => {
-  saveUbicacionesToLocalStorage();
+  saveDronesToLocalStorage();
 });
 
-function updateRegionInput() {
-  // Fetch the regiones-comunas.json file
+function updateMarcaInput() {
   fetch('../../json/drones-marca-modelo.json')
       .then(response => response.json())
       .then(data => {
-      // Get the list of regions from the data
+      // Get the list of marcas from the data
       const marcasSet = new Set();
       selectedModelos.forEach(modelo => {
           const region = data.drones.find(item => item.modelo.includes(modelo)).marca;
@@ -158,21 +167,21 @@ function updateRegionInput() {
       });
       const marcas = Array.from(marcasSet);
 
-      // Update the region input value
+      // Update the marca input value
       document.getElementById('marca').value = marcas.join(', ');
 
-      // Update the comuna input value
+      // Update the modelo input value
       document.getElementById('modelo').value = selectedModelos.join(', ');
 
       })
       .catch(error => console.error('Error fetching drones-marca-modelo.json:', error));
 }
 
-function updateRegionInputFromLocalStorage() {
+function updateMarcaInputFromLocalStorage() {
   // Obtener los datos de drones del localStorage
   const drones = JSON.parse(localStorage.getItem('drones')) || {};
 
-  // Obtener la lista de regiones y comunas seleccionadas
+  // Obtener la lista de marcas y modelos seleccionados
   const selectedModelos = [];
   const marcasSet = new Set();
   for (const marca in drones) {
@@ -184,19 +193,18 @@ function updateRegionInputFromLocalStorage() {
   }
   const marcas = Array.from(marcasSet);
 
-  // Actualizar el input de región
+  // Actualizar el input de marca
   document.getElementById('marca').value = marcas.join(', ');
 
-  // Actualizar el input de comuna
+  // Actualizar el input de modelo
   document.getElementById('modelo').value = selectedModelos.join(', ');
 }
 
-function saveUbicacionesToLocalStorage() {
-  // Fetch the regiones-comunas.json file
+function saveDronesToLocalStorage() {
   fetch('../../json/drones-marca-modelo.json')
       .then(response => response.json())
       .then(data => {
-          // Get the list of regions from the data
+          // Get the list of marcas from the data
           const marcasSet = new Set();
           const drones = {};
           selectedModelos.forEach(modelo => {
@@ -209,64 +217,20 @@ function saveUbicacionesToLocalStorage() {
           });
           const marcas = Array.from(marcasSet);
 
-          // Guardar la región y las comunas en el localStorage
           localStorage.setItem('drones', JSON.stringify(drones));
       })
       .catch(error => console.error('Error fetching drones-marca-modelo.json:', error));
 }
-
-
 
 // Obtener los elementos necesarios
 const marcaInput = document.getElementById('marca');
 const marcaErrorMessage = document.getElementById("marca-error-message");
 const modeloInput = document.getElementById('modelo');
 const modeloErrorMessage = document.getElementById("modelo-error-message");
-const estanqueInput = document.getElementById("estanque");
-const estanqueErrorMessage = document.getElementById("estanque-error-message");
 const guardarDronBtn = document.getElementById('guardar_dron');
 const agregarDronBtn = document.getElementById('agregar_dron');
 const cancelarDronBtn = document.getElementById('cancelar_dron');
 const continuarRegistroBtn = document.getElementById('continuar_registro_3');
-
-var estanqueValidacion = false;
-
-marcaInput.addEventListener('input', () => {
-  const marca = marcaInput.value.trim();
-  if (marca === "") {
-      marcaErrorMessage.textContent = "Por favor, ingresar marca del dron";
-      marcaInput.classList.add("error");
-  } else {
-      marcaErrorMessage.textContent = "";
-      marcaInput.classList.remove("error");
-  }
-});
-
-modeloInput.addEventListener('input', () => {
-const modelo = modeloInput.value.trim();
-if (modelo === "") {
-    modeloErrorMessage.textContent = "Por favor, ingresar modelo del dron";
-    modeloInput.classList.add("error");
-} else {
-    modeloErrorMessage.textContent = "";
-    modeloInput.classList.remove("error");
-}
-});
-
-estanqueInput.addEventListener('input', () => {
-  const estanque = estanqueInput.value.replace(/Litros/i, '').trim();
-  const dotCount = (estanque.match(/\./g) || []).length;
-  const endsWithDot = estanque.endsWith('.');
-
-  if (estanque === "" || estanque === "." || dotCount > 1 || /^\.\d+$/.test(estanque) || endsWithDot) {
-    estanqueErrorMessage.textContent = "Por favor, ingresar la capacidad del estanque";
-    estanqueInput.classList.add("error");
-  } else {
-    estanqueErrorMessage.textContent = "";
-    estanqueInput.classList.remove("error");
-    estanqueValidacion = true;
-  }
-});
 
 // Agregar el evento de clic al botón "guardar_dron"
 guardarDronBtn.addEventListener('click', () => {
@@ -277,8 +241,6 @@ guardarDronBtn.addEventListener('click', () => {
     marcaInput.classList.add("error");
     modeloErrorMessage.textContent = "";
     modeloInput.classList.remove("error");
-    estanqueErrorMessage.textContent = "";
-    estanqueInput.classList.remove("error");
 
   }else if(modeloInput.value === ''){
 
@@ -286,28 +248,14 @@ guardarDronBtn.addEventListener('click', () => {
     modeloInput.classList.add("error");
     marcaErrorMessage.textContent = "";
     marcaInput.classList.remove("error");
-    estanqueErrorMessage.textContent = "";
-    estanqueInput.classList.remove("error");
 
-  }else if(estanqueValidacion == false){
-
-    estanqueErrorMessage.textContent = "Por favor, ingresar la capacidad del estanque";
-    estanqueInput.classList.add("error");
-    marcaErrorMessage.textContent = "";
-    marcaInput.classList.remove("error");
-    modeloErrorMessage.textContent = "";
-    modeloInput.classList.remove("error");
-    
-  } else if (marcaInput.value.trim() !== '' && modeloInput.value.trim() !== '' && estanqueValidacion == true) {
+  }else if (marcaInput.value.trim() !== '' && modeloInput.value.trim() !== '') {
 
       marcaErrorMessage.textContent = "";
       marcaInput.classList.remove("error");
       modeloErrorMessage.textContent = "";
       modeloInput.classList.remove("error");
-      estanqueErrorMessage.textContent = "";
-      estanqueInput.classList.remove("error");
     
-      document.getElementById('estanque').disabled = true;
       // Ocultar el botón "guardar_dron"
       guardarDronBtn.style.display = 'none';
       cancelarDronBtn.style.display = 'none';
@@ -319,7 +267,7 @@ guardarDronBtn.addEventListener('click', () => {
       marcaInput.disabled = true;
       modeloInput.value = "";
       modeloInput.disabled = true;
-      updateRegionInput();
+      updateMarcaInput();
 
       document.getElementById("flecha-atras").style.display="block";
   }
@@ -337,7 +285,7 @@ agregarDronBtn.addEventListener('click', () => {
   // Ocultar el botón "agregar_dron"
   agregarDronBtn.style.display = 'none';
 
-  // Habilitar los inputs de "region" y "comuna"
+  // Habilitar los inputs de "marca" y "modelo"
   marcaInput.disabled = false;
   modeloInput.disabled = true;
 
@@ -347,7 +295,6 @@ agregarDronBtn.addEventListener('click', () => {
 // Agregar el evento de clic al botón "cancelar_dron"
 cancelarDronBtn.addEventListener('click', () => {
 
-  document.getElementById('estanque').disabled = true;
   // Ocultar los botones "guardar_dron" y "cancelar_dron"
   guardarDronBtn.style.display = 'none';
   cancelarDronBtn.style.display = 'none';
@@ -355,7 +302,7 @@ cancelarDronBtn.addEventListener('click', () => {
   // Mostrar el botón "agregar_dron"
   agregarDronBtn.style.display = 'inline-block';
 
-  // Mostrar el botón "continuar_registro_4"
+  // Mostrar el botón "continuar_registro_3"
   continuarRegistroBtn.style.display = 'inline-block';
 
   // Limpiar y deshabilitar los inputs de "region" y "comuna"
@@ -364,7 +311,7 @@ cancelarDronBtn.addEventListener('click', () => {
   modeloInput.value = '';
   modeloInput.disabled = true;
 
-  updateRegionInputFromLocalStorage();
+  updateMarcaInputFromLocalStorage();
 
   document.getElementById("flecha-atras").style.display="block";
 });
@@ -389,21 +336,6 @@ modelo.addEventListener('focus', (event) => {
   // Enfocar el campo de entrada
   modelo.blur();
 });
-
-function verificarCapacidadEstanque() {
-  const capacidad_estanque = document.getElementById('estanque');
-  const currentPosition = capacidad_estanque.selectionStart;
-
-  // Reemplazar cualquier carácter que no sea un número o un punto por una cadena vacía
-  let nuevovalor = capacidad_estanque.value.replace(/[^0-9.]/g, '');
-  // Agregar "Litros" solo si hay un valor ingresado
-  if (nuevovalor !== '') {
-    nuevovalor += " Litros";
-  }
-  capacidad_estanque.value = nuevovalor;
-  // Restablecer la posición del cursor
-  capacidad_estanque.setSelectionRange(currentPosition, currentPosition);
-}
 
 //Lógica del footer
 $(document).ready(function() {

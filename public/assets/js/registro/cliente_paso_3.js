@@ -1,3 +1,17 @@
+$(document).ready(function() {
+  var $continuar = $('#continuar_registro_3');
+
+  // Ocultar el footer cuando se hace click en un input
+  $('input').on('focus', function() {
+    $continuar.hide();
+  });
+
+  // Mostrar el footer cuando se quita el foco del input
+  $('input').on('blur', function() {
+    $continuar.show();
+  });
+});
+
 //Lógica del footer
 $(document).ready(function() {
     var $footer = $('#footer');
@@ -11,7 +25,7 @@ $(document).ready(function() {
     $('input').on('blur', function() {
       $footer.show();
     });
-  });
+});
   
 //Lógica del pre-footer
 $(document).ready(function() {
@@ -26,7 +40,7 @@ $(document).ready(function() {
     $('input').on('blur', function() {
       $prefooter.show();
     });
-  });
+});
 
 //MAPA
 

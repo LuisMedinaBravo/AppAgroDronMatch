@@ -4,7 +4,7 @@
 <head>
     <title>Zay Shop eCommerce HTML CSS Template</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1.0, user-scalable=no, orientation-lock=portrait" >
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1.0, user-scalable=no">
 
     <link rel="shortcut icon" type="image/x-icon" href="../../img/favicon.ico">
 
@@ -81,9 +81,10 @@ https://templatemo.com/tm-559-zay-shop
         <div class="row">
             <div class="d-flex flex-column align-items-start mt-4">
                 <div style="width: 100%;">
+                    <h3 class="h3">Selecciona una región</h3> 
                     <div id="regiones-container" class="input-group-append" style="display: flex; flex-direction: column; align-items: flex-start; width: 100%; margin-left: 5%;"></div>
                 </div>
-                <div class="input-group mb-2" style="text-align: center; margin-bottom: -40px; margin-top: 5px;">
+                <div class="input-group mb-2" style="text-align: center; position: sticky; bottom: 0; background-color: white; padding-top: 1rem;">
                     <button id="cancelar_regiones" class="btn btn-secondary" style="width: 45%; height: 40px; background-color: white; color: black; display: block; margin: 0 auto; border-radius: 25px; color: white; background-color: #f9a825; border: #f9a825;">Cancelar</button>
                 </div>
             </div>
@@ -94,11 +95,12 @@ https://templatemo.com/tm-559-zay-shop
         <div class="row">
           <div class="d-flex flex-column align-items-start mt-4">
             <div style="width: 100%;">
-              <div id="comunas-container" class="input-group-append" style="display: flex; flex-direction: column; align-items: flex-start; width: 100%; margin-left: 5%;"></div>
+                <h3 class="h3">Selecciona una o más comunas</h3>
+                <div id="comunas-container" class="input-group-append" style="display: flex; flex-direction: column; align-items: flex-start; width: 100%; margin-left: 5%;"></div>
             </div>
-            <div class="input-group mb-2" style="text-align: center; margin-bottom: -40px; margin-top: 5px;">
-                <button id="cancelar_comunas" class="btn btn-secondary" style="width: 45%; height: 40px; background-color: white; color: black; display: block; margin: 0 auto; border-radius: 25px; color: white; background-color: #f9a825; border: #f9a825;">Cancelar</button>
-                <button id="confirmar_comunas" class="btn btn-secondary" style="width: 45%; height: 40px; background-color: white; color: black; display: block; margin: 0 auto; border-radius: 25px; color: white; background-color: #59ab6e; border: #59ab6e;">Confirmar</button>
+            <div class="input-group mb-2 d-flex justify-content-between" style="width: 100%; position: sticky; bottom: 0; background-color: white; padding-top: 1rem;"> 
+                <button id="cancelar_comunas" class="btn btn-secondary" style="width: 45%; height: 40px; background-color: white; color: black; border-radius: 25px; color: white; background-color: #f9a825; border: #f9a825;">Cancelar</button>
+                <button id="confirmar_comunas" class="btn btn-secondary" style="width: 45%; height: 40px; background-color: white; color: black; border-radius: 25px; color: white; background-color: #59ab6e; border: #59ab6e;" disabled>Confirmar</button>
             </div>
           </div>
         </div>

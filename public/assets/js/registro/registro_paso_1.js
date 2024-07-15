@@ -29,7 +29,7 @@ claveInput.addEventListener('input', () => {
         claveErrorMessage.textContent = "Por favor, ingresar una contraseña";
         claveInput.classList.add("error");
     } else if (!claveRegex.test(clave)) {
-        claveErrorMessage.textContent = "La contraseña no es segura";
+        claveErrorMessage.textContent = "Mínimo 8 caracteres, con mayúsculas y números";
         claveInput.classList.add("error");
     } else {
         claveErrorMessage.textContent = "";

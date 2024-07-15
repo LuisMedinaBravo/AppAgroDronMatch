@@ -580,6 +580,11 @@ input:focus + .slider {
   align-items: center; /* Centramos verticalmente el contenido */
   margin-left: -5px;
 }
+.texto-switch{
+  width: 100%;
+  text-align: center;
+  font-size: 10px!important;
+}
 
 /* Lista Despegable */
 .dropdown-menu {
