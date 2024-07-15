@@ -844,3 +844,13 @@ input:focus + .slider {
 .dropdown-item input:focus {
   width: 90%!important;
 }
+
+/* Mapa Mapbox */
+#map { position: absolute; width: 100%; }
+.mapboxgl-ctrl-geocoder {
+  max-width: 150px; /* Ajusta el ancho según tus necesidades */
+  max-height: 50px; /* Ajusta la altura según tus necesidades */
+}
+.mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder--input {
+  font-size: 13px !important;
+}

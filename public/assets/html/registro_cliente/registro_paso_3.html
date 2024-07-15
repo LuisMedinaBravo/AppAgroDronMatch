@@ -16,22 +16,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="../../css/fontawesome.min.css">
 
+    <!-- Mapa Mapbox -->
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.css" rel="stylesheet">
-    <script src="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.js"></script>
-    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
-    
-    <style>
-        #map { position: absolute; width: 100%; }
-        .mapboxgl-ctrl-geocoder {
-            max-width: 150px; /* Ajusta el ancho según tus necesidades */
-            max-height: 50px; /* Ajusta la altura según tus necesidades */
-        }
-        .mapboxgl-ctrl-geocoder .mapboxgl-ctrl-geocoder--input {
-          font-size: 13px !important;
-        }
-
-    </style>
     
 <!--
     
@@ -45,7 +32,7 @@ https://templatemo.com/tm-559-zay-shop
 <body class="animate-section" style="overflow: hidden;">
 
     <!-- Start Banner Hero -->
-    <div id="template-mo-zay-hero-carousel" class="carousel slide" style="height: 20vh;">
+    <div id="template-mo-zay-hero-carousel" class="carousel slide" style="height: 20vh; position: fixed; top: 0; width: 100%; z-index: 1000;">
         <div class="carousel-inner">
             <div id="carousel-active" class="carousel-item active" style="height: 20vh; background-image: url('../../img/DJI_0188.jpg'); background-size: cover; background-position: center;">
                 <div class="container" style="height: 100%;">
@@ -53,7 +40,7 @@ https://templatemo.com/tm-559-zay-shop
                         <div class="col-lg-6 mb-0 d-flex justify-content-center">
                             <div>
                                 <h1 class="h1 text-success" style="color: white !important; margin-bottom: 0.5rem;"><b>AgroDronMatch</b></h1>
-                                <h4 class="h4" style="color: white !important; text-align: center;"><b>Paso 3: Ubicación principal del predio</b></h4>
+                                <h4 class="h4" style="color: white !important; text-align: center;"><b>Paso 3: Ubic. principal predio</b></h4>
                             </div>
                         </div>
                     </div>
@@ -66,24 +53,24 @@ https://templatemo.com/tm-559-zay-shop
     </div>
     <!-- End Banner Hero -->
     
-    <section class="container" style="height: 80vh; margin: 0; padding: 0;">
+    <section class="container" style="height: 80vh; margin: 0; padding: 0; margin-top: 20vh;">
       <div class="row" style="height: 100%;">
         <div class="col-lg-12" style="height: 100%;">
-          <div class="d-flex flex-column align-items-start h-100">
-            <div class="row text-center w-100">
-              <div class="col-6">
-                <div id="map" style="height: 60%; width: 100%;"></div>
+          <div class="d-flex flex-column h-100">
+            <div class="row text-center w-100 flex-grow-1">
+              <div class="col-lg-6">
+                <div id="map" style="height: 70vh; width: 100%;"></div>
               </div>
             </div>
-            <div class="row text-center w-100" style="position: absolute; bottom: 0; margin-bottom: 90px;">
-              <div class="col-lg-6">
-                <div class="input-group mb-2" style="width: 100%;">
-                  <button id="continuar_registro_3" class="btn btn-secondary" style="width: 100%; height: 50px; background-color: white; color: black;">Continuar registro</button>
+            <div class="row w-100 d-flex justify-content-center align-items-end" style="margin-left: 2%; margin-bottom: 10vh; z-index: 999;">
+              <div class="col-lg-4 col-md-6 col-sm-8">
+                <div class="text-center">
+                  <button id="continuar_registro_3" class="btn btn-secondary" disabled>Continuar registro</button>
                 </div>
               </div>
             </div>
             <div><p id="pre-footer">*La información podrá ser editada en tu perfil</p></div>
-            <div id="footer" class="bg-success py-3 w-100"></div>
+            <div id="footer" class="bg-success py-3 w-100 position-fixed bottom-0"></div>
           </div>
         </div>
       </div>
@@ -109,150 +96,6 @@ https://templatemo.com/tm-559-zay-shop
             });
         });
     </script>
-    
-    <script>
-      mapboxgl.accessToken = 'pk.eyJ1IjoiZmVsaXgyNTA1IiwiYSI6ImNseWptODk3YjAzcnYyaW9ncGliZ3oybHMifQ.mOqpeH10AZ6r3XYLXc_vPA';
-      const map = new mapboxgl.Map({
-        container: 'map',
-        style: {
-          'version': 8,
-          'sources': {
-            'raster-tiles': {
-              'type': 'raster',
-              'tiles': ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
-              'tileSize': 256,
-            }
-          },
-          'layers': [
-            {
-              'id': 'simple-tiles',
-              'type': 'raster',
-              'source': 'raster-tiles',
-              'minzoom': 0,
-              'maxzoom': 22
-            }
-          ]
-        },
-        center: [-71.5430, -33.4489],
-        zoom: 5
-      });
-    
-      map.addControl(new mapboxgl.NavigationControl());
-    
-      const geocoder = new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken,
-        mapboxgl: mapboxgl,
-        placeholder: "Busca tu predio",
-        reverseGeocode: true,
-        marker: false, // Cambiar a false para no crear un marcador automáticamente
-        limit: 3,
-      });
-
-      map.addControl(geocoder, 'top-left');
-    
-      let marker = null;
-    
-      // Obtener la ubicación del usuario y crear el marcador
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { longitude, latitude } = position.coords;
-          marker = new mapboxgl.Marker({
-            color: 'green',
-            draggable: true
-          })
-          .setLngLat(new mapboxgl.LngLat(longitude, latitude))
-          .addTo(map);
-    
-          map.flyTo({
-            center: [longitude, latitude],
-            zoom: 14,
-            offset: [100, 0], // Mueve el mapa 50 píxeles a la derecha
-            essential: true
-          });
-    
-          // Reverse geocode the marker position to get the address
-          fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${mapboxgl.accessToken}`)
-            .then(response => response.json())
-            .then(data => {
-              const address = data.features[0].place_name;
-              geocoder.setInput(address);
-            })
-            .catch(error => {
-              console.error('Error getting address:', error);
-            });
-    
-          marker.on('dragend', () => {
-            const { lng, lat } = marker.getLngLat();
-            map.flyTo({
-              center: [lng, lat],
-              zoom: 14,
-              offset: [100, 0], // Mueve el mapa 50 píxeles a la derecha
-              essential: true
-            });
-    
-            // Reverse geocode the marker position to get the address
-            fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${mapboxgl.accessToken}`)
-              .then(response => response.json())
-              .then(data => {
-                const address = data.features[0].place_name;
-                geocoder.setInput(address);
-              })
-              .catch(error => {
-                console.error('Error getting address:', error);
-              });
-          });
-        },
-        (error) => {
-          console.error('Error getting user location:', error);
-        }
-      );
-    
-      geocoder.on('result', (event) => {
-        if (event.result && event.result.geometry && event.result.geometry.coordinates) {
-          const [lng, lat] = event.result.geometry.coordinates;
-          if (marker) {
-            marker.setLngLat(new mapboxgl.LngLat(lng, lat)).addTo(map);
-          } else {
-            marker = new mapboxgl.Marker({
-              color: 'green',
-              draggable: true
-            })
-            .setLngLat(new mapboxgl.LngLat(lng, lat))
-            .addTo(map);
-    
-            marker.on('dragend', () => {
-              const { lng, lat } = marker.getLngLat();
-              map.flyTo({
-                center: [lng, lat],
-                zoom: 14,
-                offset: [100, 0], // Mueve el mapa 50 píxeles a la derecha
-                essential: true
-              });
-    
-              // Reverse geocode the marker position to get the address
-              fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${mapboxgl.accessToken}`)
-                .then(response => response.json())
-                .then(data => {
-                  const address = data.features[0].place_name;
-                  geocoder.setInput(address);
-                })
-                .catch(error => {
-                  console.error('Error getting address:', error);
-                });
-            });
-          }
-          map.flyTo({ center: [lng, lat], zoom: 14, offset: [100, 0], essential: true });
-        } else {
-          console.error('Error getting the coordinates from the geocoder result:', event.result);
-        }
-      });
-      geocoder.on('clear', () => {
-        if (marker) {
-          marker.remove();
-          marker = null;
-        }
-      });
-    </script>
 
     <!-- Start Script -->
     <script src="../../js/jquery-3.7.1.min.js"></script>
@@ -260,6 +103,9 @@ https://templatemo.com/tm-559-zay-shop
     <script src="../../js/bootstrap.bundle.min.js"></script>
     <script src="../../js/templatemo.js"></script>
     <script src="../../js/custom.js"></script>
+    <!-- Mapa Mapbox -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
     <script src="../../js/registro/cliente_paso_3.js"></script>
     <!-- End Script -->
 </body>
