@@ -3,6 +3,10 @@ const dropdownButton = document.getElementById('dropdownMenuButtonCultivo');
 const dropdownMenu = document.querySelector('.dropdown-menu');
 const dropdownItems = document.querySelectorAll('.dropdown-item');
 const otherCultivoInput = document.getElementById('otro-cultivo');
+const marcaInput = document.getElementById('marca');
+const marcaErrorMessage = document.getElementById('marca-error-message');
+const modeloInput = document.getElementById('modelo');
+const modeloErrorMessage = document.getElementById('modelo-error-message');
 
 otherCultivoInput.addEventListener('click', function() {
   this.style.width = '100%';
@@ -131,9 +135,173 @@ function validarHectarea() {
     return true;
   }
 }
-  
+
+// Agregar un evento de carga de la página
+window.addEventListener('load', () => {
+  localStorage.removeItem('dron');
+});
+
+document.getElementById('marca').addEventListener('click', () => {
+  document.getElementById("flecha-atras").style.display="none";
+  fetch('../../json/drones-marca-modelo.json')
+    .then(response => response.json())
+    .then(data => {
+      // Get the list of marcas from the data
+      const marcas = data.drones.map(item => item.marca);
+
+      // Create a label for each marca and append it to the marcas-container
+      const marcasContainer = document.getElementById('marcas-container');
+      marcasContainer.innerHTML = ''; // Clear the container before adding new labels
+
+      marcas.forEach(marca => {
+        const label = document.createElement('label');
+        label.classList.add('mr-2');
+        label.style.textAlign = 'left';
+        label.style.width = '100%';
+        label.innerHTML = `
+          <span class="input-group-text" style="background-color: white; border: none; display: flex; align-items: center;">
+            <img src="../../img/png/dron_icono.png" style="width: 30px; height: 40px; margin-right: 6px; filter: brightness(0);">
+            ${marca}
+          </span>
+        `;
+        label.addEventListener('click', () => {
+          // Update the marca input value
+          document.getElementById('marca').value = marca;
+          // Obtener el elemento de entrada de texto
+          document.getElementById('modelo').disabled = false;
+          document.getElementById('modelo').value = "";
+          // Show the main section and hide the container-marcas section
+          document.getElementById('container').style.display = 'block';
+          document.getElementById('container-marcas').style.display = 'none';
+          // Llamar a la función para cargar los modelos
+          loadModelos(marca);
+        });
+        marcasContainer.appendChild(label);
+        const br = document.createElement('br');
+        marcasContainer.appendChild(br);
+
+        marcaErrorMessage.textContent = "";
+        marcaInput.classList.remove("error");
+      });
+
+      // Hide the main-container and show the container-marcas
+      document.getElementById('container').style.display = 'none';
+      document.getElementById('container-marcas').style.display = 'block';
+    })
+    .catch(error => console.error('Error fetching drones-marca-modelo.json:', error));
+});
+
+function loadModelos(selectedMarca) {
+  fetch('../../json/drones-marca-modelo.json')
+    .then(response => response.json())
+    .then(data => {
+      // Find the modelos for the selected marca
+      const selectedModelo = data.drones.find(item => item.marca === selectedMarca).modelo;
+
+      // Clear the previous modelos
+      const modelosContainer = document.getElementById('modelos-container');
+      modelosContainer.innerHTML = '';
+
+      // Crear una etiqueta para cada modelo y agregarla al contenedor de marcas
+      selectedModelo.forEach(modelo => {
+        const label = document.createElement('label');
+        label.classList.add('mr-2', 'modelo-label');
+        label.style.textAlign = 'left';
+        label.style.width = '100%';
+        label.innerHTML = `<span><i class="fas fa-trademark"></i></span> ${modelo}`;
+
+        // Agregar estilos y animación para cuando se hace clic en la etiqueta
+        label.style.padding = '10px 20px'; // Aumentar el height del verde
+        label.style.transition = 'background-color 0.3s ease, color 0.3s ease'; // Animación
+        label.style.borderRadius = '20px'; // Agregar border-radius
+
+        label.addEventListener('click', () => {
+          // Deseleccionar cualquier otro modelo previamente seleccionado
+          const modeloLabels = document.querySelectorAll('.modelo-label');
+          modeloLabels.forEach(l => {
+            l.style.color = 'black';
+            l.style.backgroundColor = 'transparent';
+          });
+
+          // Seleccionar el modelo actual
+          label.style.color = 'white';
+          label.style.backgroundColor = '#66bb6a'; // Establecer el color verde
+
+          const marca = document.getElementById('marca').value;
+          document.getElementById('modelo').value = modelo;
+
+          // Guardar los valores en el localStorage
+          localStorage.setItem('dron', JSON.stringify({ marca, modelo }));
+          
+          document.getElementById('confirmar_modelos').disabled = false;
+        });
+
+        modelosContainer.appendChild(label);
+        const br = document.createElement('br');
+        modelosContainer.appendChild(br);
+
+        modeloErrorMessage.textContent = "";
+        modeloInput.classList.remove("error");
+      });
+
+      document.getElementById('container').style.display = 'none';
+      document.getElementById('container-modelos').style.display = 'block';
+    })
+    .catch(error => console.error('Error fetching drones-marca-modelo.json:', error));
+}
+
+document.getElementById('cancelar_marcas').addEventListener('click', () => {
+      document.getElementById('container').style.display = 'block';
+      document.getElementById('container-marcas').style.display = 'none';
+});
+
+document.getElementById('cancelar_modelos').addEventListener('click', () => {
+  document.getElementById('modelo').value = "";
+  document.getElementById('container').style.display = 'block';
+  document.getElementById('container-modelos').style.display = 'none';
+});
+
+document.getElementById('confirmar_modelos').addEventListener('click', () => {
  
-  
+  document.getElementById('container').style.display = 'block';
+      document.getElementById('container-modelos').style.display = 'none';
+
+      const marca = document.getElementById('marca').value;
+      const modelo = document.getElementById('modelo').value;    
+      document.getElementById('marca').value = marca + " - " + modelo;
+
+      // Guardar los valores en el localStorage
+      //localStorage.setItem('dron', JSON.stringify({ marca, modelo }));
+      // Mostrar el container principal y ocultar el container de modelos
+      document.getElementById('container').style.display = 'block';
+      document.getElementById('container-modelos').style.display = 'none';
+});
+
+//Agrega un event listener
+document.getElementById('cancelar_modelos').addEventListener('click', () => {
+  localStorage.removeItem('dron');
+});
+
+function validarMarca() {
+  if (marcaInput.value.trim() === '') {
+    marcaErrorMessage.textContent = 'Por favor, seleccionar una marca';
+    return false;
+  } else {
+    marcaErrorMessage.textContent = '';
+    return true;
+  }
+}
+
+function validarModelo() {
+  if (modeloInput.value.trim() === '') {
+    modeloErrorMessage.textContent = 'Por favor, seleccionar un modelo';
+    return false;
+  } else {
+    modeloErrorMessage.textContent = '';
+    return true;
+  }
+}
+
   //Lógica del footer
   $(document).ready(function() {
       var $footer = $('#footer');
@@ -170,12 +338,12 @@ const nprogressText1 = document.getElementById('nprogress-text-1');
 const nprogressText2 = document.getElementById('nprogress-text-2');
 const nprogressText3 = document.getElementById('nprogress-text-3');
 const container = document.getElementById('container');
-const flechaAtras = document.getElementById('flecha_atras');
+const flechaAtras = document.getElementById('flecha-atras');
 
 // Clikear botón finalizar registro
 const finishButton = document.getElementById("finalizar_registro");
 finishButton.addEventListener("click", function() {
-  if (validarCultivoSeleccionado() && validarHectarea()) {
+  if (validarCultivoSeleccionado() && validarHectarea() && validarMarca() && validarModelo()) {
   //if (validarCultivoSeleccionado() && validarHectarea() && validarDron()) {
     const correo = localStorage.getItem("correo");
     const clave = localStorage.getItem("clave");
