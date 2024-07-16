@@ -21,8 +21,8 @@ const map = new mapboxgl.Map({
         'id': 'simple-tiles',
         'type': 'raster',
         'source': 'raster-tiles',
-        'minzoom': 1,
-        'maxzoom': 21
+        'minzoom': 3,
+        'maxzoom': 20
       }
     ]
   },
@@ -41,6 +41,15 @@ const geocoder = new MapboxGeocoder({
   limit: 3,
 });
 map.addControl(geocoder, 'top-left');
+
+// Agrega un evento de clic fuera del geocoder para ocultar el teclado
+document.addEventListener('click', (event) => {
+  const geocoderElement = document.querySelector('.mapboxgl-ctrl-geocoder');
+  if (!geocoderElement.contains(event.target)) {
+    // Oculta el teclado
+    document.activeElement.blur();
+  }
+});
 
 let marker = null;
 
@@ -101,7 +110,6 @@ navigator.geolocation.getCurrentPosition(
 );
 
 geocoder.on('result', (event) => {
-
   if (event.result && event.result.geometry && event.result.geometry.coordinates) {
     const [lng, lat] = event.result.geometry.coordinates;
     if (marker) {
@@ -130,6 +138,15 @@ geocoder.on('result', (event) => {
             var address = data.features[0].place_name;
             geocoder.setInput(address);
             localStorage.setItem('predio', address); // Guarda la dirección en el localStorage
+
+            //Mostrar footer
+            var $footer = $('#footer');
+            $footer.show();
+
+            // //Mostrar pre-footer
+            var $prefooter = $('#pre-footer');
+            $prefooter.show();
+        
           })
           .catch(error => {
             console.error('Error getting address:', error);
@@ -153,6 +170,16 @@ geocoder.on('clear', () => {
     marker = null;
     localStorage.setItem('predio', ""); // Guarda la dirección en el localStorage
     document.getElementById('continuar_registro_3').disabled=true;
+    
+    //document.activeElement.blur();
+
+    //Mostrar footer
+    var $footer = $('#footer');
+    $footer.show();
+
+    // //Mostrar pre-footer
+    var $prefooter = $('#pre-footer');
+    $prefooter.show();
   }
 });
 
