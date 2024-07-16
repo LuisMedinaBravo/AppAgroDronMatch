@@ -156,20 +156,20 @@ geocoder.on('clear', () => {
   }
 });
 
-//Lógica del botón
-$(document).ready(function() {
-  var $continuar = $('#continuar_registro_3');
+// //Lógica del botón
+// $(document).ready(function() {
+//   var $continuar = $('#continuar_registro_3');
 
-  // Ocultar el botón cuando se hace click en un input
-  $('input').on('focus', function() {
-    $continuar.hide();
-  });
+//   // Ocultar el botón cuando se hace click en un input
+//   $('input').on('focus', function() {
+//     $continuar.hide();
+//   });
 
-  // Mostrar el botón cuando se quita el foco del input
-  $('input').on('blur', function() {
-    $continuar.show();
-  });
-});
+//   // Mostrar el botón cuando se quita el foco del input
+//   $('input').on('blur', function() {
+//     $continuar.show();
+//   });
+// });
 
 //Lógica del footer
 $(document).ready(function() {

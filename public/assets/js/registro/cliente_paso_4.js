@@ -61,22 +61,12 @@ otherCultivoInput.addEventListener('input', () => {
   localStorage.setItem('cultivo', otherCultivoInput.value);
 });
 
-// Ocultar el menú desplegable al hacer clic fuera de él
-window.addEventListener('click', (event) => {
-  if (!event.target.matches('.btn-secondary, .dropdown-item, #otro-cultivo')) {
-    dropdownMenu.classList.remove('show');
-    // Mostrar el valor almacenado en localStorage
-    const cultivoGuardado = localStorage.getItem('cultivo');
-    if (cultivoGuardado) {
-      dropdownButton.textContent = cultivoGuardado;
-    } else {
-      dropdownButton.textContent = 'Tipo de cultivo';
+// Cerrar el menú desplegable cuando se hace clic fuera de él
+document.addEventListener('click', (event) => {
+    if (!event.target.matches('#dropdownMenuButtonCultivo, .dropdown-menu, .dropdown-item')) {
+      dropdownMenu.classList.remove('show');
     }
-    // Clear the "otro" input
-  //   otherCultivoInput.value = '';
-  //   otherCultivoInput.placeholder = "";
-  }
-});
+  });
 
 function validarCultivoSeleccionado() {
   const selectedOption = document.querySelector('.dropdown-item.active');
@@ -170,6 +160,7 @@ window.addEventListener('load', () => {
                 // Show the main section and hide the container-marcas section
                 document.getElementById('container').style.display = 'block';
                 document.getElementById('container-marcas').style.display = 'none';
+                document.getElementById("flecha-atras").style.display="block";
             });
             marcasContainer.appendChild(label);
             const br = document.createElement('br');
@@ -261,12 +252,15 @@ window.addEventListener('load', () => {
   document.getElementById('cancelar_marcas').addEventListener('click', () => {
         document.getElementById('container').style.display = 'block';
         document.getElementById('container-marcas').style.display = 'none';
+        document.getElementById("flecha-atras").style.display="block";
+        
   });
   
   document.getElementById('cancelar_modelos').addEventListener('click', () => {
     document.getElementById('modelo').value = "";
     document.getElementById('container').style.display = 'block';
     document.getElementById('container-modelos').style.display = 'none';
+    document.getElementById("flecha-atras").style.display="block";
   });
   
   document.getElementById('confirmar_modelos').addEventListener('click', () => {

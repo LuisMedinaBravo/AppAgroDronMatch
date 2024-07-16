@@ -22,44 +22,50 @@ correoInput.addEventListener('input', () => {
 const claveInput = document.getElementById("clave");
 const claveErrorMessage = document.getElementById("clave-error-message");
 const claveRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
-
-claveInput.addEventListener('input', () => {    
-  const clave = claveInput.value.trim();
-    if (clave === "") {
-        claveErrorMessage.textContent = "Por favor, ingresar una contraseña";
-        claveInput.classList.add("error");
-    } else if (!claveRegex.test(clave)) {
-        claveErrorMessage.textContent = "Mínimo 8 caracteres, con mayúsculas y números";
-        claveInput.classList.add("error");
-    } else {
-        claveErrorMessage.textContent = "";
-        claveInput.classList.remove("error");
-        //localStorage.setItem('clave', clave);
-    }
-});
-
 // Validación de repetir contraseña
 const claveRepetirInput = document.getElementById("clave_repetir");
 const claveRepetirErrorMessage = document.getElementById("clave-repetir-error-message");
 const claveRepetirRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
 
-claveRepetirInput.addEventListener('input', () => {    
+claveInput.addEventListener('input', () => {
   const clave_repetir = claveRepetirInput.value.trim();
   const clave = claveInput.value.trim();
-  
+
+  if (clave === "") {
+    claveErrorMessage.textContent = "Por favor, ingresar una contraseña";
+    claveInput.classList.add("error");
+  } else if (!claveRegex.test(clave)) {
+    claveErrorMessage.textContent = "Mínimo 8 caracteres, con mayúsculas y números";
+    claveInput.classList.add("error");
+  } else {
+    claveErrorMessage.textContent = "";
+    claveInput.classList.remove("error");
+
+    if (clave_repetir !== "") {
+      if (clave === clave_repetir) {
+        claveRepetirErrorMessage.textContent = "";
+        claveRepetirInput.classList.remove("error");
+      } else {
+        claveRepetirErrorMessage.textContent = "Las contraseñas no coinciden";
+        claveRepetirInput.classList.add("error");
+      }
+    }
+  }
+});
+
+claveRepetirInput.addEventListener('input', () => {
+  const clave_repetir = claveRepetirInput.value.trim();
+  const clave = claveInput.value.trim();
+
   if (clave_repetir === "") {
     claveRepetirErrorMessage.textContent = "Por favor, reingresar la contraseña";
     claveRepetirInput.classList.add("error");
   } else if (clave_repetir !== clave) {
     claveRepetirErrorMessage.textContent = "Las contraseñas no coinciden";
     claveRepetirInput.classList.add("error");
-  } else if (claveRegex.test(clave) && claveRepetirRegex.test(clave_repetir)) {
-    claveRepetirErrorMessage.textContent = "";
-    claveRepetirInput.classList.remove("error");
-    //localStorage.setItem('clave', clave);
   } else {
     claveRepetirErrorMessage.textContent = "";
-    claveRepetirInput.classList.add("error");
+    claveRepetirInput.classList.remove("error");
   }
 });
 
