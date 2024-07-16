@@ -2,11 +2,12 @@
 <html lang="en">
 
 <head>
-    <title>Zay Shop eCommerce HTML CSS Template</title>
+    <title>AgroDronMatch</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1.0, user-scalable=no" >
 
-    <link rel="shortcut icon" type="image/x-icon" href="../../img/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/public/diseños/logo.png">
 
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/templatemo.css">
@@ -95,12 +96,15 @@ https://templatemo.com/tm-559-zay-shop
                      <input type="text" class="form-control" id="marca" placeholder="Dron de preferencia" autocomplete="off">
                    </div>
                    <div id="marca-error-message" class="error-message-marca"></div>
-                   <div class="input-group mb-2" style="display: none;">
+                   <div class="input-group mb-2">
                      <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-trademark" style="margin-left: -2px;"></i></span>
-                     <input type="text" class="form-control" id="modelo" placeholder="Modelo de preferencia" autocomplete="off">
+                     <input type="text" class="form-control" id="modelo" placeholder="Modelo de preferencia" autocomplete="off" disabled>
                    </div>
                    <div id="modelo-error-message" class="error-message-modelo"></div>
-                    <button id="finalizar_registro" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: white; color: black; margin-top: 3%;">Finalizar registro</button>
+                   <button id="guardar_dron" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: #59ab6e; color: white; margin-top: 3%; display: block;">Guardar dron</button>
+                   <button id="agregar_dron" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: white!important; color: black!important; margin-top: 3%; display: none;">Agregar/cambiar dron</button>
+                   <button id="finalizar_registro" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: #59ab6e; color: white; margin-top: 3%; display: none;">Finalizar registro</button>
+                   <button id="cancelar_dron" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: #f9a825!important; color: white!important; margin-top: 3%; display: none;">Cancelar</button>
                 </div>
             </div>
         </div>
@@ -127,7 +131,7 @@ https://templatemo.com/tm-559-zay-shop
     <div class="row">
         <div class="d-flex flex-column align-items-start mt-4">
             <div style="width: 100%;"> 
-                <h3 class="h3">Selecciona un equipo</h3> 
+                <h3 class="h3">Selecciona uno o más equipos</h3> 
                 <div id="modelos-container" class="input-group-append" style="display: flex; flex-direction: column; align-items: flex-start; width: 100%; margin-left: 5%;"></div> 
             </div> 
             <div class="input-group mb-2 d-flex justify-content-between" style="width: 100%; position: sticky; bottom: 0; background-color: white; padding-top: 1rem;"> 

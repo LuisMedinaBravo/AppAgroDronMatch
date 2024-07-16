@@ -2,7 +2,7 @@
     "drones": [
         {
             "marca": "DJI",
-            "modelo": ["AgrasT10", "AgrasT16", "AgrasT20", "AgrasT20P", "AgrasT30", "AgrasT25", "AgrasT40", "AgrasT50"]
+            "modelo": ["AgrasT10", "AgrasT16", "AgrasT20", "AgrasT30", "AgrasT20P", "AgrasT40", "AgrasT25", "AgrasT25 + kit frutal", "AgrasT50", "AgrasT50 + kit frutal"]
         },
         {
             "marca": "XAG",
