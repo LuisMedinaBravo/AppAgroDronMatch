@@ -71,8 +71,12 @@ document.addEventListener('click', (event) => {
 function validarCultivoSeleccionado() {
   const selectedOption = document.querySelector('.dropdown-item.active');
   const cultivoErrorMessage = document.getElementById('cultivo-error-message');
+  const tiposDeCultivo = ['Tipo de cultivo'];
 
   if (!selectedOption && otherCultivoInput.value.trim() === '') {
+    cultivoErrorMessage.textContent = 'Por favor, seleccionar un tipo de cultivo';
+    return false;
+  } else if(dropdownButton.textContent.trim() === 'Tipo de cultivo'){
     cultivoErrorMessage.textContent = 'Por favor, seleccionar un tipo de cultivo';
     return false;
   } else {
@@ -161,6 +165,12 @@ window.addEventListener('load', () => {
                 document.getElementById('container').style.display = 'block';
                 document.getElementById('container-marcas').style.display = 'none';
                 document.getElementById("flecha-atras").style.display="block";
+
+                var $prefooter = $('#pre-footer');
+                $prefooter.show();
+                var $footer = $('#footer');
+                $footer.show();
+
             });
             marcasContainer.appendChild(label);
             const br = document.createElement('br');
@@ -253,7 +263,10 @@ window.addEventListener('load', () => {
         document.getElementById('container').style.display = 'block';
         document.getElementById('container-marcas').style.display = 'none';
         document.getElementById("flecha-atras").style.display="block";
-        
+        var $prefooter = $('#pre-footer');
+        $prefooter.show();
+        var $footer = $('#footer');
+        $footer.show();
   });
   
   document.getElementById('cancelar_modelos').addEventListener('click', () => {
@@ -261,6 +274,10 @@ window.addEventListener('load', () => {
     document.getElementById('container').style.display = 'block';
     document.getElementById('container-modelos').style.display = 'none';
     document.getElementById("flecha-atras").style.display="block";
+    var $prefooter = $('#pre-footer');
+    $prefooter.show();
+    var $footer = $('#footer');
+    $footer.show();
   });
   
   document.getElementById('confirmar_modelos').addEventListener('click', () => {
@@ -272,6 +289,11 @@ window.addEventListener('load', () => {
         
         modeloErrorMessage.textContent = "";
         modeloInput.classList.remove("error");
+
+        var $prefooter = $('#pre-footer');
+        $prefooter.show();
+        var $footer = $('#footer');
+        $footer.show();
         // Actualizar el input de marca
         updateMarcaInput();
     } else {

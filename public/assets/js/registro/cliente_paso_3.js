@@ -164,6 +164,13 @@ geocoder.on('result', (event) => {
   }
 });
 
+// Guardar la dirección en el localStorage cuando se hace clic en una dirección del buscador
+geocoder.on('result', (event) => {
+  if (event.result && event.result.place_name) {
+    localStorage.setItem('predio', event.result.place_name);
+  }
+});
+
 geocoder.on('clear', () => {
   if (marker) {
     marker.remove();
