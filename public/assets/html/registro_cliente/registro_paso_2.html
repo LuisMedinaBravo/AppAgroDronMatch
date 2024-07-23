@@ -28,21 +28,21 @@ https://templatemo.com/tm-559-zay-shop
 <body class="animate-section" style=" overflow: hidden;">
 
     <!-- Start Banner Hero -->
-    <div id="template-mo-zay-hero-carousel" class="carousel slide" style="height: 40vh;">
+    <div id="template-mo-zay-hero-carousel" class="carousel slide" style="height: 20vh;">
         <div class="carousel-inner">
-            <div id="carousel-active" class="carousel-item active" style="height: 40vh; background-image: url('../../img/DJI_0188.jpg'); background-size: cover; background-position: center;">
+            <div id="carousel-active" class="carousel-item active" style="height: 20vh; background-image: url('../../img/DJI_0188.jpg'); background-size: cover; background-position: center;">
                 <div class="container" style="height: 100%;">
                     <div class="row align-items-end justify-content-center h-100">
                         <div class="col-lg-6 mb-0 d-flex justify-content-center">
                             <div>
                                 <h1 class="h1 text-success" style="color: white !important; margin-bottom: 0.5rem;"><b>AgroDronMatch</b></h1>
-                                <h4 class="h4" style="color: white !important; text-align: center;"><b>Paso 2: Completar datos personales</b></h4>
+                                <h4 class="h4" style="color: white !important; text-align: center;"><b>Paso 2: Datos personales</b></h4>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="flecha-atras">
-                    <i class="fas fa-chevron-left"></i>
+                    <i class="fas fa-hand-point-left"></i>
                 </div>
             </div>
         </div>
@@ -57,12 +57,14 @@ https://templatemo.com/tm-559-zay-shop
                         <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-user"></i></span>
                         <input type="text" class="form-control" id="nombre" autocomplete="off" placeholder="Ingresar nombre completo">
                     </div>
-                <div id="nombre-error-message" class="error-message-nombre"></div>
-                <div class="input-group mb-2">
-                    <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-user-tie"></i></span>
-                    <input type="text" class="form-control" id="nombre_agricola" autocomplete="off" placeholder="Ingresar nombre agrícola">
-                </div>
-                <div id="nombre-agricola-error-message" class="error-message-nombre"></div>
+                    <div id="nombre-error-message" class="error-message-nombre"></div>
+                    <div class="input-group mb-2">
+                        <span class="input-group-text" style="background-color: white; border: none;">
+                            <img src="../../img/png/agricultor_icono.png" style="width: 20px; height: 20px; margin-left: -2px;">
+                        </span>
+                        <input type="text" class="form-control" id="nombre_agricola" autocomplete="off" placeholder="Ingresar nombre agrícola">
+                    </div>
+                    <div id="nombre-agricola-error-message" class="error-message-nombre"></div>
                     <div class="input-group mb-2" class="form-control">
                         <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-calendar-alt"></i></span>
                         <input type="text" class="form-control" id="nacimiento" autocomplete="off" placeholder="Ingresar fecha nacimiento" readonly style="background-color: white;">
@@ -90,6 +92,37 @@ https://templatemo.com/tm-559-zay-shop
                             <button id="confirmar_fecha" class="btn btn-secondary" style="width: 45%; height: 40px; background-color: white; color: black;">Confirmar</button>
                         </div>
                     </div>
+                    <!-- <div class="input-group mb-2">
+                        <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-phone-alt"></i></span>
+                        <div class="d-flex justify-content-start" style="width: 28%;">
+                            <div class="dropdown">
+                              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonCultivo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black!important; background-color: white!important;">
+                                Prefijo
+                              </button>
+                              <div class="dropdown-menu" style="background-color: white!important;">
+                                <a class="dropdown-item" href="#"><img src="../../img/png/chile.png" style="width: 25px; height: 25px; margin-left: -2px;"></img> +56</a>
+                                <a class="dropdown-item" href="#">+54</a>
+                                <a class="dropdown-item" href="#">+51</a>
+                              </div>
+                            </div>
+                        </div>
+                        
+                    </div> -->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-phone-alt"></i></span>
+                        <div class="d-flex justify-content-start" style="width: 26%;">
+                          <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonTelefono" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black!important; background-color: white!important;">
+                              Prefijo
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#"><img src="../../img/png/chile.png" style="width: 25px; height: 25px; margin-left: -2px;"></img> +56</a>
+                            </div>
+                          </div>
+                        </div>
+                        <input type="text" class="form-control" id="telefono" autocomplete="off" placeholder="Ingresar teléfono" maxlength="9" disabled>
+                    </div>
+                    <div id="telefono-error-message" class="error-message-telefono"></div>
                  <button id="continuar_registro_2" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: white; color: black; margin-top: 3%;">Continuar registro</button>
             </div>
             <div><p id="pre-footer">*La información podrá ser editada en tu perfil</p></div> 

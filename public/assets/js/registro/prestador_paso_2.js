@@ -99,6 +99,86 @@ function validarFecha() {
   }
 }
 
+//Número de teléfono
+
+const dropdownButton = document.getElementById('dropdownMenuButtonTelefono');
+const dropdownMenu = document.querySelector('.dropdown-menu');
+const dropdownItems = document.querySelectorAll('.dropdown-item');
+
+// Agregar event listener al botón del menú desplegable
+dropdownButton.addEventListener('click', () => {
+  dropdownMenu.classList.toggle('show');
+});
+
+// Agregar event listeners a los elementos del menú desplegable
+dropdownItems.forEach(item => {
+  item.addEventListener('click', () => {
+    // Obtener el HTML del elemento seleccionado
+    const selectedHTML = item.innerHTML;
+
+    // Actualizar el HTML del botón
+    dropdownButton.innerHTML = selectedHTML;
+
+    // Remover la clase 'active' de todos los elementos
+    dropdownItems.forEach(item => item.classList.remove('active'));
+
+    // Agregar la clase 'active' al elemento seleccionado
+    item.classList.add('active');
+
+    // Ocultar el menú desplegable
+    dropdownMenu.classList.remove('show');
+    localStorage.setItem('telefono', item.textContent.trim());
+    document.getElementById('telefono').disabled=false;
+  });
+});
+
+// Cerrar el menú desplegable cuando se hace clic fuera de él
+document.addEventListener('click', (event) => {
+  if (!event.target.matches('#dropdownMenuButtonTelefono, .dropdown-menu, .dropdown-item')) {
+    dropdownMenu.classList.remove('show');
+  }
+});
+
+  // Verificar teléfono input
+  const telefonoInput = document.getElementById('telefono');
+  const telefonoErrorMessage = document.getElementById('telefono-error-message');
+  
+  telefonoInput.addEventListener('input', function() {
+    validarTelefono();
+  });
+  
+  function validarTelefono() {
+    // Use a regular expression to allow only numeric characters
+    telefonoInput.value = telefonoInput.value.replace(/\D/g, '');
+  
+    const telefono_value = parseInt(telefonoInput.value, 10);
+  
+    if (telefonoInput.value === "") {
+        telefonoErrorMessage.textContent = "Por favor, ingresar teléfono válido";
+        telefonoErrorMessage.style.display = 'block';
+        telefonoInput.classList.add('error');
+        telefonoInput.style.border = '1px solid red';
+      return false;
+    } else if (telefonoInput.value.length == 9){
+        telefonoErrorMessage.style.display = 'none';
+        telefonoInput.classList.remove('error');
+        telefonoInput.style.border = '';
+        
+        // Get the existing value from localStorage
+        let existingTelefono = localStorage.getItem('telefono');
+        if (!existingTelefono) {
+          existingTelefono = '';
+        }
+
+        // Concatenate the new value to the existing value
+        let updatedTelefono = existingTelefono + telefono_value;
+
+        // Save the updated value to localStorage
+        localStorage.setItem('telefono', updatedTelefono);
+          return true;
+      }
+  }
+
 //Lógica del footer
 $(document).ready(function() {
   var $footer = $('#footer');
@@ -132,7 +212,7 @@ $(document).ready(function() {
 // Clikear botón continuar registro
 const continueButton = document.getElementById("continuar_registro_2");
 continueButton.addEventListener("click", function() {
-  if (validarNombre() && validarEmpresa() && validarFecha()) {
+  if (validarNombre() && validarEmpresa() && validarFecha() && validarTelefono()) {
     window.location.href = "../../html/registro_prestador/registro_paso_3.html";
   }
 });

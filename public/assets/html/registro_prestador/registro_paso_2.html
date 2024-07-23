@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="../../css/custom.css">
 
     <!-- Load fonts style after rendering the layout styles -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="../../css/fontawesome.min.css">
 
     <!-- Calendario -->
@@ -31,28 +30,28 @@ https://templatemo.com/tm-559-zay-shop
 <body class="animate-section" style="overflow: hidden;">
 
     <!-- Start Banner Hero -->
-    <div id="template-mo-zay-hero-carousel" class="carousel slide" style="height: 40vh;">
+    <div id="template-mo-zay-hero-carousel" class="carousel slide" style="height: 20vh;">
         <div class="carousel-inner">
-            <div id="carousel-active" class="carousel-item active" style="height: 40vh; background-image: url('../../img/DJI_0188.jpg'); background-size: cover; background-position: center;">
+            <div id="carousel-active" class="carousel-item active" style="height: 20vh; background-image: url('../../img/DJI_0188.jpg'); background-size: cover; background-position: center;">
                 <div class="container" style="height: 100%;">
                     <div class="row align-items-end justify-content-center h-100">
                         <div class="col-lg-6 mb-0 d-flex justify-content-center">
                             <div>
                                 <h1 class="h1 text-success" style="color: white !important; margin-bottom: 0.5rem;"><b>AgroDronMatch</b></h1>
-                                <h4 class="h4" style="color: white !important; text-align: center;"><b>Paso 2: Completar datos personales</b></h4>
+                                <h4 class="h4" style="color: white !important; text-align: center;"><b>Paso 2: Datos personales</b></h4>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="flecha-atras">
-                    <i class="fas fa-chevron-left"></i>
+                    <i class="fas fa-hand-point-left"></i>
                 </div>
             </div>
         </div>
     </div>
     <!-- End Banner Hero -->
     
-    <section id="container" class="container" style="height: 61vh;">
+    <section id="container" class="container">
         <div class="row text-center">
             <div class="col-lg-6 m-auto">
                 <div class="d-flex flex-column align-items-center mt-4">
@@ -62,7 +61,7 @@ https://templatemo.com/tm-559-zay-shop
                     </div>
                     <div id="nombre-error-message" class="error-message-nombre"></div>
                     <div class="input-group mb-2">
-                        <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-industry"></i></span>
+                        <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-university"></i></span>
                         <input type="text" class="form-control" id="empresa" autocomplete="off" placeholder="Ingresar nombre de empresa">
                     </div>
                     <div id="empresa-error-message" class="error-message-empresa"></div>
@@ -93,7 +92,21 @@ https://templatemo.com/tm-559-zay-shop
                             <button id="confirmar_fecha" class="btn btn-secondary" style="width: 45%; height: 40px; background-color: white; color: black;">Confirmar</button>
                         </div>
                     </div>
-                    
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" style="background-color: white; border: none;"><i class="fas fa-phone-alt"></i></span>
+                        <div class="d-flex justify-content-start" style="width: 26%;">
+                          <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonTelefono" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black!important; background-color: white!important;">
+                              Prefijo
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#"><img src="../../img/png/chile.png" style="width: 25px; height: 25px; margin-left: -2px;"></img> +56</a>
+                            </div>
+                          </div>
+                        </div>
+                        <input type="text" class="form-control" id="telefono" autocomplete="off" placeholder="Ingresar teléfono" maxlength="9" disabled>
+                    </div>
+                    <div id="telefono-error-message" class="error-message-telefono"></div>
                     <button id="continuar_registro_2" class="btn btn-secondary" style="width: 90%; height: 50px; background-color: white; color: black; margin-top: 3%;">Continuar registro</button>
                 </div>
             </div>

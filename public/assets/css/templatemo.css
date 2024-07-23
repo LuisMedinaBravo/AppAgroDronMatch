@@ -435,6 +435,11 @@ button:active {
   font-size: 12px!important;
   margin-top: 0px;
 }
+.error-message-telefono {
+  color: red;
+  font-size: 12px!important;
+  margin-top: 0px;
+}
 .error-message-empresa {
   color: red;
   font-size: 12px!important;
@@ -629,18 +634,18 @@ input:focus + .slider {
 
 .input-group.mb-3 .dropdown-menu .dropdown-item:hover,
 .input-group.mb-3 .dropdown-menu .dropdown-item.active {
-  background-color: transparent; /* Color verde más oscuro al seleccionar */
+  background-color: transparent;
   color: white; /* Color de texto blanco */
   width: 100%;
 }
 
 .dropdown-item.selected {
-  background-color: #007bff !important;
+  background-color: transparent !important;
   color: white !important;
 }
 
 .selected {
-  background-color: #007bff !important;
+  background-color: transparent !important;
   color: #fff !important;
 }
 
@@ -650,8 +655,7 @@ input:focus + .slider {
   top: 20px; 
   left: 20px;
   color: black;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-  transform: scale(1.5); /* Escalar la flecha 1.5 veces más grande */
+  transform: scale(2.0); /* Escalar la flecha 1.5 veces más grande */
 }
 
 /* Animación de cambio de páginas */
