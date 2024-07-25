@@ -70,13 +70,14 @@ let selectedComunas = [];
             label.classList.add('mr-2', 'comuna-label');
             label.style.textAlign = 'left';
             label.style.width = '100%';
+            label.style.color = 'black';
+            label.style.backgroundColor = 'white';
             label.innerHTML = `<span><i class="fas fa-map-marker-alt"></i></span> ${comuna}`;
 
             // Agregar estilos y animación para cuando se hace clic en la etiqueta
             label.style.padding = '10px 20px'; // Aumentar el height del verde
             label.style.transition = 'background-color 0.3s ease, color 0.3s ease'; // Animación
-            label.style.borderRadius = '20px'; // Agregar border-radius
-          
+            label.style.borderRadius = '20px'; // Agregar border-radius 
 
           label.addEventListener('click', () => {
             document.getElementById('confirmar_comunas').disabled = false;
@@ -99,10 +100,8 @@ let selectedComunas = [];
             document.getElementById('comuna').value = selectedComunas.join(', ');
             if (selectedComunas.length > 0) {
               document.getElementById('confirmar_comunas').disabled = false;
-              document.getElementById('cancelar_comunas').disabled = true;
             } else {
               document.getElementById('confirmar_comunas').disabled = true;
-              document.getElementById('cancelar_comunas').disabled = false;
             }
           });
 
@@ -120,10 +119,8 @@ let selectedComunas = [];
         document.getElementById('comuna').value = selectedComunas.join(', ');
         if (selectedComunas.length > 0) {
           document.getElementById('confirmar_comunas').disabled = false;
-          document.getElementById('cancelar_comunas').disabled = true;
         } else {
           document.getElementById('confirmar_comunas').disabled = true;
-          document.getElementById('cancelar_comunas').disabled = false;
         }
 
         document.getElementById('main-section').style.display = 'none';
@@ -161,10 +158,8 @@ let selectedComunas = [];
     // Verificar si hay al menos una etiqueta seleccionada
     if (selectedComunas.length > 0) {
       document.getElementById('confirmar_comunas').disabled = false;
-      document.getElementById('cancelar_comunas').disabled = true;
     } else {
       document.getElementById('confirmar_comunas').disabled = true;
-      document.getElementById('cancelar_comunas').disabled = false;
     }
   });
   

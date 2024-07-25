@@ -1,3 +1,36 @@
+/* CONEXION FIREBASE */
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+// Importar base de datos FIRESTORE
+import {
+  getFirestore,
+  collection,
+  addDoc,
+} from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
+// Importar AUTHENTICATION
+import { 
+  getAuth, 
+  createUserWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAYmN4AgZ7ErfKE_vih5yMuKkc9_8cVuR0",
+  authDomain: "agrodronmatchapp.firebaseapp.com",
+  projectId: "agrodronmatchapp",
+  storageBucket: "agrodronmatchapp.appspot.com",
+  messagingSenderId: "321379887089",
+  appId: "1:321379887089:web:3c1ff1f586b358c2df0650"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+// Get the Firebase Authentication instance
+const auth = getAuth(app);
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
   // Obtener el checkbox de la jornada diurna
   const diurnoCheckbox = document.querySelector('input[name="jornada[]"][value="diurno"]');
@@ -83,6 +116,11 @@ const nprogressText3 = document.getElementById('nprogress-text-3');
 const container = document.getElementById('container');
 const flechaAtras = document.getElementById('flecha-atras');
 
+// Obtener los datos del localStorage
+const drones = JSON.parse(localStorage.getItem("drones"));
+const ubicacion_servicio = JSON.parse(localStorage.getItem("ubicaciones"));
+const perfil = localStorage.getItem("perfil") 
+
 // Clikear botón finalizar registro
 const finishButton = document.getElementById("finalizar_registro");
 finishButton.addEventListener("click", function() {
@@ -119,7 +157,6 @@ finishButton.addEventListener("click", function() {
       setTimeout(() => {
         nprogress.style.display = 'none';
         nprogressText2.style.display = 'none';
-        localStorage.clear();
         window.location.href = "../../html/iniciar_sesion.html";
         //container.style.display = 'block';
       }, 9000);
@@ -190,23 +227,54 @@ finishButton.addEventListener("click", function() {
 });
 
 //Firebase
-// Función para registrar un usuario
 async function registerUser(email, password) {
   try {
-    // Registra al usuario con el correo y contraseña
-    const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
-
-      // Obtén el objeto del usuario recién creado
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
-  
-    // Envía un correo de verificación
-    await user.sendEmailVerification();
-  
-    // Retorna el usuario recién creado
-    return user;
+    console.log("User created:", user);
+
+    // Mandar correo de verificación y guardar los datos del usuario
+    await new Promise((resolve, reject) => {
+      sendEmailVerification(user)
+        .then(() => {
+          // Datos usuario
+          const userData = {
+            correo: localStorage.getItem("correo"),
+            nombre: localStorage.getItem("nombre"),
+            empresa: localStorage.getItem("empresa"),
+            fecha_nacimiento: localStorage.getItem("nacimiento"),
+            telefono: localStorage.getItem("telefono"),
+            dron: {
+              DJI: drones?.DJI || "",
+              XAG: drones?.XAG || ""
+            },
+            ubicacion_servicio: {
+              region: Object.keys(ubicacion_servicio)[0],
+              comuna: ubicacion_servicio[Object.keys(ubicacion_servicio)[0]]
+            },
+            jornada: localStorage.getItem("jornada"),
+            fecha_sin_disponibilidad: localStorage.getItem("fecha_no_disponible"),
+          };
+          saveUserData(userData)
+          console.log("User data saved");
+          resolve();
+        })
+        .catch((error) => {
+          console.error("Error saving user data:", error);
+          reject(error);
+        });
+    });
   } catch (error) {
-    // Maneja los posibles errores
-    console.error('Error al registrar el usuario:', error);
-    throw error;
+    console.error("Error creating user:", error);
+  }
+}
+
+// Función para guardar un documento en la colección "users"
+async function saveUserData(userData) {
+  try {
+    const id = addDoc(collection(db, perfil), userData);
+    console.log("Documento guardado con ID: ", id.id);
+  } catch (e) {
+    console.error("Error al guardar el documento: ", e);
   }
 }

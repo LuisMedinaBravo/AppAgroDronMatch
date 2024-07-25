@@ -1,3 +1,36 @@
+/* CONEXION FIREBASE */
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+// Importar base de datos FIRESTORE
+import {
+  getFirestore,
+  collection,
+  addDoc
+} from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
+// Importar AUTHENTICATION
+import { 
+  getAuth, 
+  createUserWithEmailAndPassword,
+  sendEmailVerification
+} from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAYmN4AgZ7ErfKE_vih5yMuKkc9_8cVuR0",
+  authDomain: "agrodronmatchapp.firebaseapp.com",
+  projectId: "agrodronmatchapp",
+  storageBucket: "agrodronmatchapp.appspot.com",
+  messagingSenderId: "321379887089",
+  appId: "1:321379887089:web:3c1ff1f586b358c2df0650"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+// Get the Firebase Authentication instance
+const auth = getAuth(app);
+
+
 // Seleccionar los elementos relevantes
 const dropdownButton = document.getElementById('dropdownMenuButtonCultivo');
 const dropdownMenu = document.querySelector('.dropdown-menu');
@@ -237,10 +270,8 @@ window.addEventListener('load', () => {
             document.getElementById('modelo').value = selectedModelos.join(', ');
             if (selectedModelos.length > 0) {
               document.getElementById('confirmar_modelos').disabled = false;
-              document.getElementById('cancelar_modelos').disabled = true;
             } else {
               document.getElementById('confirmar_modelos').disabled = true;
-              document.getElementById('cancelar_modelos').disabled = false;
             }
           });
 
@@ -258,10 +289,8 @@ window.addEventListener('load', () => {
         document.getElementById('modelo').value = selectedModelos.join(', ');
         if (selectedModelos.length > 0) {
           document.getElementById('confirmar_modelos').disabled = false;
-          document.getElementById('cancelar_modelos').disabled = true;
         } else {
           document.getElementById('confirmar_modelos').disabled = true;
-          document.getElementById('cancelar_modelos').disabled = false;
         }
 
         document.getElementById('container').style.display = 'none';
@@ -299,10 +328,8 @@ window.addEventListener('load', () => {
     // Verificar si hay al menos una etiqueta seleccionada
     if (selectedModelos.length > 0) {
       document.getElementById('confirmar_modelos').disabled = false;
-      document.getElementById('cancelar_modelos').disabled = true;
     } else {
       document.getElementById('confirmar_modelos').disabled = true;
-      document.getElementById('cancelar_modelos').disabled = false;
     }
   });
   
@@ -574,6 +601,13 @@ $(document).ready(function() {
   const container = document.getElementById('container');
   const flechaAtras = document.getElementById('flecha-atras');
   
+  // Obtener los datos del localStorage
+  const predio = JSON.parse(localStorage.getItem("predio"));
+  const drones = JSON.parse(localStorage.getItem("drones_cliente"));
+  const perfil = localStorage.getItem("perfil") 
+
+  
+
   // Clikear botón finalizar registro
   const finishButton = document.getElementById("finalizar_registro");
   finishButton.addEventListener("click", function() {
@@ -605,15 +639,15 @@ $(document).ready(function() {
             nprogressText1.style.display = 'none';
             // Mostrar el segundo texto durante 2 segundos
             nprogressText2.style.display = 'block';
+            
           }, 6000);
           // Ocultar el segundo texto después de 2 segundos más
           setTimeout(() => {
             nprogress.style.display = 'none';
             nprogressText2.style.display = 'none';
-            localStorage.clear();
+            
             window.location.href = "../../html/iniciar_sesion.html";
             //container.style.display = 'block';
-            
             
           }, 9000);
       })
@@ -677,25 +711,54 @@ $(document).ready(function() {
       }
     }
   });
-  
-    //Firebase
-    // Función para registrar un usuario
+
   async function registerUser(email, password) {
-      try {
-        // Registra al usuario con el correo y contraseña
-        const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
-    
-        // Obtén el objeto del usuario recién creado
-        const user = userCredential.user;
-    
-        // Envía un correo de verificación
-        await user.sendEmailVerification();
-    
-        // Retorna el usuario recién creado
-        return user;
-      } catch (error) {
-        // Maneja los posibles errores
-        console.error('Error al registrar el usuario:', error);
-        throw error;
-      }
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      console.log("User created:", user);
+
+      // Guardar los datos del usuario
+      await new Promise((resolve, reject) => {
+        sendEmailVerification(user)
+          .then(() => {
+            const userData = {
+              correo: localStorage.getItem("correo"),
+              nombre: localStorage.getItem("nombre"),
+              nombre_agricola: localStorage.getItem("nombre_agricola"),
+              fecha_nacimiento: localStorage.getItem("nacimiento"),
+              telefono: localStorage.getItem("telefono"),
+              predio: {
+                direccion: predio.address,
+                region: predio.region.replace("Región", "").replace("de", "").replace("del", "").replace("la", "").replace("Santiago", "")
+              },
+              tipo_cultivo: localStorage.getItem("cultivo"),
+              hectarea: localStorage.getItem("hectarea"),
+              dron: {
+                DJI: drones?.DJI || "",
+                XAG: drones?.XAG || ""
+              }
+            };
+            saveUserData(userData)
+            console.log("User data saved");
+            resolve();
+          })
+          .catch((error) => {
+            console.error("Error saving user data:", error);
+            reject(error);
+          });
+      });
+    } catch (error) {
+      console.error("Error creating user:", error);
     }
+  }
+
+// Función para guardar un documento en la colección "users"
+async function saveUserData(userData) {
+  try {
+    const id = addDoc(collection(db, perfil), userData);
+    console.log("Documento guardado con ID: ", id.id);
+  } catch (e) {
+    console.error("Error al guardar el documento: ", e);
+  }
+}

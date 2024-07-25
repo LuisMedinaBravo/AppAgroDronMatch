@@ -144,15 +144,12 @@ document.addEventListener('click', (event) => {
   const telefonoErrorMessage = document.getElementById('telefono-error-message');
   
   telefonoInput.addEventListener('input', function() {
-    validarTelefono();
+    //validarTelefono();
+    telefonoInput.value = telefonoInput.value.replace(/\D/g, '');
   });
   
   function validarTelefono() {
-    // Use a regular expression to allow only numeric characters
-    telefonoInput.value = telefonoInput.value.replace(/\D/g, '');
-  
-    const telefono_value = parseInt(telefonoInput.value, 10);
-  
+    
     if (telefonoInput.value === "") {
         telefonoErrorMessage.textContent = "Por favor, ingresar teléfono válido";
         telefonoErrorMessage.style.display = 'block';
@@ -164,18 +161,11 @@ document.addEventListener('click', (event) => {
         telefonoInput.classList.remove('error');
         telefonoInput.style.border = '';
         
-        // Get the existing value from localStorage
-        let existingTelefono = localStorage.getItem('telefono');
-        if (!existingTelefono) {
-          existingTelefono = '';
-        }
-
-        // Concatenate the new value to the existing value
-        let updatedTelefono = existingTelefono + telefono_value;
-
+        const tel = localStorage.getItem('telefono');
+        const telUpdate = tel + telefonoInput.value; 
         // Save the updated value to localStorage
-        localStorage.setItem('telefono', updatedTelefono);
-          return true;
+        localStorage.setItem('telefono', telUpdate);
+        return true;
       }
   }
 

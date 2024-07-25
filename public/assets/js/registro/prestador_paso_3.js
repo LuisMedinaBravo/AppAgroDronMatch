@@ -101,10 +101,8 @@ let selectedModelos = [];
             document.getElementById('modelo').value = selectedModelos.join(', ');
             if (selectedModelos.length > 0) {
               document.getElementById('confirmar_modelos').disabled = false;
-              document.getElementById('cancelar_modelos').disabled = true;
             } else {
               document.getElementById('confirmar_modelos').disabled = true;
-              document.getElementById('cancelar_modelos').disabled = false;
             }
           });
 
@@ -122,10 +120,8 @@ let selectedModelos = [];
         document.getElementById('modelo').value = selectedModelos.join(', ');
         if (selectedModelos.length > 0) {
           document.getElementById('confirmar_modelos').disabled = false;
-          document.getElementById('cancelar_modelos').disabled = true;
         } else {
           document.getElementById('confirmar_modelos').disabled = true;
-          document.getElementById('cancelar_modelos').disabled = false;
         }
 
         document.getElementById('main-section').style.display = 'none';
@@ -163,10 +159,8 @@ let selectedModelos = [];
     // Verificar si hay al menos una etiqueta seleccionada
     if (selectedModelos.length > 0) {
       document.getElementById('confirmar_modelos').disabled = false;
-      document.getElementById('cancelar_modelos').disabled = true;
     } else {
       document.getElementById('confirmar_modelos').disabled = true;
-      document.getElementById('cancelar_modelos').disabled = false;
     }
   });
 

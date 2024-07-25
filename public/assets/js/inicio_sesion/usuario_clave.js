@@ -1,3 +1,30 @@
+/* CONEXION FIREBASE */
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+// Importar base de datos FIRESTORE
+import {
+  getFirestore,
+  collection,
+  getDocs,
+} from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAYmN4AgZ7ErfKE_vih5yMuKkc9_8cVuR0",
+  authDomain: "agrodronmatchapp.firebaseapp.com",
+  projectId: "agrodronmatchapp",
+  storageBucket: "agrodronmatchapp.appspot.com",
+  messagingSenderId: "321379887089",
+  appId: "1:321379887089:web:3c1ff1f586b358c2df0650"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+//Limpiar LocalStorage
+localStorage.clear();
+
 // Validación de correo electrónico
 const correoInput = document.getElementById("correo");
 const correoErrorMessage = document.getElementById("correo-error-message");
@@ -120,6 +147,9 @@ continueButton.addEventListener("click", function() {
     }
 });
 
+
+
+// Función de inicio de sesión
 async function loginUser(correo,clave){
 
   nprogress.style.display = 'block';
@@ -148,9 +178,7 @@ async function loginUser(correo,clave){
             // Mostrar el segundo texto durante 2 segundos
             nprogress.style.display = 'none';
             container.style.display = 'block';
-            //PREGUNTAR EN BD SI CORREO PERTENECE A CLIENTE O PRESTADOR
-            //window.location.href = '../html/perfil_cliente/cliente.html';
-            //window.location.href = '../html/perfil_prestador/prestador.html';
+            checkFirestoreCollections(correo);
           }, 6000);
 
       } else {
@@ -187,8 +215,7 @@ async function loginUser(correo,clave){
       }
   })
   .catch((error) => {
-    // Manejo de errores
-    const errorMessage = error.message;
+
     // Mostrar el loader
     nprogress.style.display = 'block';
     loader.style.display = 'block';
@@ -229,4 +256,36 @@ async function loginUser(correo,clave){
       window.location.href = "../../assets/html/olvidar_clave.html";
     });
   });
+}
+
+async function checkFirestoreCollections(email) {
+  try {
+    // Buscar en la colección "cliente"
+    let userData = null;
+    const clienteCollectionRef = collection(db, 'cliente');
+    const clienteSnapshot = await getDocs(clienteCollectionRef);
+    userData = clienteSnapshot.docs.find((doc) => doc.data().correo === email);
+    if (userData) {
+      //alert(`Correo encontrado en la colección "cliente"`);
+      window.location.href = '../html/perfil_cliente/cliente.html';
+      //return userData.data();
+    }
+
+    // Buscar en la colección "prestador"
+    const prestadorCollectionRef = collection(db, 'prestador');
+    const prestadorSnapshot = await getDocs(prestadorCollectionRef);
+    userData = prestadorSnapshot.docs.find((doc) => doc.data().correo === email);
+    if (userData) {
+      //alert(`Correo encontrado en la colección "prestador"`);
+      window.location.href = '../html/perfil_prestador/prestador.html';
+      //return userData.data();
+    }
+
+    // No se encontró el usuario en ninguna de las colecciones
+    //alert("No se encontró en ninguna colección");
+    //return null;
+  } catch (error) {
+    console.error('Error checking Firestore collections:', error);
+    //return null;
+  }
 }

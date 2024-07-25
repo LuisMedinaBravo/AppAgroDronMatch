@@ -20,6 +20,7 @@ function handleClickOutside(event) {
 // Meses
 const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 const monthOptions = document.getElementById('month-options');
+var monthNumeric = "01";
 
 // Establecer el primer mes por defecto
 document.getElementById('month-input').value = months[0];
@@ -29,6 +30,12 @@ months.forEach((month, index) => {
     option.textContent = month;
     option.addEventListener('click', () => {
         document.getElementById('month-input').value = month;
+        monthNumeric = document.getElementById('month-input').value;
+        if (index + 1 < 10) {
+            monthNumeric = '0' + String(index + 1);
+        } else {
+            monthNumeric = String(index + 1);
+        }
         monthOptions.style.display = 'none';
     });
     monthOptions.appendChild(option);
@@ -98,11 +105,11 @@ confirmarFechaButton.addEventListener('click', showSelectedDate);
 
 function showSelectedDate() {
     let selectedDay = document.getElementById('day-input').value;
-    let selectedMonth = document.getElementById('month-input').value;
+    //let selectedMonth = document.getElementById('month-input').value;
     let selectedYear = document.getElementById('year-input').value;
     
     // Crear la fecha en formato "AAAA-MM-DD"
-    let selectedDate = `${selectedDay}-${selectedMonth}-${selectedYear}`;
+    let selectedDate = `${selectedDay}-${monthNumeric}-${selectedYear}`;
     
     // Enviar la fecha al input con id "nacimiento"
     document.getElementById('nacimiento').value = selectedDate;
