@@ -108,7 +108,7 @@ const nprogressText1 = document.getElementById('nprogress-text-1');
 const nprogressText2 = document.getElementById('nprogress-text-2');
 const nprogressText3 = document.getElementById('nprogress-text-3');
 const container = document.getElementById('container');
-const flechaAtras = document.getElementById('flecha_atras');
+const flechaAtras = document.getElementById('flecha-atras');
 
 //Clikear botón confimrar inicio de sesión
 const continueButton = document.getElementById("confirmar");

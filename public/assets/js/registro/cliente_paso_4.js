@@ -190,54 +190,59 @@ window.addEventListener('load', () => {
   
   let selectedModelos = [];
 
-document.getElementById('modelo').addEventListener('click', () => {
-  fetch('../../json/drones-marca-modelo.json')
-    .then(response => response.json())
-    .then(data => {
-      const selectedMarca = document.getElementById('marca').value.split(', ').pop();
-      // Find the modelos for the selected marca
-      const selectedModelo = data.drones.find(item => item.marca === selectedMarca).modelo;
+  document.getElementById('modelo').addEventListener('click', () => {
+    fetch('../../json/drones-marca-modelo.json')
+      .then(response => response.json())
+      .then(data => {
+        const selectedMarca = document.getElementById('marca').value.split(', ').pop();
+        const selectedModelo = data.drones.find(item => item.marca === selectedMarca).modelo;
 
-      // Clear the previous modelos
-      const modelosContainer = document.getElementById('modelos-container');
-      modelosContainer.innerHTML = '';
+        const modelosContainer = document.getElementById('modelos-container');
+        modelosContainer.innerHTML = '';
 
-      // Crear una etiqueta para cada modelo y agregarla al contenedor de marcas
-      selectedModelo.forEach(modelo => {
-        const label = document.createElement('label');
-        label.classList.add('mr-2', 'modelo-label');
-        label.style.textAlign = 'left';
-        label.style.width = '100%';
-        label.innerHTML = `<span><i class="fas fa-trademark"></i></span> ${modelo}`;
+        selectedModelo.forEach(modelo => {
+          const label = document.createElement('label');
+          label.classList.add('mr-2', 'modelo-label');
+          label.style.textAlign = 'left';
+          label.style.width = '100%';
+          label.style.color = 'black';
+          label.style.backgroundColor = 'white';
+          
+          label.innerHTML = `<span><i class="fas fa-trademark"></i></span> ${modelo}`;
 
-        // Agregar estilos y animación para cuando se hace clic en la etiqueta
-        label.style.padding = '10px 20px'; // Aumentar el height del verde
-        label.style.transition = 'background-color 0.3s ease, color 0.3s ease'; // Animación
-        label.style.borderRadius = '20px'; // Agregar border-radius
+          // Agregar estilos y animación para cuando se hace clic en la etiqueta
+          label.style.padding = '10px 20px'; // Aumentar el height del verde
+          label.style.transition = 'background-color 0.3s ease, color 0.3s ease'; // Animación
+          label.style.borderRadius = '20px'; // Agregar border-radius
+          
 
-        label.addEventListener('click', () => {
-          document.getElementById('confirmar_modelos').disabled = false;
-          if (label.style.color === 'white') {
-            label.style.color = 'black';
-            label.style.backgroundColor = 'transparent';
-            selectedModelos = selectedModelos.filter(c => c !== modelo);
-            // Actualizar el valor del input de modelo
-            document.getElementById('modelo').value = selectedModelos.join(', ');
-          } else {
-            label.style.color = 'white';
-            label.style.backgroundColor = '#66bb6a'; // Establecer el color verde
-            selectedModelos.push(modelo);
-            // Actualizar el valor del input de modelo
-            document.getElementById('modelo').value = selectedModelos.join(', ');
-          }
-
-          // Verificar si hay al menos una etiqueta seleccionada
-          if (selectedModelos.length > 0) {
+          label.addEventListener('click', () => {
             document.getElementById('confirmar_modelos').disabled = false;
-          } else {
-            document.getElementById('confirmar_modelos').disabled = true;
-          }
-        });
+            //label.classList.toggle('selected');
+            if (label.style.color === 'black') {
+              label.style.color = 'white';
+              label.style.backgroundColor = '#66bb6a';
+              selectedModelos.push(modelo);
+              // Actualizar el valor del input de modelo
+              document.getElementById('modelo').value = selectedModelos.join(', ');
+
+            } else {
+              label.style.color = 'black';
+              label.style.backgroundColor = 'white'; // Establecer el color verde
+              selectedModelos = selectedModelos.filter(c => c !== modelo);
+              // Actualizar el valor del input de modelo
+              document.getElementById('modelo').value = selectedModelos.join(', ');
+            }
+            
+            document.getElementById('modelo').value = selectedModelos.join(', ');
+            if (selectedModelos.length > 0) {
+              document.getElementById('confirmar_modelos').disabled = false;
+              document.getElementById('cancelar_modelos').disabled = true;
+            } else {
+              document.getElementById('confirmar_modelos').disabled = true;
+              document.getElementById('cancelar_modelos').disabled = false;
+            }
+          });
 
         // Verificar si el modelo está seleccionada y establecer el color verde
         if (selectedModelos.includes(modelo)) {
@@ -245,57 +250,70 @@ document.getElementById('modelo').addEventListener('click', () => {
           label.style.color = 'white';
         }
 
-        modelosContainer.appendChild(label);
-        const br = document.createElement('br');
-        modelosContainer.appendChild(br);
+          modelosContainer.appendChild(label);
+          const br = document.createElement('br');
+          modelosContainer.appendChild(br);
+        });
 
-        const modeloErrorMessage = document.getElementById('modelo-error-message');
-        const modeloInput = document.getElementById('modelo');
-        modeloErrorMessage.textContent = "";
-        modeloInput.classList.remove("error");
-      });
+        document.getElementById('modelo').value = selectedModelos.join(', ');
+        if (selectedModelos.length > 0) {
+          document.getElementById('confirmar_modelos').disabled = false;
+          document.getElementById('cancelar_modelos').disabled = true;
+        } else {
+          document.getElementById('confirmar_modelos').disabled = true;
+          document.getElementById('cancelar_modelos').disabled = false;
+        }
 
-      // Event listener todo "checkbox"
-      // document.getElementById('checkbox').addEventListener('click', () => {
-      //   const modeloLabels = document.querySelectorAll('.modelo-label');
-      //   modeloLabels.forEach(label => {
-      //     if (document.getElementById('checkbox').checked) {
-      //       label.style.backgroundColor = '#66bb6a';
-      //       label.style.color = 'white';
-      //       const modelo = label.textContent.trim().split(' ')[1];
-      //       if (!selectedModelos.includes(modelo)) {
-      //         selectedModelos.push(modelo);
-      //       }
-      //     } else {
-      //       label.style.backgroundColor = 'transparent';
-      //       label.style.color = 'black';
-      //       const modelo = label.textContent.trim().split(' ')[1];
-      //       selectedModelos = selectedModelos.filter(m => m !== modelo);
-      //     }
-      //   });
+        document.getElementById('container').style.display = 'none';
+        document.getElementById('container-modelos').style.display = 'block';
+        
+      })
+      .catch(error => console.error('Error fetching drones-marca-modelo.json:', error));
+  });
 
-      //   document.getElementById('modelo').value = selectedModelos.join(', ');
-      //   if (selectedModelos.length > 0) {
-      //     document.getElementById('confirmar_modelos').disabled = false;
-      //   } else {
-      //     document.getElementById('confirmar_modelos').disabled = true;
-      //   }
-      // });
+  // Agregar evento de clic al checkbox
+  document.getElementById('checkbox').addEventListener('click', () => {
+    // Obtener todos los labels de los modelos
+    const modeloLabels = document.querySelectorAll('.modelo-label');
 
-      document.getElementById('container').style.display = 'none';
-      document.getElementById('container-modelos').style.display = 'block';
-    })
-    .catch(error => console.error('Error fetching drones-marca-modelo.json:', error));
-});
+    // Recorrer todos los labels de los modelos
+    modeloLabels.forEach(label => {
+      // Si el checkbox está marcado, establecer el estilo del label como seleccionado
+      if (document.getElementById('checkbox').checked) {
+        label.style.color = 'white';
+        label.style.backgroundColor = '#66bb6a';
+        //label.classList.add('selected');
+        selectedModelos.push(label.textContent.trim());
+      } else {
+        // Si el checkbox no está marcado, establecer el estilo del label como no seleccionado
+        label.style.color = 'black';
+        label.style.backgroundColor = 'white';
+        //label.classList.remove('selected');
+        selectedModelos = selectedModelos.filter(modelo => modelo !== label.textContent.trim());
+      }
+    });
+
+    // Actualizar el valor del input de modelo
+    document.getElementById('modelo').value = selectedModelos.join(', ');
+
+    // Verificar si hay al menos una etiqueta seleccionada
+    if (selectedModelos.length > 0) {
+      document.getElementById('confirmar_modelos').disabled = false;
+      document.getElementById('cancelar_modelos').disabled = true;
+    } else {
+      document.getElementById('confirmar_modelos').disabled = true;
+      document.getElementById('cancelar_modelos').disabled = false;
+    }
+  });
   
   document.getElementById('cancelar_marcas').addEventListener('click', () => {
-        document.getElementById('container').style.display = 'block';
-        document.getElementById('container-marcas').style.display = 'none';
-        document.getElementById("flecha-atras").style.display="block";
-        var $prefooter = $('#pre-footer');
-        $prefooter.show();
-        var $footer = $('#footer');
-        $footer.show();
+    document.getElementById('container').style.display = 'block';
+    document.getElementById('container-marcas').style.display = 'none';
+    document.getElementById("flecha-atras").style.display="block";
+    var $prefooter = $('#pre-footer');
+    $prefooter.show();
+    var $footer = $('#footer');
+    $footer.show();
   });
   
   document.getElementById('cancelar_modelos').addEventListener('click', () => {
@@ -312,6 +330,7 @@ document.getElementById('modelo').addEventListener('click', () => {
   document.getElementById('confirmar_modelos').addEventListener('click', () => {
     if (selectedModelos.length > 0) {
         document.getElementById('container').style.display = 'block';
+        // Asegurar que el checkbox esté deseleccionado
         document.getElementById('container-modelos').style.display = 'none';
   
         //console.log('Comunas seleccionadas:', selectedModelos);

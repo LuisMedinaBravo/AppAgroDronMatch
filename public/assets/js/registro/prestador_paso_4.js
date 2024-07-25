@@ -48,14 +48,13 @@ fetch('../../json/comunas-regiones.json')
     .catch(error => console.error('Error fetching regiones-comunas.json:', error));
 });
 
-
 let selectedComunas = [];
-document.getElementById('comuna').addEventListener('click', () => {
-    // Fetch the regiones-comunas.json file
+
+  document.getElementById('comuna').addEventListener('click', () => {
     fetch('../../json/comunas-regiones.json')
-        .then(response => response.json())
-        .then(data => {
-            // Get the selected region from the input field
+      .then(response => response.json())
+      .then(data => {
+        // Get the selected region from the input field
             //const selectedRegion = document.getElementById('region').value;
             const selectedRegion = document.getElementById('region').value.split(', ').pop();
             // Find the communes for the selected region
@@ -77,57 +76,102 @@ document.getElementById('comuna').addEventListener('click', () => {
             label.style.padding = '10px 20px'; // Aumentar el height del verde
             label.style.transition = 'background-color 0.3s ease, color 0.3s ease'; // Animación
             label.style.borderRadius = '20px'; // Agregar border-radius
+          
 
-            label.addEventListener('click', () => {
-                document.getElementById('confirmar_comunas').disabled = false;
-                // Actualizar el valor del input de comuna cuando se hace clic en una comuna
-                if (label.style.color === 'white') {
-                    label.style.color = 'black';
-                    label.style.backgroundColor = 'transparent';
-                    selectedComunas = selectedComunas.filter(c => c !== comuna);
-                    // Actualizar el valor del input de comuna
-                    document.getElementById('comuna').value = selectedComunas.join(', ');
-                } else {
-                    label.style.color = 'white';
-                    label.style.backgroundColor = '#66bb6a'; // Establecer el color verde
-                    selectedComunas.push(comuna);
-                    // Actualizar el valor del input de comuna
-                    document.getElementById('comuna').value = selectedComunas.join(', ');
-                }
-            
-                // Verificar si hay al menos una etiqueta seleccionada
-                if (selectedComunas.length > 0) {
-                    document.getElementById('confirmar_comunas').disabled = false;
-                } else {
-                    document.getElementById('confirmar_comunas').disabled = true;
-                }
+          label.addEventListener('click', () => {
+            document.getElementById('confirmar_comunas').disabled = false;
+            //label.classList.toggle('selected');
+            if (label.style.color === 'black') {
+              label.style.color = 'white';
+              label.style.backgroundColor = '#66bb6a';
+              selectedComunas.push(comuna);
+              // Actualizar el valor del input de modelo
+              document.getElementById('comuna').value = selectedComunas.join(', ');
 
-                comunaErrorMessage.textContent = "";
-                comunaInput.classList.remove("error");
-            });
-
-            // Verificar si la comuna está seleccionada y establecer el color verde
-            if (selectedComunas.includes(comuna)) {
-                label.style.backgroundColor = '#66bb6a';
-                label.style.color = 'white';
+            } else {
+              label.style.color = 'black';
+              label.style.backgroundColor = 'white'; // Establecer el color verde
+              selectedComunas = selectedComunas.filter(c => c !== comuna);
+              // Actualizar el valor del input de modelo
+              document.getElementById('comuna').value = selectedComunas.join(', ');
             }
+            
+            document.getElementById('comuna').value = selectedComunas.join(', ');
+            if (selectedComunas.length > 0) {
+              document.getElementById('confirmar_comunas').disabled = false;
+              document.getElementById('cancelar_comunas').disabled = true;
+            } else {
+              document.getElementById('confirmar_comunas').disabled = true;
+              document.getElementById('cancelar_comunas').disabled = false;
+            }
+          });
 
-            comunasContainer.appendChild(label);
-            const br = document.createElement('br');
-            comunasContainer.appendChild(br);
-            });
+        // Verificar si el modelo está seleccionada y establecer el color verde
+        if (selectedComunas.includes(comuna)) {
+          label.style.backgroundColor = '#66bb6a';
+          label.style.color = 'white';
+        }
 
-            // Show the container-comunas section
-            document.getElementById('main-section').style.display = 'none';
-            document.getElementById('container-comunas').style.display = 'block';
-        })
-        .catch(error => console.error('Error fetching regiones-comunas.json:', error));
-});
+          comunasContainer.appendChild(label);
+          const br = document.createElement('br');
+          comunasContainer.appendChild(br);
+        });
 
+        document.getElementById('comuna').value = selectedComunas.join(', ');
+        if (selectedComunas.length > 0) {
+          document.getElementById('confirmar_comunas').disabled = false;
+          document.getElementById('cancelar_comunas').disabled = true;
+        } else {
+          document.getElementById('confirmar_comunas').disabled = true;
+          document.getElementById('cancelar_comunas').disabled = false;
+        }
 
+        document.getElementById('main-section').style.display = 'none';
+        document.getElementById('container-comunas').style.display = 'block';
+        
+      })
+      .catch(error => console.error('Error fetching drones-marca-modelo.json:', error));
+  });
+
+  // Agregar evento de clic al checkbox
+  document.getElementById('checkbox').addEventListener('click', () => {
+    // Obtener todos los labels de los modelos
+    const comunaLabels = document.querySelectorAll('.comuna-label');
+
+    // Recorrer todos los labels de los modelos
+    comunaLabels.forEach(label => {
+      // Si el checkbox está marcado, establecer el estilo del label como seleccionado
+      if (document.getElementById('checkbox').checked) {
+        label.style.color = 'white';
+        label.style.backgroundColor = '#66bb6a';
+        //label.classList.add('selected');
+        selectedComunas.push(label.textContent.trim());
+      } else {
+        // Si el checkbox no está marcado, establecer el estilo del label como no seleccionado
+        label.style.color = 'black';
+        label.style.backgroundColor = 'white';
+        //label.classList.remove('selected');
+        selectedComunas = selectedComunas.filter(comuna => comuna !== label.textContent.trim());
+      }
+    });
+
+    // Actualizar el valor del input de modelo
+    document.getElementById('comuna').value = selectedComunas.join(', ');
+
+    // Verificar si hay al menos una etiqueta seleccionada
+    if (selectedComunas.length > 0) {
+      document.getElementById('confirmar_comunas').disabled = false;
+      document.getElementById('cancelar_comunas').disabled = true;
+    } else {
+      document.getElementById('confirmar_comunas').disabled = true;
+      document.getElementById('cancelar_comunas').disabled = false;
+    }
+  });
+  
 document.getElementById('cancelar_regiones').addEventListener('click', () => {
-        document.getElementById('main-section').style.display = 'block';
-        document.getElementById('container-regiones').style.display = 'none';
+    document.getElementById('main-section').style.display = 'block';
+    document.getElementById('container-regiones').style.display = 'none';
+    document.getElementById("flecha-atras").style.display="block";
 });
 
 document.getElementById('cancelar_comunas').addEventListener('click', () => {

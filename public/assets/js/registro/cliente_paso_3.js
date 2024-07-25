@@ -21,8 +21,8 @@ const map = new mapboxgl.Map({
         'id': 'simple-tiles',
         'type': 'raster',
         'source': 'raster-tiles',
-        'minzoom': 3,
-        'maxzoom': 20
+        'minzoom': 1,
+        'maxzoom': 23
       }
     ]
   },
@@ -76,11 +76,12 @@ navigator.geolocation.getCurrentPosition(
       .then(response => response.json())
       .then(data => {
         const address = data.features[0].place_name;
+        const region = data.features[0].context.find(item => item.id.startsWith('region')).text;
         geocoder.setInput(address);
-        localStorage.setItem('predio', address); // Guarda la dirección en el localStorage
+        localStorage.setItem('predio', JSON.stringify({ address: address, region: region }));
       })
       .catch(error => {
-        console.error('Error getting address:', error);
+        console.error('Error getting address and region:', error);
       });
 
     marker.on('dragend', () => {
@@ -96,11 +97,12 @@ navigator.geolocation.getCurrentPosition(
         .then(response => response.json())
         .then(data => {
           const address = data.features[0].place_name;
+          const region = data.features[0].context.find(item => item.id.startsWith('region')).text;
           geocoder.setInput(address);
-          localStorage.setItem('predio', address); // Guarda la dirección en el localStorage
+          localStorage.setItem('predio', JSON.stringify({ address: address, region: region }));
         })
         .catch(error => {
-          console.error('Error getting address:', error);
+          console.error('Error getting address and region:', error);
         });
     });
   },
@@ -135,9 +137,14 @@ geocoder.on('result', (event) => {
         fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${mapboxgl.accessToken}`)
           .then(response => response.json())
           .then(data => {
-            var address = data.features[0].place_name;
+            // var address = data.features[0].place_name;
+            // geocoder.setInput(address);
+            // localStorage.setItem('predio', address); // Guarda la dirección en el localStorage
+
+            const address = data.features[0].place_name;
+            const region = data.features[0].context.find(item => item.id.startsWith('region')).text;
             geocoder.setInput(address);
-            localStorage.setItem('predio', address); // Guarda la dirección en el localStorage
+            localStorage.setItem('predio', JSON.stringify({ address: address, region: region }));
 
             //Mostrar footer
             var $footer = $('#footer');
@@ -164,10 +171,12 @@ geocoder.on('result', (event) => {
   }
 });
 
-// Guardar la dirección en el localStorage cuando se hace clic en una dirección del buscador
+// Agrega el evento 'result' del geocoder
 geocoder.on('result', (event) => {
   if (event.result && event.result.place_name) {
-    localStorage.setItem('predio', event.result.place_name);
+    const address = event.result.place_name;
+    const region = event.result.context.find(item => item.id.startsWith('region')).text;
+    localStorage.setItem('predio', JSON.stringify({ address: address, region: region }));
   }
 });
 
@@ -177,8 +186,6 @@ geocoder.on('clear', () => {
     marker = null;
     localStorage.setItem('predio', ""); // Guarda la dirección en el localStorage
     document.getElementById('continuar_registro_3').disabled=true;
-    
-    //document.activeElement.blur();
 
     //Mostrar footer
     var $footer = $('#footer');
@@ -189,21 +196,6 @@ geocoder.on('clear', () => {
     $prefooter.show();
   }
 });
-
-// //Lógica del botón
-// $(document).ready(function() {
-//   var $continuar = $('#continuar_registro_3');
-
-//   // Ocultar el botón cuando se hace click en un input
-//   $('input').on('focus', function() {
-//     $continuar.hide();
-//   });
-
-//   // Mostrar el botón cuando se quita el foco del input
-//   $('input').on('blur', function() {
-//     $continuar.show();
-//   });
-// });
 
 //Lógica del footer
 $(document).ready(function() {
