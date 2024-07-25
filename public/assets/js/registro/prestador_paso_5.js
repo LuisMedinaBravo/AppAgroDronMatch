@@ -11,7 +11,8 @@ import {
 // Importar AUTHENTICATION
 import { 
   getAuth, 
-  createUserWithEmailAndPassword
+  createUserWithEmailAndPassword,
+  sendEmailVerification
 } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
 
 // Your web app's Firebase configuration
@@ -248,13 +249,20 @@ async function registerUser(email, password) {
               DJI: drones?.DJI || "",
               XAG: drones?.XAG || ""
             },
-            ubicacion_servicio: {
-              region: Object.keys(ubicacion_servicio)[0],
-              comuna: ubicacion_servicio[Object.keys(ubicacion_servicio)[0]]
-            },
+            ubicacion_servicio: {},
             jornada: localStorage.getItem("jornada"),
             fecha_sin_disponibilidad: localStorage.getItem("fecha_no_disponible"),
           };
+          // Función para agregar una región y sus comunas al objeto ubicacion_servicio
+          function addRegionAndComunas(region, comunas) {
+            userData.ubicacion_servicio[region] = comunas;
+          }
+
+          // Iterar sobre las ubicaciones y agregarlas al objeto ubicacion_servicio
+          for (const region in ubicacion_servicio) {
+            addRegionAndComunas(region, ubicacion_servicio[region]);
+          }
+
           saveUserData(userData)
           console.log("User data saved");
           resolve();

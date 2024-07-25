@@ -174,10 +174,10 @@ async function loginUser(correo,clave){
           }, 3000);
           // Ocultar el primer texto después de 2 segundos más
           setTimeout(() => {
-            nprogressText1.style.display = 'none';
+            //nprogressText1.style.display = 'none';
             // Mostrar el segundo texto durante 2 segundos
-            nprogress.style.display = 'none';
-            container.style.display = 'block';
+            //nprogress.style.display = 'none';
+            //container.style.display = 'block';
             checkFirestoreCollections(correo);
           }, 6000);
 

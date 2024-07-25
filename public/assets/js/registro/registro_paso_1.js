@@ -2,6 +2,7 @@
 const correoInput = document.getElementById("correo");
 const correoErrorMessage = document.getElementById("correo-error-message");
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const pregunta = document.getElementById("pregunta");
 
 correoInput.addEventListener('input', () => {
     const correo = correoInput.value.trim();
@@ -158,20 +159,23 @@ function showTooltip() {
   tooltipElement.classList.toggle("visible");   
 }
 
-// Lógica para ocultar el tooltip al hacer clic en los inputs con ID "correo" y "clave"
-document.addEventListener("click", function(event) {
-  var targetElement = event.target;
-  if (targetElement.matches("#correo, #clave, #container, #footer")) {
-      hideTooltip();
-  }
-});
-
 // Función para ocultar el tooltip
 function hideTooltip() {
   var tooltipElement = document.getElementById("tooltiptext");
   tooltipElement.classList.remove("visible");
   tooltipElement.classList.add("hidden");
 }
+
+pregunta.addEventListener("click", function() {
+  showTooltip();
+});
+
+// Lógica para ocultar el tooltip
+document.addEventListener('click', (event) => {
+  if (event.target.matches('#correo, #clave, #clave_repetir, #footer, #tooltiptext')) {
+    hideTooltip();
+  }
+});
 
 //Lógica del footer
 $(document).ready(function() {

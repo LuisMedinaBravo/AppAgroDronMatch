@@ -730,7 +730,7 @@ $(document).ready(function() {
               telefono: localStorage.getItem("telefono"),
               predio: {
                 direccion: predio.address,
-                region: predio.region.replace("Región", "").replace("de", "").replace("del", "").replace("la", "").replace("Santiago", "")
+                region: predio.region.replace("Región", "").replace("de", "").replace("del", "").replace("la", "")
               },
               tipo_cultivo: localStorage.getItem("cultivo"),
               hectarea: localStorage.getItem("hectarea"),
