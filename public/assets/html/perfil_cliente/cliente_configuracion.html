@@ -15,10 +15,6 @@
 
     <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet" href="../../css/fontawesome.min.css">
-
-    <!-- Mapa Mapbox -->
-    <link href="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
 <!--
     
 TemplateMo 559 Zay Shop
@@ -38,33 +34,42 @@ https://templatemo.com/tm-559-zay-shop
             </p>
         </div>
         <div class="position-absolute top-0 end-0 m-3">
-            <a id="icono" href="#" onclick="abrirInstagram()">
+            <a id="icono" href="#">
                 <i class="fas fa-clipboard-list" style="color: white;"></i>
             </a>
         </div>
     </div>
     <!-- End Banner -->
 
-    <!-- Contenedor -->
-    <section class="container" style="height: 100%; margin: 0; padding: 0;">
-        <div class="row" style="height: 100%;">
-          <div class="col-lg-12" style="height: 100%;">
-            <div class="d-flex flex-column h-100">
-              <div class="row text-center w-100 flex-grow-1">
-                <div class="col-lg-6">       
-                  <div id="map" style="height: 100%; width: 100%;"></div>
+    <!-- Start Perfil -->
+    <div class="configuracion">
+        <div class="configuracion-form">
+            <h2 class="text-center">Configuraciones</h2>
+            <form>
+                <div class="form-group">
+                    <label style="display: block; border: 1px solid black; padding: 5px; position: relative; border-radius: 10px;">Filtro de búsqueda <i class="fas fa-arrow-right" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%);"></i></label>
                 </div>
-              </div>
-            </div>
-          </div>
+                <div class="form-group">
+                    <label style="display: block; border: 1px solid black; padding: 5px; position: relative; border-radius: 10px;">Cuenta <i class="fas fa-arrow-right" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%);"></i></label>
+                </div>
+                <div class="form-group">
+                    <label style="display: block; border: 1px solid black; padding: 5px; position: relative; border-radius: 10px;">Soporte <i class="fas fa-arrow-right" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%);"></i></label>
+                </div>
+                <h6 class="h6 text-center mt-5">¡Visita nuestras plataformas!</h6>
+                <div id="plataforma" class="d-flex justify-content-center">
+                    <a id="facebook" class="btn btn-primary mr-2 rounded-pill btn-icon" style="background-color: #3b5998; color: white; border: none;"><i class="fab fa-facebook fa-2x"></i></a>
+                    <a id="instagram" class="btn btn-primary mr-2 rounded-pill btn-icon" style="background-color: #e1306c; color: white; border: none;"><i class="fab fa-instagram fa-2x"></i></a>
+                    <a id="web" class="btn btn-primary rounded-pill btn-icon" style="background-color: #add8e6; color: black; border: none;"><i class="fas fa-globe fa-2x"></i></a>
+                </div>
+            </form>
         </div>
-    </section>
-    <!-- Contenedor end -->
+    </div>
+    <!-- End Perfil -->
      
     <!-- Start Navigation Bar -->
     <nav id="navegacion" class="navbar fixed-bottom navbar-expand-sm">
         <div class="container-fluid justify-content-around">
-            <a id="icono" class="nav-link" href="#" style="color: #59ab6e;">
+            <a id="icono" class="nav-link" href="cliente.html">
                 <i class="fas fa-search fa-1_5x"></i>
             </a>
             <a id="icono" class="nav-link" href="cliente_solicitud.html">
@@ -73,7 +78,7 @@ https://templatemo.com/tm-559-zay-shop
             <a id="icono" class="nav-link" href="cliente_usuario.html">
                 <i class="fas fa-user"></i>
             </a>
-            <a id="icono" class="nav-link active" href="cliente_configuracion.html">
+            <a id="icono" class="nav-link active" href="#" style="color: #59ab6e;">
                 <i class="fas fa-cog"></i>
             </a>
         </div>
@@ -86,10 +91,7 @@ https://templatemo.com/tm-559-zay-shop
     <script src="../../js/bootstrap.bundle.min.js"></script>
     <script src="../../js/templatemo.js"></script>
     <script src="../../js/custom.js"></script>
-    <!-- Mapa Mapbox -->
-    <script src="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.js"></script>
-    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
-    <script src="../../js/cliente/buscar.js"></script>
+    <script src="../../js/cliente/configuracion.js"></script>
     <!-- End Script -->
 </body>
 

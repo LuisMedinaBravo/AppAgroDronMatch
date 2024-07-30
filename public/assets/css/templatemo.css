@@ -895,3 +895,124 @@ input:focus + .slider {
 #icono i {
   font-size: 1.2em;
 }
+
+/* Banner */
+
+.banner{
+  height: 7vh;
+  border-bottom: 1px solid black;
+  padding-bottom: 2px;
+  background-color: #59ab6e;
+  color: white;
+}
+
+/* Perfil */
+
+.perfil{
+  overflow-y: auto;
+}
+
+.profile-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+}
+
+.profile-form h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.profile-form .form-group {
+  margin-bottom: 15px;
+}
+
+.profile-form label {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.profile-form .form-control {
+  border: none;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.profile-form textarea.form-control {
+  height: 100px;
+}
+
+.profile-form .btn-primary {
+  background-color: #59ab6e;
+  border-color: #59ab6e;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+/* Perfil */
+
+.configuracion{
+  overflow-y: auto;
+}
+
+.configuracion-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+}
+
+.configuracion-form h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.configuracion-form .form-group {
+  margin-bottom: 15px;
+}
+
+.configuracion-form label {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.configuracion-form .form-control {
+  border: none;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.configuracion-form textarea.form-control {
+  height: 100px;
+}
+
+.configuracion-form .btn-primary {
+  background-color: #59ab6e;
+  border-color: #59ab6e;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+#plataforma{
+  background-color: white!important;
+}
+
+.btn-icon {
+  width: 75px!important;
+  height: 60px!important;
+}
