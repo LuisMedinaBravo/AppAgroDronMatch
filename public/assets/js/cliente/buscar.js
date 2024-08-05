@@ -35,10 +35,10 @@ const map = new mapboxgl.Map({
 const geocoder = new MapboxGeocoder({
   accessToken: mapboxgl.accessToken,
   mapboxgl: mapboxgl,
-  placeholder: "Busca tu predio",
+  placeholder: "Busca prestadores",
   reverseGeocode: true,
   marker: false,
-  limit: 5,
+  limit: 3,
 });
 map.addControl(geocoder, 'top-left');
 

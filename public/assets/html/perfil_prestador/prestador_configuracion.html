@@ -25,34 +25,30 @@ https://templatemo.com/tm-559-zay-shop
 
 <body style=" overflow: hidden;">
 
-
-    <!-- Start Banner Hero -->
+    <!-- Start Banner -->
     <div id="banner" class="banner">
         <div class="position-absolute top-0 start-0 m-3">
-            <p>
-                Bienvenido
-            </p>
+            <p>Busca clientes</p>
         </div>
         <div class="position-absolute top-0 end-0 m-3">
-            <a id="icono" href="#">
-                <i class="fas fa-clipboard-list" style="color: white;"></i>
-            </a>
+            <small style="font-size: 10px;">Coméntanos</small>
+            <a id="icono_formulario"> <i class="fas fa-clipboard-list" style="color: white;"></i></a> 
         </div>
     </div>
-    <!-- End Banner Hero -->
+    <!-- End Banner -->
 
     <!-- Start Perfil -->
-    <div class="configuracion">
+    <div id="configuracion" class="configuracion">
         <div class="configuracion-form">
             <h2 class="text-center">Configuraciones</h2>
             <form>
                 <div class="form-group">
                     <label style="display: block; border: 1px solid black; padding: 5px; position: relative; border-radius: 10px;">Servicio <i class="fas fa-arrow-right" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%);"></i></label>
                 </div>
-                <div class="form-group">
+                <div id="cuenta_label" class="form-group">
                     <label style="display: block; border: 1px solid black; padding: 5px; position: relative; border-radius: 10px;">Cuenta <i class="fas fa-arrow-right" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%);"></i></label>
                 </div>
-                <div class="form-group">
+                <div id="soporte_label" class="form-group">
                     <label style="display: block; border: 1px solid black; padding: 5px; position: relative; border-radius: 10px;">Soporte <i class="fas fa-arrow-right" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%);"></i></label>
                 </div>
                 <h6 class="h6 text-center mt-5">¡Visita nuestras plataformas!</h6>
@@ -65,6 +61,97 @@ https://templatemo.com/tm-559-zay-shop
         </div>
     </div>
     <!-- End Perfil -->
+
+     <!-- Start Soporte -->
+    <div id="soporte" class="configuracion" style="display: none;">
+        <div class="configuracion-form">
+            <a class="back-arrow">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <form style="margin-top: 5%;">
+                <div class="form-group">
+                    <label id="numero_label" style="display: flex; align-items: center; border: 1px solid black; padding: 5px; position: relative; border-radius: 10px; font-size: 10px;">
+                        <i class="fab fa-whatsapp fa-3x text-success" style="margin-right: 10px;"></i> +569XXXXXXXX 
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label id="correo_label" style="display: flex; align-items: center; border: 1px solid black; padding: 5px; position: relative; border-radius: 10px;">
+                        <i class="fas fa-envelope fa-3x text-primary" style="margin-right: 10px;"></i> soporte@agrodronmatch.com 
+                    </label>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="modal_numero" class="modal" style="display: none; position: fixed; z-index: 1; left: 0; bottom: 0; width: 100%;">
+        <div class="modal-content" style="width: 50%; background-color: #59ab6e; color: white; padding: 5px; border: 1px solid #888; position: absolute; left: 50%; transform: translateX(-50%); bottom: 0; justify-content: center; align-items: center; display: flex; margin-bottom: 50px;">
+            <p>Número copiado</p>
+        </div>
+    </div>
+
+    <div id="modal_correo" class="modal" style="display: none; position: fixed; z-index: 1; left: 0; bottom: 0; width: 100%;">
+        <div class="modal-content" style="width: 50%; background-color: #59ab6e; color: white; padding: 5px; border: 1px solid #888; position: absolute; left: 50%; transform: translateX(-50%); bottom: 0; justify-content: center; align-items: center; display: flex; margin-bottom: 50px;">
+            <p>Correo copiado</p>
+        </div>
+    </div>
+    <!-- End Soporte -->
+     
+    <!-- Start Cuenta -->
+    <div id="cuenta" class="configuracion" style="display: none;">
+        <div class="configuracion-form">
+            <a class="back-arrow">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <form style="margin-top: 5%;">
+                <div class="form-group">
+                    <label id="cerrar_sesion" style="display: flex; align-items: center; border: 1px solid black; padding: 5px; position: relative; border-radius: 10px; font-size: 10px;">
+                        <i class="fas fa-sign-out-alt fa-1x" style="margin-right: 10px;"></i> Cerrar sesión 
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label id="eliminar_cuenta" style="display: flex; align-items: center; border: 1px solid black; padding: 5px; position: relative; border-radius: 10px;">
+                        <i class="fas fa-trash-alt fa-1x" style="margin-right: 10px;"></i> Eliminar cuenta 
+                    </label>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- End Cuenta -->
+
+    <!-- Start Modal Cerrar Sesión -->
+    <div id="logout-modal" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" style="font-size: 15px;">¿Seguro que quieres cerrar sesión?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button id="logout-btn" type="button" class="btn btn-secondary" style="background-color: #59ab6e;">Cerrar sesión</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Cerrar Sesión -->
+
+    <!-- Start Modal Eliminar Cuenta -->
+    <div id="delete-modal" class="modal fade" tabindex="-1" role="dialog" style="display: none;">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" style="font-size: 15px; user-select: none;">Ingresa <strong><i>agrodronmatch</i></strong> para confirmar la eliminación de tu cuenta</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="confirm-text">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="delete-btn" disabled>Eliminar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Eliminar Cuenta -->
 
     <!-- Start Navigation Bar -->
     <nav id="navegacion" class="navbar fixed-bottom navbar-expand-sm">
@@ -81,6 +168,12 @@ https://templatemo.com/tm-559-zay-shop
         </div>
     </nav>
     <!-- End Navigation Bar -->
+     
+     <script>
+        document.getElementById('icono_formulario').addEventListener('click', function() {
+          window.open('https://docs.google.com/forms/d/e/1FAIpQLSf_EjcFlVWeafBweMQySTRj1vuUgGu_YUcBHq3Fhulko5NjTA/viewform?usp=sf_link', '_blank');
+        });
+    </script>
 
     <!-- Start Script -->
     <script src="../../js/jquery-3.7.1.min.js"></script>
@@ -89,6 +182,7 @@ https://templatemo.com/tm-559-zay-shop
     <script src="../../js/templatemo.js"></script>
     <script src="../../js/custom.js"></script>
     <script src="../../js/prestador/configuracion.js"></script>
+    <script src="../../js/prestador/conf_cuenta_soporte.js"></script>
     <!-- End Script -->
 </body>
 

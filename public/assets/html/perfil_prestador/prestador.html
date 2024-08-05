@@ -25,21 +25,17 @@ https://templatemo.com/tm-559-zay-shop
 
 <body style=" overflow: hidden;">
 
-
-    <!-- Start Banner Hero -->
+    <!-- Start Banner -->
     <div id="banner" class="banner">
         <div class="position-absolute top-0 start-0 m-3">
-            <p>
-                Bienvenido
-            </p>
+            <p>Busca clientes</p>
         </div>
         <div class="position-absolute top-0 end-0 m-3">
-            <a id="icono" href="#">
-                <i class="fas fa-clipboard-list" style="color: white;"></i>
-            </a>
+            <small style="font-size: 10px;">Coméntanos</small>
+            <a id="icono_formulario"> <i class="fas fa-clipboard-list" style="color: white;"></i></a> 
         </div>
     </div>
-    <!-- End Banner Hero -->
+    <!-- End Banner -->
 
     <!-- Start Navigation Bar -->
     <nav id="navegacion" class="navbar fixed-bottom navbar-expand-sm">
@@ -56,6 +52,12 @@ https://templatemo.com/tm-559-zay-shop
         </div>
     </nav>
     <!-- End Navigation Bar -->
+
+    <script>
+        document.getElementById('icono_formulario').addEventListener('click', function() {
+          window.open('https://docs.google.com/forms/d/e/1FAIpQLSf_EjcFlVWeafBweMQySTRj1vuUgGu_YUcBHq3Fhulko5NjTA/viewform?usp=sf_link', '_blank');
+        });
+    </script>
 
     <!-- Start Script -->
     <script src="../../js/jquery-3.7.1.min.js"></script>

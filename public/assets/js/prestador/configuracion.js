@@ -27,7 +27,7 @@ function abrirFacebook() {
     var facebookUri = 'fb://profile/luismedina9';
 
     try {
-        // Intentar abrir la aplicación de Instagram
+        // Intentar abrir la aplicación de Facebook
         window.navigator.app.launch(new Intent(facebookUri));
     } catch (e) {
         // Si no se puede abrir la aplicación, abrir la página web de Facebook

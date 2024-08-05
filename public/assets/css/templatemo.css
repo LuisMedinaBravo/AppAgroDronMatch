@@ -40,7 +40,7 @@ body, ul, li, p, a, label, input, div {
 }
 
 /* Estilos para tabletas y celulares */
-@media (max-width: 1200px) {
+@media (max-width: 575px) {
   body {
     display: block;
     font-size: 14px;
@@ -52,7 +52,7 @@ body, ul, li, p, a, label, input, div {
 }
 
 /* Estilos para pantallas de escritorio */
-@media (min-width: 1201px) {
+@media (min-width: 576px) {
   body {
     display: none;
     -webkit-user-select: none;
@@ -75,8 +75,7 @@ body, ul, li, p, a, label, input, div {
 }
 
 .h1 span.uppercase {
-  text-transform: uppercase; /* Hacer que las letras específicas sean mayúsculas */
-  font-size: 34px !important; /* Aumentado el tamaño de fuente */
+  color: #56ae6c;
 }
 
 .h2 {
@@ -339,7 +338,7 @@ button:active {
 
 .carousel {
   width: 100%;
-  height: 70vh;
+  height: 60vh;
 }
 
 #carousel-active{
@@ -904,6 +903,7 @@ input:focus + .slider {
   padding-bottom: 2px;
   background-color: #59ab6e;
   color: white;
+  z-index: 10!important;
 }
 
 /* Perfil */
@@ -1015,4 +1015,18 @@ input:focus + .slider {
 .btn-icon {
   width: 75px!important;
   height: 60px!important;
+}
+
+/* Flecha atrás Perfil */
+
+.back-arrow {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  color: #333;
+  font-size: 50px;
+  padding: 5px;
+}
+.back-arrow:hover {
+  color: #333;
 }
